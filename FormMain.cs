@@ -25,10 +25,10 @@ namespace Dark_Oak
         private void datagridview1_SelectionChanged(object sender, EventArgs e)
         {
             try { 
-            if (ikoriaDataGridView.SelectedCells.Count > 0)
+            if (mTGCardsDataGridView.SelectedCells.Count > 0)
             {
-                int selectedrowindex = ikoriaDataGridView.SelectedCells[0].RowIndex;
-                DataGridViewRow selectedRow = ikoriaDataGridView.Rows[selectedrowindex];
+                int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
                 string a = Convert.ToString(selectedRow.Cells["web_scraper_order"].Value);
                 byte[] result = Database.GetImage(a);
                 MemoryStream stream = new MemoryStream(result);
@@ -43,8 +43,10 @@ namespace Dark_Oak
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'darkOakDBDataSet.MTGCards' table. You can move, or remove it, as needed.
+            this.mTGCardsTableAdapter.Fill(this.darkOakDBDataSet.MTGCards);
             // TODO: This line of code loads data into the 'darkOakDBDataSet.Ikoria' table. You can move, or remove it, as needed.
-            this.ikoriaTableAdapter.Fill(this.darkOakDBDataSet.Ikoria);
+            //this.ikoriaTableAdapter.Fill(this.darkOakDBDataSet.MTGCards);
 
         }
         private void button1_Click_1(object sender, EventArgs e)
@@ -53,6 +55,13 @@ namespace Dark_Oak
             byte[] result = Database.GetImage("1608664530-425");
             MemoryStream stream = new MemoryStream(result);
             pictureBox1.Image = Image.FromStream(stream);
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
+            DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
+            string a = Convert.ToString(selectedRow.Cells["web_scraper_order"].Value);
         }
     }
 }

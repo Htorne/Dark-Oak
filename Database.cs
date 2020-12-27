@@ -38,7 +38,7 @@ namespace Dark_Oak
         {
             byte[] result = null;
 
-             string query = "SELECT ImageData from IkoriaImages where ImageID like '"+a +"'";
+             string query = "SELECT ImageData from MTGCardsImages where ImageID like '"+a +"'";
  
             using (SqlConnection conn = new SqlConnection
                       (@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz"))

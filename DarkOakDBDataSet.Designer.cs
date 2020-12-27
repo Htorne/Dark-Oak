@@ -24,6 +24,10 @@ namespace Dark_Oak {
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
     public partial class DarkOakDBDataSet : global::System.Data.DataSet {
         
+        private MTGCardsDataTable tableMTGCards;
+        
+        private MTGCardsImagesDataTable tableMTGCardsImages;
+        
         private IkoriaDataTable tableIkoria;
         
         private IkoriaImagesDataTable tableIkoriaImages;
@@ -56,6 +60,12 @@ namespace Dark_Oak {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
+                if ((ds.Tables["MTGCards"] != null)) {
+                    base.Tables.Add(new MTGCardsDataTable(ds.Tables["MTGCards"]));
+                }
+                if ((ds.Tables["MTGCardsImages"] != null)) {
+                    base.Tables.Add(new MTGCardsImagesDataTable(ds.Tables["MTGCardsImages"]));
+                }
                 if ((ds.Tables["Ikoria"] != null)) {
                     base.Tables.Add(new IkoriaDataTable(ds.Tables["Ikoria"]));
                 }
@@ -78,6 +88,26 @@ namespace Dark_Oak {
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
             base.Tables.CollectionChanged += schemaChangedHandler;
             this.Relations.CollectionChanged += schemaChangedHandler;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public MTGCardsDataTable MTGCards {
+            get {
+                return this.tableMTGCards;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public MTGCardsImagesDataTable MTGCardsImages {
+            get {
+                return this.tableMTGCardsImages;
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -167,6 +197,12 @@ namespace Dark_Oak {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
+                if ((ds.Tables["MTGCards"] != null)) {
+                    base.Tables.Add(new MTGCardsDataTable(ds.Tables["MTGCards"]));
+                }
+                if ((ds.Tables["MTGCardsImages"] != null)) {
+                    base.Tables.Add(new MTGCardsImagesDataTable(ds.Tables["MTGCardsImages"]));
+                }
                 if ((ds.Tables["Ikoria"] != null)) {
                     base.Tables.Add(new IkoriaDataTable(ds.Tables["Ikoria"]));
                 }
@@ -206,6 +242,18 @@ namespace Dark_Oak {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         internal void InitVars(bool initTable) {
+            this.tableMTGCards = ((MTGCardsDataTable)(base.Tables["MTGCards"]));
+            if ((initTable == true)) {
+                if ((this.tableMTGCards != null)) {
+                    this.tableMTGCards.InitVars();
+                }
+            }
+            this.tableMTGCardsImages = ((MTGCardsImagesDataTable)(base.Tables["MTGCardsImages"]));
+            if ((initTable == true)) {
+                if ((this.tableMTGCardsImages != null)) {
+                    this.tableMTGCardsImages.InitVars();
+                }
+            }
             this.tableIkoria = ((IkoriaDataTable)(base.Tables["Ikoria"]));
             if ((initTable == true)) {
                 if ((this.tableIkoria != null)) {
@@ -228,10 +276,26 @@ namespace Dark_Oak {
             this.Namespace = "http://tempuri.org/DarkOakDBDataSet.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
+            this.tableMTGCards = new MTGCardsDataTable();
+            base.Tables.Add(this.tableMTGCards);
+            this.tableMTGCardsImages = new MTGCardsImagesDataTable();
+            base.Tables.Add(this.tableMTGCardsImages);
             this.tableIkoria = new IkoriaDataTable();
             base.Tables.Add(this.tableIkoria);
             this.tableIkoriaImages = new IkoriaImagesDataTable();
             base.Tables.Add(this.tableIkoriaImages);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private bool ShouldSerializeMTGCards() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private bool ShouldSerializeMTGCardsImages() {
+            return false;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -302,6 +366,12 @@ namespace Dark_Oak {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public delegate void MTGCardsRowChangeEventHandler(object sender, MTGCardsRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public delegate void MTGCardsImagesRowChangeEventHandler(object sender, MTGCardsImagesRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public delegate void IkoriaRowChangeEventHandler(object sender, IkoriaRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -312,21 +382,13 @@ namespace Dark_Oak {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class IkoriaDataTable : global::System.Data.TypedTableBase<IkoriaRow> {
+        public partial class MTGCardsDataTable : global::System.Data.TypedTableBase<MTGCardsRow> {
             
-            private global::System.Data.DataColumn columnid;
+            private global::System.Data.DataColumn columncard_number;
             
             private global::System.Data.DataColumn columnweb_scraper_order;
             
-            private global::System.Data.DataColumn columnweb_scraper_start_url;
-            
-            private global::System.Data.DataColumn columncategory_linked;
-            
             private global::System.Data.DataColumn columncategory_linked_href;
-            
-            private global::System.Data.DataColumn columnsubcategory_link;
-            
-            private global::System.Data.DataColumn columnsubcategory_link_href;
             
             private global::System.Data.DataColumn columncard_name;
             
@@ -334,17 +396,964 @@ namespace Dark_Oak {
             
             private global::System.Data.DataColumn columncard_rules2;
             
-            private global::System.Data.DataColumn columnmana_cost_src;
-            
             private global::System.Data.DataColumn columncard_stats;
             
-            private global::System.Data.DataColumn columncard_art_src;
+            private global::System.Data.DataColumn columncard_type;
             
-            private global::System.Data.DataColumn columnImageName;
+            private global::System.Data.DataColumn columnset_name;
+            
+            private global::System.Data.DataColumn columnnote;
+            
+            private global::System.Data.DataColumn columnnote2;
+            
+            private global::System.Data.DataColumn columnnote3;
+            
+            private global::System.Data.DataColumn columnnote4;
+            
+            private global::System.Data.DataColumn columnrareity_code;
+            
+            private global::System.Data.DataColumn columnrareity_image;
+            
+            private global::System.Data.DataColumn columngfx1;
+            
+            private global::System.Data.DataColumn columngfx2;
+            
+            private global::System.Data.DataColumn columnint1;
+            
+            private global::System.Data.DataColumn columnint2;
+            
+            private global::System.Data.DataColumn columnint3;
+            
+            private global::System.Data.DataColumn columnint4;
+            
+            private global::System.Data.DataColumn columnbolean1;
+            
+            private global::System.Data.DataColumn columnbolean2;
+            
+            private global::System.Data.DataColumn columnbolean3;
+            
+            private global::System.Data.DataColumn columnprice;
+            
+            private global::System.Data.DataColumn columntotalvalue;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public MTGCardsDataTable() {
+                this.TableName = "MTGCards";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal MTGCardsDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected MTGCardsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn card_numberColumn {
+                get {
+                    return this.columncard_number;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn web_scraper_orderColumn {
+                get {
+                    return this.columnweb_scraper_order;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn category_linked_hrefColumn {
+                get {
+                    return this.columncategory_linked_href;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn card_nameColumn {
+                get {
+                    return this.columncard_name;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn creature_typeColumn {
+                get {
+                    return this.columncreature_type;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn card_rules2Column {
+                get {
+                    return this.columncard_rules2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn card_statsColumn {
+                get {
+                    return this.columncard_stats;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn card_typeColumn {
+                get {
+                    return this.columncard_type;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn set_nameColumn {
+                get {
+                    return this.columnset_name;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn noteColumn {
+                get {
+                    return this.columnnote;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn note2Column {
+                get {
+                    return this.columnnote2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn note3Column {
+                get {
+                    return this.columnnote3;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn note4Column {
+                get {
+                    return this.columnnote4;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn rareity_codeColumn {
+                get {
+                    return this.columnrareity_code;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn rareity_imageColumn {
+                get {
+                    return this.columnrareity_image;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn gfx1Column {
+                get {
+                    return this.columngfx1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn gfx2Column {
+                get {
+                    return this.columngfx2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn int1Column {
+                get {
+                    return this.columnint1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn int2Column {
+                get {
+                    return this.columnint2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn int3Column {
+                get {
+                    return this.columnint3;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn int4Column {
+                get {
+                    return this.columnint4;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn bolean1Column {
+                get {
+                    return this.columnbolean1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn bolean2Column {
+                get {
+                    return this.columnbolean2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn bolean3Column {
+                get {
+                    return this.columnbolean3;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn priceColumn {
+                get {
+                    return this.columnprice;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn totalvalueColumn {
+                get {
+                    return this.columntotalvalue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public MTGCardsRow this[int index] {
+                get {
+                    return ((MTGCardsRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event MTGCardsRowChangeEventHandler MTGCardsRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event MTGCardsRowChangeEventHandler MTGCardsRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event MTGCardsRowChangeEventHandler MTGCardsRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event MTGCardsRowChangeEventHandler MTGCardsRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void AddMTGCardsRow(MTGCardsRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public MTGCardsRow AddMTGCardsRow(
+                        int card_number, 
+                        string web_scraper_order, 
+                        string category_linked_href, 
+                        string card_name, 
+                        string creature_type, 
+                        string card_rules2, 
+                        string card_stats, 
+                        string card_type, 
+                        string set_name, 
+                        string note, 
+                        string note2, 
+                        string note3, 
+                        string note4, 
+                        string rareity_code, 
+                        byte[] rareity_image, 
+                        byte[] gfx1, 
+                        byte[] gfx2, 
+                        long int1, 
+                        long int2, 
+                        int int3, 
+                        int int4, 
+                        bool bolean1, 
+                        bool bolean2, 
+                        bool bolean3, 
+                        int price, 
+                        int totalvalue) {
+                MTGCardsRow rowMTGCardsRow = ((MTGCardsRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        card_number,
+                        web_scraper_order,
+                        category_linked_href,
+                        card_name,
+                        creature_type,
+                        card_rules2,
+                        card_stats,
+                        card_type,
+                        set_name,
+                        note,
+                        note2,
+                        note3,
+                        note4,
+                        rareity_code,
+                        rareity_image,
+                        gfx1,
+                        gfx2,
+                        int1,
+                        int2,
+                        int3,
+                        int4,
+                        bolean1,
+                        bolean2,
+                        bolean3,
+                        price,
+                        totalvalue};
+                rowMTGCardsRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowMTGCardsRow);
+                return rowMTGCardsRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                MTGCardsDataTable cln = ((MTGCardsDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new MTGCardsDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal void InitVars() {
+                this.columncard_number = base.Columns["card_number"];
+                this.columnweb_scraper_order = base.Columns["web_scraper_order"];
+                this.columncategory_linked_href = base.Columns["category_linked_href"];
+                this.columncard_name = base.Columns["card_name"];
+                this.columncreature_type = base.Columns["creature_type"];
+                this.columncard_rules2 = base.Columns["card_rules2"];
+                this.columncard_stats = base.Columns["card_stats"];
+                this.columncard_type = base.Columns["card_type"];
+                this.columnset_name = base.Columns["set_name"];
+                this.columnnote = base.Columns["note"];
+                this.columnnote2 = base.Columns["note2"];
+                this.columnnote3 = base.Columns["note3"];
+                this.columnnote4 = base.Columns["note4"];
+                this.columnrareity_code = base.Columns["rareity_code"];
+                this.columnrareity_image = base.Columns["rareity_image"];
+                this.columngfx1 = base.Columns["gfx1"];
+                this.columngfx2 = base.Columns["gfx2"];
+                this.columnint1 = base.Columns["int1"];
+                this.columnint2 = base.Columns["int2"];
+                this.columnint3 = base.Columns["int3"];
+                this.columnint4 = base.Columns["int4"];
+                this.columnbolean1 = base.Columns["bolean1"];
+                this.columnbolean2 = base.Columns["bolean2"];
+                this.columnbolean3 = base.Columns["bolean3"];
+                this.columnprice = base.Columns["price"];
+                this.columntotalvalue = base.Columns["totalvalue"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            private void InitClass() {
+                this.columncard_number = new global::System.Data.DataColumn("card_number", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncard_number);
+                this.columnweb_scraper_order = new global::System.Data.DataColumn("web_scraper_order", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnweb_scraper_order);
+                this.columncategory_linked_href = new global::System.Data.DataColumn("category_linked_href", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncategory_linked_href);
+                this.columncard_name = new global::System.Data.DataColumn("card_name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncard_name);
+                this.columncreature_type = new global::System.Data.DataColumn("creature_type", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncreature_type);
+                this.columncard_rules2 = new global::System.Data.DataColumn("card_rules2", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncard_rules2);
+                this.columncard_stats = new global::System.Data.DataColumn("card_stats", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncard_stats);
+                this.columncard_type = new global::System.Data.DataColumn("card_type", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncard_type);
+                this.columnset_name = new global::System.Data.DataColumn("set_name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnset_name);
+                this.columnnote = new global::System.Data.DataColumn("note", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnote);
+                this.columnnote2 = new global::System.Data.DataColumn("note2", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnote2);
+                this.columnnote3 = new global::System.Data.DataColumn("note3", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnote3);
+                this.columnnote4 = new global::System.Data.DataColumn("note4", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnote4);
+                this.columnrareity_code = new global::System.Data.DataColumn("rareity_code", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnrareity_code);
+                this.columnrareity_image = new global::System.Data.DataColumn("rareity_image", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnrareity_image);
+                this.columngfx1 = new global::System.Data.DataColumn("gfx1", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columngfx1);
+                this.columngfx2 = new global::System.Data.DataColumn("gfx2", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columngfx2);
+                this.columnint1 = new global::System.Data.DataColumn("int1", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnint1);
+                this.columnint2 = new global::System.Data.DataColumn("int2", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnint2);
+                this.columnint3 = new global::System.Data.DataColumn("int3", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnint3);
+                this.columnint4 = new global::System.Data.DataColumn("int4", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnint4);
+                this.columnbolean1 = new global::System.Data.DataColumn("bolean1", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnbolean1);
+                this.columnbolean2 = new global::System.Data.DataColumn("bolean2", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnbolean2);
+                this.columnbolean3 = new global::System.Data.DataColumn("bolean3", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnbolean3);
+                this.columnprice = new global::System.Data.DataColumn("price", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnprice);
+                this.columntotalvalue = new global::System.Data.DataColumn("totalvalue", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntotalvalue);
+                this.columncard_number.AllowDBNull = false;
+                this.columnweb_scraper_order.MaxLength = 50;
+                this.columncategory_linked_href.AllowDBNull = false;
+                this.columncategory_linked_href.MaxLength = 50;
+                this.columncard_name.AllowDBNull = false;
+                this.columncard_name.MaxLength = 50;
+                this.columncreature_type.MaxLength = 50;
+                this.columncard_rules2.MaxLength = 850;
+                this.columncard_stats.MaxLength = 50;
+                this.columncard_type.MaxLength = 2147483647;
+                this.columnset_name.MaxLength = 50;
+                this.columnnote.MaxLength = 2147483647;
+                this.columnnote2.MaxLength = 2147483647;
+                this.columnnote3.MaxLength = 2147483647;
+                this.columnnote4.MaxLength = 2147483647;
+                this.columnrareity_code.MaxLength = 2147483647;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public MTGCardsRow NewMTGCardsRow() {
+                return ((MTGCardsRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new MTGCardsRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(MTGCardsRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.MTGCardsRowChanged != null)) {
+                    this.MTGCardsRowChanged(this, new MTGCardsRowChangeEvent(((MTGCardsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.MTGCardsRowChanging != null)) {
+                    this.MTGCardsRowChanging(this, new MTGCardsRowChangeEvent(((MTGCardsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.MTGCardsRowDeleted != null)) {
+                    this.MTGCardsRowDeleted(this, new MTGCardsRowChangeEvent(((MTGCardsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.MTGCardsRowDeleting != null)) {
+                    this.MTGCardsRowDeleting(this, new MTGCardsRowChangeEvent(((MTGCardsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void RemoveMTGCardsRow(MTGCardsRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                DarkOakDBDataSet ds = new DarkOakDBDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "MTGCardsDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class MTGCardsImagesDataTable : global::System.Data.TypedTableBase<MTGCardsImagesRow> {
+            
+            private global::System.Data.DataColumn columnImageID;
             
             private global::System.Data.DataColumn columnOriginalFormat;
             
-            private global::System.Data.DataColumn columnImageFile;
+            private global::System.Data.DataColumn columnImageData;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public MTGCardsImagesDataTable() {
+                this.TableName = "MTGCardsImages";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal MTGCardsImagesDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected MTGCardsImagesDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ImageIDColumn {
+                get {
+                    return this.columnImageID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn OriginalFormatColumn {
+                get {
+                    return this.columnOriginalFormat;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ImageDataColumn {
+                get {
+                    return this.columnImageData;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public MTGCardsImagesRow this[int index] {
+                get {
+                    return ((MTGCardsImagesRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event MTGCardsImagesRowChangeEventHandler MTGCardsImagesRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event MTGCardsImagesRowChangeEventHandler MTGCardsImagesRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event MTGCardsImagesRowChangeEventHandler MTGCardsImagesRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event MTGCardsImagesRowChangeEventHandler MTGCardsImagesRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void AddMTGCardsImagesRow(MTGCardsImagesRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public MTGCardsImagesRow AddMTGCardsImagesRow(string ImageID, string OriginalFormat, byte[] ImageData) {
+                MTGCardsImagesRow rowMTGCardsImagesRow = ((MTGCardsImagesRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        ImageID,
+                        OriginalFormat,
+                        ImageData};
+                rowMTGCardsImagesRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowMTGCardsImagesRow);
+                return rowMTGCardsImagesRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                MTGCardsImagesDataTable cln = ((MTGCardsImagesDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new MTGCardsImagesDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal void InitVars() {
+                this.columnImageID = base.Columns["ImageID"];
+                this.columnOriginalFormat = base.Columns["OriginalFormat"];
+                this.columnImageData = base.Columns["ImageData"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            private void InitClass() {
+                this.columnImageID = new global::System.Data.DataColumn("ImageID", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnImageID);
+                this.columnOriginalFormat = new global::System.Data.DataColumn("OriginalFormat", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOriginalFormat);
+                this.columnImageData = new global::System.Data.DataColumn("ImageData", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnImageData);
+                this.columnImageID.AllowDBNull = false;
+                this.columnImageID.MaxLength = 80;
+                this.columnOriginalFormat.AllowDBNull = false;
+                this.columnOriginalFormat.MaxLength = 5;
+                this.columnImageData.AllowDBNull = false;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public MTGCardsImagesRow NewMTGCardsImagesRow() {
+                return ((MTGCardsImagesRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new MTGCardsImagesRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(MTGCardsImagesRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.MTGCardsImagesRowChanged != null)) {
+                    this.MTGCardsImagesRowChanged(this, new MTGCardsImagesRowChangeEvent(((MTGCardsImagesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.MTGCardsImagesRowChanging != null)) {
+                    this.MTGCardsImagesRowChanging(this, new MTGCardsImagesRowChangeEvent(((MTGCardsImagesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.MTGCardsImagesRowDeleted != null)) {
+                    this.MTGCardsImagesRowDeleted(this, new MTGCardsImagesRowChangeEvent(((MTGCardsImagesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.MTGCardsImagesRowDeleting != null)) {
+                    this.MTGCardsImagesRowDeleting(this, new MTGCardsImagesRowChangeEvent(((MTGCardsImagesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void RemoveMTGCardsImagesRow(MTGCardsImagesRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                DarkOakDBDataSet ds = new DarkOakDBDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "MTGCardsImagesDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class IkoriaDataTable : global::System.Data.TypedTableBase<IkoriaRow> {
+            
+            private global::System.Data.DataColumn columncard_number;
+            
+            private global::System.Data.DataColumn columnweb_scraper_order;
+            
+            private global::System.Data.DataColumn columncategory_linked_href;
+            
+            private global::System.Data.DataColumn columncard_name;
+            
+            private global::System.Data.DataColumn columncreature_type;
+            
+            private global::System.Data.DataColumn columncard_rules2;
+            
+            private global::System.Data.DataColumn columncard_stats;
+            
+            private global::System.Data.DataColumn columncard_type;
+            
+            private global::System.Data.DataColumn columnset_name;
+            
+            private global::System.Data.DataColumn columnnote;
+            
+            private global::System.Data.DataColumn columnnote2;
+            
+            private global::System.Data.DataColumn columnnote3;
+            
+            private global::System.Data.DataColumn columnnote4;
+            
+            private global::System.Data.DataColumn columnrareity_code;
+            
+            private global::System.Data.DataColumn columnrareity_image;
+            
+            private global::System.Data.DataColumn columngfx1;
+            
+            private global::System.Data.DataColumn columngfx2;
+            
+            private global::System.Data.DataColumn columnint1;
+            
+            private global::System.Data.DataColumn columnint2;
+            
+            private global::System.Data.DataColumn columnint3;
+            
+            private global::System.Data.DataColumn columnint4;
+            
+            private global::System.Data.DataColumn columnbolean1;
+            
+            private global::System.Data.DataColumn columnbolean2;
+            
+            private global::System.Data.DataColumn columnbolean3;
+            
+            private global::System.Data.DataColumn columnprice;
+            
+            private global::System.Data.DataColumn columntotalvalue;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -381,9 +1390,9 @@ namespace Dark_Oak {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn idColumn {
+            public global::System.Data.DataColumn card_numberColumn {
                 get {
-                    return this.columnid;
+                    return this.columncard_number;
                 }
             }
             
@@ -397,41 +1406,9 @@ namespace Dark_Oak {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn web_scraper_start_urlColumn {
-                get {
-                    return this.columnweb_scraper_start_url;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn category_linkedColumn {
-                get {
-                    return this.columncategory_linked;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn category_linked_hrefColumn {
                 get {
                     return this.columncategory_linked_href;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn subcategory_linkColumn {
-                get {
-                    return this.columnsubcategory_link;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn subcategory_link_hrefColumn {
-                get {
-                    return this.columnsubcategory_link_href;
                 }
             }
             
@@ -461,14 +1438,6 @@ namespace Dark_Oak {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn mana_cost_srcColumn {
-                get {
-                    return this.columnmana_cost_src;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn card_statsColumn {
                 get {
                     return this.columncard_stats;
@@ -477,33 +1446,153 @@ namespace Dark_Oak {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn card_art_srcColumn {
+            public global::System.Data.DataColumn card_typeColumn {
                 get {
-                    return this.columncard_art_src;
+                    return this.columncard_type;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn ImageNameColumn {
+            public global::System.Data.DataColumn set_nameColumn {
                 get {
-                    return this.columnImageName;
+                    return this.columnset_name;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn OriginalFormatColumn {
+            public global::System.Data.DataColumn noteColumn {
                 get {
-                    return this.columnOriginalFormat;
+                    return this.columnnote;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn ImageFileColumn {
+            public global::System.Data.DataColumn note2Column {
                 get {
-                    return this.columnImageFile;
+                    return this.columnnote2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn note3Column {
+                get {
+                    return this.columnnote3;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn note4Column {
+                get {
+                    return this.columnnote4;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn rareity_codeColumn {
+                get {
+                    return this.columnrareity_code;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn rareity_imageColumn {
+                get {
+                    return this.columnrareity_image;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn gfx1Column {
+                get {
+                    return this.columngfx1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn gfx2Column {
+                get {
+                    return this.columngfx2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn int1Column {
+                get {
+                    return this.columnint1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn int2Column {
+                get {
+                    return this.columnint2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn int3Column {
+                get {
+                    return this.columnint3;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn int4Column {
+                get {
+                    return this.columnint4;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn bolean1Column {
+                get {
+                    return this.columnbolean1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn bolean2Column {
+                get {
+                    return this.columnbolean2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn bolean3Column {
+                get {
+                    return this.columnbolean3;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn priceColumn {
+                get {
+                    return this.columnprice;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn totalvalueColumn {
+                get {
+                    return this.columntotalvalue;
                 }
             }
             
@@ -544,25 +1633,60 @@ namespace Dark_Oak {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public IkoriaRow AddIkoriaRow(string web_scraper_order, string web_scraper_start_url, string category_linked, string category_linked_href, string subcategory_link, string subcategory_link_href, string card_name, string creature_type, string card_rules2, string mana_cost_src, string card_stats, string card_art_src, string ImageName, string OriginalFormat, byte[] ImageFile) {
+            public IkoriaRow AddIkoriaRow(
+                        string web_scraper_order, 
+                        string category_linked_href, 
+                        string card_name, 
+                        string creature_type, 
+                        string card_rules2, 
+                        string card_stats, 
+                        string card_type, 
+                        string set_name, 
+                        string note, 
+                        string note2, 
+                        string note3, 
+                        string note4, 
+                        string rareity_code, 
+                        byte[] rareity_image, 
+                        byte[] gfx1, 
+                        byte[] gfx2, 
+                        long int1, 
+                        long int2, 
+                        int int3, 
+                        int int4, 
+                        bool bolean1, 
+                        bool bolean2, 
+                        bool bolean3, 
+                        int price, 
+                        int totalvalue) {
                 IkoriaRow rowIkoriaRow = ((IkoriaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         web_scraper_order,
-                        web_scraper_start_url,
-                        category_linked,
                         category_linked_href,
-                        subcategory_link,
-                        subcategory_link_href,
                         card_name,
                         creature_type,
                         card_rules2,
-                        mana_cost_src,
                         card_stats,
-                        card_art_src,
-                        ImageName,
-                        OriginalFormat,
-                        ImageFile};
+                        card_type,
+                        set_name,
+                        note,
+                        note2,
+                        note3,
+                        note4,
+                        rareity_code,
+                        rareity_image,
+                        gfx1,
+                        gfx2,
+                        int1,
+                        int2,
+                        int3,
+                        int4,
+                        bolean1,
+                        bolean2,
+                        bolean3,
+                        price,
+                        totalvalue};
                 rowIkoriaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowIkoriaRow);
                 return rowIkoriaRow;
@@ -585,81 +1709,109 @@ namespace Dark_Oak {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnid = base.Columns["id"];
+                this.columncard_number = base.Columns["card_number"];
                 this.columnweb_scraper_order = base.Columns["web_scraper_order"];
-                this.columnweb_scraper_start_url = base.Columns["web_scraper_start_url"];
-                this.columncategory_linked = base.Columns["category_linked"];
                 this.columncategory_linked_href = base.Columns["category_linked_href"];
-                this.columnsubcategory_link = base.Columns["subcategory_link"];
-                this.columnsubcategory_link_href = base.Columns["subcategory_link_href"];
                 this.columncard_name = base.Columns["card_name"];
                 this.columncreature_type = base.Columns["creature_type"];
                 this.columncard_rules2 = base.Columns["card_rules2"];
-                this.columnmana_cost_src = base.Columns["mana_cost_src"];
                 this.columncard_stats = base.Columns["card_stats"];
-                this.columncard_art_src = base.Columns["card_art_src"];
-                this.columnImageName = base.Columns["ImageName"];
-                this.columnOriginalFormat = base.Columns["OriginalFormat"];
-                this.columnImageFile = base.Columns["ImageFile"];
+                this.columncard_type = base.Columns["card_type"];
+                this.columnset_name = base.Columns["set_name"];
+                this.columnnote = base.Columns["note"];
+                this.columnnote2 = base.Columns["note2"];
+                this.columnnote3 = base.Columns["note3"];
+                this.columnnote4 = base.Columns["note4"];
+                this.columnrareity_code = base.Columns["rareity_code"];
+                this.columnrareity_image = base.Columns["rareity_image"];
+                this.columngfx1 = base.Columns["gfx1"];
+                this.columngfx2 = base.Columns["gfx2"];
+                this.columnint1 = base.Columns["int1"];
+                this.columnint2 = base.Columns["int2"];
+                this.columnint3 = base.Columns["int3"];
+                this.columnint4 = base.Columns["int4"];
+                this.columnbolean1 = base.Columns["bolean1"];
+                this.columnbolean2 = base.Columns["bolean2"];
+                this.columnbolean3 = base.Columns["bolean3"];
+                this.columnprice = base.Columns["price"];
+                this.columntotalvalue = base.Columns["totalvalue"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnid = new global::System.Data.DataColumn("id", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnid);
+                this.columncard_number = new global::System.Data.DataColumn("card_number", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncard_number);
                 this.columnweb_scraper_order = new global::System.Data.DataColumn("web_scraper_order", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnweb_scraper_order);
-                this.columnweb_scraper_start_url = new global::System.Data.DataColumn("web_scraper_start_url", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnweb_scraper_start_url);
-                this.columncategory_linked = new global::System.Data.DataColumn("category_linked", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncategory_linked);
                 this.columncategory_linked_href = new global::System.Data.DataColumn("category_linked_href", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncategory_linked_href);
-                this.columnsubcategory_link = new global::System.Data.DataColumn("subcategory_link", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnsubcategory_link);
-                this.columnsubcategory_link_href = new global::System.Data.DataColumn("subcategory_link_href", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnsubcategory_link_href);
                 this.columncard_name = new global::System.Data.DataColumn("card_name", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncard_name);
                 this.columncreature_type = new global::System.Data.DataColumn("creature_type", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncreature_type);
                 this.columncard_rules2 = new global::System.Data.DataColumn("card_rules2", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncard_rules2);
-                this.columnmana_cost_src = new global::System.Data.DataColumn("mana_cost_src", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmana_cost_src);
                 this.columncard_stats = new global::System.Data.DataColumn("card_stats", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncard_stats);
-                this.columncard_art_src = new global::System.Data.DataColumn("card_art_src", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncard_art_src);
-                this.columnImageName = new global::System.Data.DataColumn("ImageName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnImageName);
-                this.columnOriginalFormat = new global::System.Data.DataColumn("OriginalFormat", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnOriginalFormat);
-                this.columnImageFile = new global::System.Data.DataColumn("ImageFile", typeof(byte[]), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnImageFile);
-                this.columnid.AutoIncrement = true;
-                this.columnid.AutoIncrementSeed = -1;
-                this.columnid.AutoIncrementStep = -1;
-                this.columnid.AllowDBNull = false;
-                this.columnid.ReadOnly = true;
+                this.columncard_type = new global::System.Data.DataColumn("card_type", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncard_type);
+                this.columnset_name = new global::System.Data.DataColumn("set_name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnset_name);
+                this.columnnote = new global::System.Data.DataColumn("note", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnote);
+                this.columnnote2 = new global::System.Data.DataColumn("note2", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnote2);
+                this.columnnote3 = new global::System.Data.DataColumn("note3", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnote3);
+                this.columnnote4 = new global::System.Data.DataColumn("note4", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnote4);
+                this.columnrareity_code = new global::System.Data.DataColumn("rareity_code", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnrareity_code);
+                this.columnrareity_image = new global::System.Data.DataColumn("rareity_image", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnrareity_image);
+                this.columngfx1 = new global::System.Data.DataColumn("gfx1", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columngfx1);
+                this.columngfx2 = new global::System.Data.DataColumn("gfx2", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columngfx2);
+                this.columnint1 = new global::System.Data.DataColumn("int1", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnint1);
+                this.columnint2 = new global::System.Data.DataColumn("int2", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnint2);
+                this.columnint3 = new global::System.Data.DataColumn("int3", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnint3);
+                this.columnint4 = new global::System.Data.DataColumn("int4", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnint4);
+                this.columnbolean1 = new global::System.Data.DataColumn("bolean1", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnbolean1);
+                this.columnbolean2 = new global::System.Data.DataColumn("bolean2", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnbolean2);
+                this.columnbolean3 = new global::System.Data.DataColumn("bolean3", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnbolean3);
+                this.columnprice = new global::System.Data.DataColumn("price", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnprice);
+                this.columntotalvalue = new global::System.Data.DataColumn("totalvalue", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntotalvalue);
+                this.columncard_number.AutoIncrement = true;
+                this.columncard_number.AutoIncrementSeed = -1;
+                this.columncard_number.AutoIncrementStep = -1;
+                this.columncard_number.AllowDBNull = false;
+                this.columncard_number.ReadOnly = true;
                 this.columnweb_scraper_order.MaxLength = 50;
-                this.columnweb_scraper_start_url.MaxLength = 50;
-                this.columncategory_linked.MaxLength = 1;
                 this.columncategory_linked_href.AllowDBNull = false;
                 this.columncategory_linked_href.MaxLength = 50;
-                this.columnsubcategory_link.MaxLength = 50;
-                this.columnsubcategory_link_href.MaxLength = 50;
                 this.columncard_name.AllowDBNull = false;
                 this.columncard_name.MaxLength = 50;
                 this.columncreature_type.MaxLength = 50;
                 this.columncard_rules2.MaxLength = 850;
-                this.columnmana_cost_src.MaxLength = 50;
                 this.columncard_stats.MaxLength = 50;
-                this.columncard_art_src.AllowDBNull = false;
-                this.columncard_art_src.MaxLength = 50;
-                this.columnImageName.MaxLength = 40;
-                this.columnOriginalFormat.MaxLength = 5;
+                this.columncard_type.MaxLength = 2147483647;
+                this.columnset_name.MaxLength = 50;
+                this.columnnote.MaxLength = 2147483647;
+                this.columnnote2.MaxLength = 2147483647;
+                this.columnnote3.MaxLength = 2147483647;
+                this.columnnote4.MaxLength = 2147483647;
+                this.columnrareity_code.MaxLength = 2147483647;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -793,9 +1945,9 @@ namespace Dark_Oak {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class IkoriaImagesDataTable : global::System.Data.TypedTableBase<IkoriaImagesRow> {
             
-            private global::System.Data.DataColumn columnOriginalFormat;
-            
             private global::System.Data.DataColumn columnImageID;
+            
+            private global::System.Data.DataColumn columnOriginalFormat;
             
             private global::System.Data.DataColumn columnImageData;
             
@@ -834,17 +1986,17 @@ namespace Dark_Oak {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn OriginalFormatColumn {
+            public global::System.Data.DataColumn ImageIDColumn {
                 get {
-                    return this.columnOriginalFormat;
+                    return this.columnImageID;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn ImageIDColumn {
+            public global::System.Data.DataColumn OriginalFormatColumn {
                 get {
-                    return this.columnImageID;
+                    return this.columnOriginalFormat;
                 }
             }
             
@@ -893,11 +2045,11 @@ namespace Dark_Oak {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public IkoriaImagesRow AddIkoriaImagesRow(string OriginalFormat, string ImageID, byte[] ImageData) {
+            public IkoriaImagesRow AddIkoriaImagesRow(string ImageID, string OriginalFormat, byte[] ImageData) {
                 IkoriaImagesRow rowIkoriaImagesRow = ((IkoriaImagesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        OriginalFormat,
                         ImageID,
+                        OriginalFormat,
                         ImageData};
                 rowIkoriaImagesRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowIkoriaImagesRow);
@@ -921,24 +2073,24 @@ namespace Dark_Oak {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnOriginalFormat = base.Columns["OriginalFormat"];
                 this.columnImageID = base.Columns["ImageID"];
+                this.columnOriginalFormat = base.Columns["OriginalFormat"];
                 this.columnImageData = base.Columns["ImageData"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnOriginalFormat = new global::System.Data.DataColumn("OriginalFormat", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnOriginalFormat);
                 this.columnImageID = new global::System.Data.DataColumn("ImageID", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnImageID);
+                this.columnOriginalFormat = new global::System.Data.DataColumn("OriginalFormat", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOriginalFormat);
                 this.columnImageData = new global::System.Data.DataColumn("ImageData", typeof(byte[]), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnImageData);
-                this.columnOriginalFormat.AllowDBNull = false;
-                this.columnOriginalFormat.MaxLength = 5;
                 this.columnImageID.AllowDBNull = false;
                 this.columnImageID.MaxLength = 80;
+                this.columnOriginalFormat.AllowDBNull = false;
+                this.columnOriginalFormat.MaxLength = 5;
                 this.columnImageData.AllowDBNull = false;
             }
             
@@ -1069,6 +2221,746 @@ namespace Dark_Oak {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
+        public partial class MTGCardsRow : global::System.Data.DataRow {
+            
+            private MTGCardsDataTable tableMTGCards;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal MTGCardsRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableMTGCards = ((MTGCardsDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int card_number {
+                get {
+                    return ((int)(this[this.tableMTGCards.card_numberColumn]));
+                }
+                set {
+                    this[this.tableMTGCards.card_numberColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string web_scraper_order {
+                get {
+                    try {
+                        return ((string)(this[this.tableMTGCards.web_scraper_orderColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'web_scraper_order\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.web_scraper_orderColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string category_linked_href {
+                get {
+                    return ((string)(this[this.tableMTGCards.category_linked_hrefColumn]));
+                }
+                set {
+                    this[this.tableMTGCards.category_linked_hrefColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string card_name {
+                get {
+                    return ((string)(this[this.tableMTGCards.card_nameColumn]));
+                }
+                set {
+                    this[this.tableMTGCards.card_nameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string creature_type {
+                get {
+                    try {
+                        return ((string)(this[this.tableMTGCards.creature_typeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'creature_type\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.creature_typeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string card_rules2 {
+                get {
+                    try {
+                        return ((string)(this[this.tableMTGCards.card_rules2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'card_rules2\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.card_rules2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string card_stats {
+                get {
+                    try {
+                        return ((string)(this[this.tableMTGCards.card_statsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'card_stats\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.card_statsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string card_type {
+                get {
+                    try {
+                        return ((string)(this[this.tableMTGCards.card_typeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'card_type\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.card_typeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string set_name {
+                get {
+                    try {
+                        return ((string)(this[this.tableMTGCards.set_nameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'set_name\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.set_nameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string note {
+                get {
+                    try {
+                        return ((string)(this[this.tableMTGCards.noteColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'note\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.noteColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string note2 {
+                get {
+                    try {
+                        return ((string)(this[this.tableMTGCards.note2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'note2\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.note2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string note3 {
+                get {
+                    try {
+                        return ((string)(this[this.tableMTGCards.note3Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'note3\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.note3Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string note4 {
+                get {
+                    try {
+                        return ((string)(this[this.tableMTGCards.note4Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'note4\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.note4Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string rareity_code {
+                get {
+                    try {
+                        return ((string)(this[this.tableMTGCards.rareity_codeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'rareity_code\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.rareity_codeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public byte[] rareity_image {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableMTGCards.rareity_imageColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'rareity_image\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.rareity_imageColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public byte[] gfx1 {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableMTGCards.gfx1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'gfx1\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.gfx1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public byte[] gfx2 {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableMTGCards.gfx2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'gfx2\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.gfx2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public long int1 {
+                get {
+                    try {
+                        return ((long)(this[this.tableMTGCards.int1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'int1\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.int1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public long int2 {
+                get {
+                    try {
+                        return ((long)(this[this.tableMTGCards.int2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'int2\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.int2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int int3 {
+                get {
+                    try {
+                        return ((int)(this[this.tableMTGCards.int3Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'int3\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.int3Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int int4 {
+                get {
+                    try {
+                        return ((int)(this[this.tableMTGCards.int4Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'int4\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.int4Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool bolean1 {
+                get {
+                    try {
+                        return ((bool)(this[this.tableMTGCards.bolean1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'bolean1\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.bolean1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool bolean2 {
+                get {
+                    try {
+                        return ((bool)(this[this.tableMTGCards.bolean2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'bolean2\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.bolean2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool bolean3 {
+                get {
+                    try {
+                        return ((bool)(this[this.tableMTGCards.bolean3Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'bolean3\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.bolean3Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int price {
+                get {
+                    try {
+                        return ((int)(this[this.tableMTGCards.priceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'price\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.priceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int totalvalue {
+                get {
+                    try {
+                        return ((int)(this[this.tableMTGCards.totalvalueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'totalvalue\' in table \'MTGCards\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMTGCards.totalvalueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isweb_scraper_orderNull() {
+                return this.IsNull(this.tableMTGCards.web_scraper_orderColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setweb_scraper_orderNull() {
+                this[this.tableMTGCards.web_scraper_orderColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Iscreature_typeNull() {
+                return this.IsNull(this.tableMTGCards.creature_typeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setcreature_typeNull() {
+                this[this.tableMTGCards.creature_typeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Iscard_rules2Null() {
+                return this.IsNull(this.tableMTGCards.card_rules2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setcard_rules2Null() {
+                this[this.tableMTGCards.card_rules2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Iscard_statsNull() {
+                return this.IsNull(this.tableMTGCards.card_statsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setcard_statsNull() {
+                this[this.tableMTGCards.card_statsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Iscard_typeNull() {
+                return this.IsNull(this.tableMTGCards.card_typeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setcard_typeNull() {
+                this[this.tableMTGCards.card_typeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isset_nameNull() {
+                return this.IsNull(this.tableMTGCards.set_nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setset_nameNull() {
+                this[this.tableMTGCards.set_nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsnoteNull() {
+                return this.IsNull(this.tableMTGCards.noteColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetnoteNull() {
+                this[this.tableMTGCards.noteColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isnote2Null() {
+                return this.IsNull(this.tableMTGCards.note2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setnote2Null() {
+                this[this.tableMTGCards.note2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isnote3Null() {
+                return this.IsNull(this.tableMTGCards.note3Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setnote3Null() {
+                this[this.tableMTGCards.note3Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isnote4Null() {
+                return this.IsNull(this.tableMTGCards.note4Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setnote4Null() {
+                this[this.tableMTGCards.note4Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Israreity_codeNull() {
+                return this.IsNull(this.tableMTGCards.rareity_codeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setrareity_codeNull() {
+                this[this.tableMTGCards.rareity_codeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Israreity_imageNull() {
+                return this.IsNull(this.tableMTGCards.rareity_imageColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setrareity_imageNull() {
+                this[this.tableMTGCards.rareity_imageColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isgfx1Null() {
+                return this.IsNull(this.tableMTGCards.gfx1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setgfx1Null() {
+                this[this.tableMTGCards.gfx1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isgfx2Null() {
+                return this.IsNull(this.tableMTGCards.gfx2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setgfx2Null() {
+                this[this.tableMTGCards.gfx2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isint1Null() {
+                return this.IsNull(this.tableMTGCards.int1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setint1Null() {
+                this[this.tableMTGCards.int1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isint2Null() {
+                return this.IsNull(this.tableMTGCards.int2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setint2Null() {
+                this[this.tableMTGCards.int2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isint3Null() {
+                return this.IsNull(this.tableMTGCards.int3Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setint3Null() {
+                this[this.tableMTGCards.int3Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isint4Null() {
+                return this.IsNull(this.tableMTGCards.int4Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setint4Null() {
+                this[this.tableMTGCards.int4Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isbolean1Null() {
+                return this.IsNull(this.tableMTGCards.bolean1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setbolean1Null() {
+                this[this.tableMTGCards.bolean1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isbolean2Null() {
+                return this.IsNull(this.tableMTGCards.bolean2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setbolean2Null() {
+                this[this.tableMTGCards.bolean2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isbolean3Null() {
+                return this.IsNull(this.tableMTGCards.bolean3Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setbolean3Null() {
+                this[this.tableMTGCards.bolean3Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IspriceNull() {
+                return this.IsNull(this.tableMTGCards.priceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetpriceNull() {
+                this[this.tableMTGCards.priceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IstotalvalueNull() {
+                return this.IsNull(this.tableMTGCards.totalvalueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SettotalvalueNull() {
+                this[this.tableMTGCards.totalvalueColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class MTGCardsImagesRow : global::System.Data.DataRow {
+            
+            private MTGCardsImagesDataTable tableMTGCardsImages;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal MTGCardsImagesRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableMTGCardsImages = ((MTGCardsImagesDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ImageID {
+                get {
+                    return ((string)(this[this.tableMTGCardsImages.ImageIDColumn]));
+                }
+                set {
+                    this[this.tableMTGCardsImages.ImageIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string OriginalFormat {
+                get {
+                    return ((string)(this[this.tableMTGCardsImages.OriginalFormatColumn]));
+                }
+                set {
+                    this[this.tableMTGCardsImages.OriginalFormatColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public byte[] ImageData {
+                get {
+                    return ((byte[])(this[this.tableMTGCardsImages.ImageDataColumn]));
+                }
+                set {
+                    this[this.tableMTGCardsImages.ImageDataColumn] = value;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
         public partial class IkoriaRow : global::System.Data.DataRow {
             
             private IkoriaDataTable tableIkoria;
@@ -1082,12 +2974,12 @@ namespace Dark_Oak {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int id {
+            public int card_number {
                 get {
-                    return ((int)(this[this.tableIkoria.idColumn]));
+                    return ((int)(this[this.tableIkoria.card_numberColumn]));
                 }
                 set {
-                    this[this.tableIkoria.idColumn] = value;
+                    this[this.tableIkoria.card_numberColumn] = value;
                 }
             }
             
@@ -1109,76 +3001,12 @@ namespace Dark_Oak {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string web_scraper_start_url {
-                get {
-                    try {
-                        return ((string)(this[this.tableIkoria.web_scraper_start_urlColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'web_scraper_start_url\' in table \'Ikoria\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableIkoria.web_scraper_start_urlColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string category_linked {
-                get {
-                    try {
-                        return ((string)(this[this.tableIkoria.category_linkedColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'category_linked\' in table \'Ikoria\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableIkoria.category_linkedColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string category_linked_href {
                 get {
                     return ((string)(this[this.tableIkoria.category_linked_hrefColumn]));
                 }
                 set {
                     this[this.tableIkoria.category_linked_hrefColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string subcategory_link {
-                get {
-                    try {
-                        return ((string)(this[this.tableIkoria.subcategory_linkColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'subcategory_link\' in table \'Ikoria\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableIkoria.subcategory_linkColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string subcategory_link_href {
-                get {
-                    try {
-                        return ((string)(this[this.tableIkoria.subcategory_link_hrefColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'subcategory_link_href\' in table \'Ikoria\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableIkoria.subcategory_link_hrefColumn] = value;
                 }
             }
             
@@ -1227,22 +3055,6 @@ namespace Dark_Oak {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string mana_cost_src {
-                get {
-                    try {
-                        return ((string)(this[this.tableIkoria.mana_cost_srcColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'mana_cost_src\' in table \'Ikoria\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableIkoria.mana_cost_srcColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string card_stats {
                 get {
                     try {
@@ -1259,60 +3071,305 @@ namespace Dark_Oak {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string card_art_src {
+            public string card_type {
                 get {
-                    return ((string)(this[this.tableIkoria.card_art_srcColumn]));
+                    try {
+                        return ((string)(this[this.tableIkoria.card_typeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'card_type\' in table \'Ikoria\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableIkoria.card_art_srcColumn] = value;
+                    this[this.tableIkoria.card_typeColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string ImageName {
+            public string set_name {
                 get {
                     try {
-                        return ((string)(this[this.tableIkoria.ImageNameColumn]));
+                        return ((string)(this[this.tableIkoria.set_nameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ImageName\' in table \'Ikoria\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'set_name\' in table \'Ikoria\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableIkoria.ImageNameColumn] = value;
+                    this[this.tableIkoria.set_nameColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string OriginalFormat {
+            public string note {
                 get {
                     try {
-                        return ((string)(this[this.tableIkoria.OriginalFormatColumn]));
+                        return ((string)(this[this.tableIkoria.noteColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'OriginalFormat\' in table \'Ikoria\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'note\' in table \'Ikoria\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableIkoria.OriginalFormatColumn] = value;
+                    this[this.tableIkoria.noteColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public byte[] ImageFile {
+            public string note2 {
                 get {
                     try {
-                        return ((byte[])(this[this.tableIkoria.ImageFileColumn]));
+                        return ((string)(this[this.tableIkoria.note2Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ImageFile\' in table \'Ikoria\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'note2\' in table \'Ikoria\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableIkoria.ImageFileColumn] = value;
+                    this[this.tableIkoria.note2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string note3 {
+                get {
+                    try {
+                        return ((string)(this[this.tableIkoria.note3Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'note3\' in table \'Ikoria\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableIkoria.note3Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string note4 {
+                get {
+                    try {
+                        return ((string)(this[this.tableIkoria.note4Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'note4\' in table \'Ikoria\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableIkoria.note4Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string rareity_code {
+                get {
+                    try {
+                        return ((string)(this[this.tableIkoria.rareity_codeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'rareity_code\' in table \'Ikoria\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableIkoria.rareity_codeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public byte[] rareity_image {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableIkoria.rareity_imageColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'rareity_image\' in table \'Ikoria\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableIkoria.rareity_imageColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public byte[] gfx1 {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableIkoria.gfx1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'gfx1\' in table \'Ikoria\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableIkoria.gfx1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public byte[] gfx2 {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableIkoria.gfx2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'gfx2\' in table \'Ikoria\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableIkoria.gfx2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public long int1 {
+                get {
+                    try {
+                        return ((long)(this[this.tableIkoria.int1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'int1\' in table \'Ikoria\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableIkoria.int1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public long int2 {
+                get {
+                    try {
+                        return ((long)(this[this.tableIkoria.int2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'int2\' in table \'Ikoria\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableIkoria.int2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int int3 {
+                get {
+                    try {
+                        return ((int)(this[this.tableIkoria.int3Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'int3\' in table \'Ikoria\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableIkoria.int3Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int int4 {
+                get {
+                    try {
+                        return ((int)(this[this.tableIkoria.int4Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'int4\' in table \'Ikoria\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableIkoria.int4Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool bolean1 {
+                get {
+                    try {
+                        return ((bool)(this[this.tableIkoria.bolean1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'bolean1\' in table \'Ikoria\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableIkoria.bolean1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool bolean2 {
+                get {
+                    try {
+                        return ((bool)(this[this.tableIkoria.bolean2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'bolean2\' in table \'Ikoria\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableIkoria.bolean2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool bolean3 {
+                get {
+                    try {
+                        return ((bool)(this[this.tableIkoria.bolean3Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'bolean3\' in table \'Ikoria\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableIkoria.bolean3Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int price {
+                get {
+                    try {
+                        return ((int)(this[this.tableIkoria.priceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'price\' in table \'Ikoria\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableIkoria.priceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int totalvalue {
+                get {
+                    try {
+                        return ((int)(this[this.tableIkoria.totalvalueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'totalvalue\' in table \'Ikoria\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableIkoria.totalvalueColumn] = value;
                 }
             }
             
@@ -1326,54 +3383,6 @@ namespace Dark_Oak {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void Setweb_scraper_orderNull() {
                 this[this.tableIkoria.web_scraper_orderColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Isweb_scraper_start_urlNull() {
-                return this.IsNull(this.tableIkoria.web_scraper_start_urlColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setweb_scraper_start_urlNull() {
-                this[this.tableIkoria.web_scraper_start_urlColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Iscategory_linkedNull() {
-                return this.IsNull(this.tableIkoria.category_linkedColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setcategory_linkedNull() {
-                this[this.tableIkoria.category_linkedColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Issubcategory_linkNull() {
-                return this.IsNull(this.tableIkoria.subcategory_linkColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setsubcategory_linkNull() {
-                this[this.tableIkoria.subcategory_linkColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Issubcategory_link_hrefNull() {
-                return this.IsNull(this.tableIkoria.subcategory_link_hrefColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setsubcategory_link_hrefNull() {
-                this[this.tableIkoria.subcategory_link_hrefColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1402,18 +3411,6 @@ namespace Dark_Oak {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Ismana_cost_srcNull() {
-                return this.IsNull(this.tableIkoria.mana_cost_srcColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setmana_cost_srcNull() {
-                this[this.tableIkoria.mana_cost_srcColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool Iscard_statsNull() {
                 return this.IsNull(this.tableIkoria.card_statsColumn);
             }
@@ -1426,38 +3423,230 @@ namespace Dark_Oak {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsImageNameNull() {
-                return this.IsNull(this.tableIkoria.ImageNameColumn);
+            public bool Iscard_typeNull() {
+                return this.IsNull(this.tableIkoria.card_typeColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetImageNameNull() {
-                this[this.tableIkoria.ImageNameColumn] = global::System.Convert.DBNull;
+            public void Setcard_typeNull() {
+                this[this.tableIkoria.card_typeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsOriginalFormatNull() {
-                return this.IsNull(this.tableIkoria.OriginalFormatColumn);
+            public bool Isset_nameNull() {
+                return this.IsNull(this.tableIkoria.set_nameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetOriginalFormatNull() {
-                this[this.tableIkoria.OriginalFormatColumn] = global::System.Convert.DBNull;
+            public void Setset_nameNull() {
+                this[this.tableIkoria.set_nameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsImageFileNull() {
-                return this.IsNull(this.tableIkoria.ImageFileColumn);
+            public bool IsnoteNull() {
+                return this.IsNull(this.tableIkoria.noteColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetImageFileNull() {
-                this[this.tableIkoria.ImageFileColumn] = global::System.Convert.DBNull;
+            public void SetnoteNull() {
+                this[this.tableIkoria.noteColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isnote2Null() {
+                return this.IsNull(this.tableIkoria.note2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setnote2Null() {
+                this[this.tableIkoria.note2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isnote3Null() {
+                return this.IsNull(this.tableIkoria.note3Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setnote3Null() {
+                this[this.tableIkoria.note3Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isnote4Null() {
+                return this.IsNull(this.tableIkoria.note4Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setnote4Null() {
+                this[this.tableIkoria.note4Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Israreity_codeNull() {
+                return this.IsNull(this.tableIkoria.rareity_codeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setrareity_codeNull() {
+                this[this.tableIkoria.rareity_codeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Israreity_imageNull() {
+                return this.IsNull(this.tableIkoria.rareity_imageColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setrareity_imageNull() {
+                this[this.tableIkoria.rareity_imageColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isgfx1Null() {
+                return this.IsNull(this.tableIkoria.gfx1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setgfx1Null() {
+                this[this.tableIkoria.gfx1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isgfx2Null() {
+                return this.IsNull(this.tableIkoria.gfx2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setgfx2Null() {
+                this[this.tableIkoria.gfx2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isint1Null() {
+                return this.IsNull(this.tableIkoria.int1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setint1Null() {
+                this[this.tableIkoria.int1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isint2Null() {
+                return this.IsNull(this.tableIkoria.int2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setint2Null() {
+                this[this.tableIkoria.int2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isint3Null() {
+                return this.IsNull(this.tableIkoria.int3Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setint3Null() {
+                this[this.tableIkoria.int3Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isint4Null() {
+                return this.IsNull(this.tableIkoria.int4Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setint4Null() {
+                this[this.tableIkoria.int4Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isbolean1Null() {
+                return this.IsNull(this.tableIkoria.bolean1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setbolean1Null() {
+                this[this.tableIkoria.bolean1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isbolean2Null() {
+                return this.IsNull(this.tableIkoria.bolean2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setbolean2Null() {
+                this[this.tableIkoria.bolean2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isbolean3Null() {
+                return this.IsNull(this.tableIkoria.bolean3Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setbolean3Null() {
+                this[this.tableIkoria.bolean3Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IspriceNull() {
+                return this.IsNull(this.tableIkoria.priceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetpriceNull() {
+                this[this.tableIkoria.priceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IstotalvalueNull() {
+                return this.IsNull(this.tableIkoria.totalvalueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SettotalvalueNull() {
+                this[this.tableIkoria.totalvalueColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1477,17 +3666,6 @@ namespace Dark_Oak {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string OriginalFormat {
-                get {
-                    return ((string)(this[this.tableIkoriaImages.OriginalFormatColumn]));
-                }
-                set {
-                    this[this.tableIkoriaImages.OriginalFormatColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string ImageID {
                 get {
                     return ((string)(this[this.tableIkoriaImages.ImageIDColumn]));
@@ -1499,12 +3677,91 @@ namespace Dark_Oak {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string OriginalFormat {
+                get {
+                    return ((string)(this[this.tableIkoriaImages.OriginalFormatColumn]));
+                }
+                set {
+                    this[this.tableIkoriaImages.OriginalFormatColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public byte[] ImageData {
                 get {
                     return ((byte[])(this[this.tableIkoriaImages.ImageDataColumn]));
                 }
                 set {
                     this[this.tableIkoriaImages.ImageDataColumn] = value;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public class MTGCardsRowChangeEvent : global::System.EventArgs {
+            
+            private MTGCardsRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public MTGCardsRowChangeEvent(MTGCardsRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public MTGCardsRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public class MTGCardsImagesRowChangeEvent : global::System.EventArgs {
+            
+            private MTGCardsImagesRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public MTGCardsImagesRowChangeEvent(MTGCardsImagesRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public MTGCardsImagesRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
                 }
             }
         }
@@ -1580,6 +3837,700 @@ namespace Dark_Oak {
 }
 namespace Dark_Oak.DarkOakDBDataSetTableAdapters {
     
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class MTGCardsTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public MTGCardsTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "MTGCards";
+            tableMapping.ColumnMappings.Add("card_number", "card_number");
+            tableMapping.ColumnMappings.Add("web_scraper_order", "web_scraper_order");
+            tableMapping.ColumnMappings.Add("category_linked_href", "category_linked_href");
+            tableMapping.ColumnMappings.Add("card_name", "card_name");
+            tableMapping.ColumnMappings.Add("creature_type", "creature_type");
+            tableMapping.ColumnMappings.Add("card_rules2", "card_rules2");
+            tableMapping.ColumnMappings.Add("card_stats", "card_stats");
+            tableMapping.ColumnMappings.Add("card_type", "card_type");
+            tableMapping.ColumnMappings.Add("set_name", "set_name");
+            tableMapping.ColumnMappings.Add("note", "note");
+            tableMapping.ColumnMappings.Add("note2", "note2");
+            tableMapping.ColumnMappings.Add("note3", "note3");
+            tableMapping.ColumnMappings.Add("note4", "note4");
+            tableMapping.ColumnMappings.Add("rareity_code", "rareity_code");
+            tableMapping.ColumnMappings.Add("rareity_image", "rareity_image");
+            tableMapping.ColumnMappings.Add("gfx1", "gfx1");
+            tableMapping.ColumnMappings.Add("gfx2", "gfx2");
+            tableMapping.ColumnMappings.Add("int1", "int1");
+            tableMapping.ColumnMappings.Add("int2", "int2");
+            tableMapping.ColumnMappings.Add("int3", "int3");
+            tableMapping.ColumnMappings.Add("int4", "int4");
+            tableMapping.ColumnMappings.Add("bolean1", "bolean1");
+            tableMapping.ColumnMappings.Add("bolean2", "bolean2");
+            tableMapping.ColumnMappings.Add("bolean3", "bolean3");
+            tableMapping.ColumnMappings.Add("price", "price");
+            tableMapping.ColumnMappings.Add("totalvalue", "totalvalue");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[MTGCards] ([card_number], [web_scraper_order], [category_linked_href], [card_name], [creature_type], [card_rules2], [card_stats], [card_type], [set_name], [note], [note2], [note3], [note4], [rareity_code], [rareity_image], [gfx1], [gfx2], [int1], [int2], [int3], [int4], [bolean1], [bolean2], [bolean3], [price], [totalvalue]) VALUES (@card_number, @web_scraper_order, @category_linked_href, @card_name, @creature_type, @card_rules2, @card_stats, @card_type, @set_name, @note, @note2, @note3, @note4, @rareity_code, @rareity_image, @gfx1, @gfx2, @int1, @int2, @int3, @int4, @bolean1, @bolean2, @bolean3, @price, @totalvalue)";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@card_number", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "card_number", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@web_scraper_order", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "web_scraper_order", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@category_linked_href", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "category_linked_href", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@card_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "card_name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@creature_type", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "creature_type", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@card_rules2", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "card_rules2", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@card_stats", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "card_stats", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@card_type", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "card_type", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@set_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "set_name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@note", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "note", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@note2", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "note2", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@note3", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "note3", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@note4", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "note4", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@rareity_code", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "rareity_code", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@rareity_image", global::System.Data.SqlDbType.VarBinary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "rareity_image", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@gfx1", global::System.Data.SqlDbType.VarBinary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "gfx1", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@gfx2", global::System.Data.SqlDbType.VarBinary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "gfx2", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@int1", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "int1", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@int2", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "int2", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@int3", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "int3", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@int4", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "int4", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@bolean1", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "bolean1", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@bolean2", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "bolean2", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@bolean3", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "bolean3", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@price", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "price", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@totalvalue", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "totalvalue", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::Dark_Oak.Properties.Settings.Default.DarkOakDBConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = @"SELECT card_number, web_scraper_order, category_linked_href, card_name, creature_type, card_rules2, card_stats, card_type, set_name, note, note2, note3, note4, rareity_code, rareity_image, gfx1, gfx2, int1, int2, int3, int4, bolean1, bolean2, bolean3, price, totalvalue FROM dbo.MTGCards";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(DarkOakDBDataSet.MTGCardsDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual DarkOakDBDataSet.MTGCardsDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            DarkOakDBDataSet.MTGCardsDataTable dataTable = new DarkOakDBDataSet.MTGCardsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(DarkOakDBDataSet.MTGCardsDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(DarkOakDBDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "MTGCards");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(
+                    int card_number, 
+                    string web_scraper_order, 
+                    string category_linked_href, 
+                    string card_name, 
+                    string creature_type, 
+                    string card_rules2, 
+                    string card_stats, 
+                    string card_type, 
+                    string set_name, 
+                    string note, 
+                    string note2, 
+                    string note3, 
+                    string note4, 
+                    string rareity_code, 
+                    byte[] rareity_image, 
+                    byte[] gfx1, 
+                    byte[] gfx2, 
+                    global::System.Nullable<long> int1, 
+                    global::System.Nullable<long> int2, 
+                    global::System.Nullable<int> int3, 
+                    global::System.Nullable<int> int4, 
+                    global::System.Nullable<bool> bolean1, 
+                    global::System.Nullable<bool> bolean2, 
+                    global::System.Nullable<bool> bolean3, 
+                    global::System.Nullable<int> price, 
+                    global::System.Nullable<int> totalvalue) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(card_number));
+            if ((web_scraper_order == null)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(web_scraper_order));
+            }
+            if ((category_linked_href == null)) {
+                throw new global::System.ArgumentNullException("category_linked_href");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(category_linked_href));
+            }
+            if ((card_name == null)) {
+                throw new global::System.ArgumentNullException("card_name");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(card_name));
+            }
+            if ((creature_type == null)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(creature_type));
+            }
+            if ((card_rules2 == null)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(card_rules2));
+            }
+            if ((card_stats == null)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(card_stats));
+            }
+            if ((card_type == null)) {
+                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(card_type));
+            }
+            if ((set_name == null)) {
+                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(set_name));
+            }
+            if ((note == null)) {
+                this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[9].Value = ((string)(note));
+            }
+            if ((note2 == null)) {
+                this.Adapter.InsertCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[10].Value = ((string)(note2));
+            }
+            if ((note3 == null)) {
+                this.Adapter.InsertCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[11].Value = ((string)(note3));
+            }
+            if ((note4 == null)) {
+                this.Adapter.InsertCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[12].Value = ((string)(note4));
+            }
+            if ((rareity_code == null)) {
+                this.Adapter.InsertCommand.Parameters[13].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[13].Value = ((string)(rareity_code));
+            }
+            if ((rareity_image == null)) {
+                this.Adapter.InsertCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[14].Value = ((byte[])(rareity_image));
+            }
+            if ((gfx1 == null)) {
+                this.Adapter.InsertCommand.Parameters[15].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[15].Value = ((byte[])(gfx1));
+            }
+            if ((gfx2 == null)) {
+                this.Adapter.InsertCommand.Parameters[16].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[16].Value = ((byte[])(gfx2));
+            }
+            if ((int1.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[17].Value = ((long)(int1.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[17].Value = global::System.DBNull.Value;
+            }
+            if ((int2.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[18].Value = ((long)(int2.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[18].Value = global::System.DBNull.Value;
+            }
+            if ((int3.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[19].Value = ((int)(int3.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[19].Value = global::System.DBNull.Value;
+            }
+            if ((int4.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[20].Value = ((int)(int4.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[20].Value = global::System.DBNull.Value;
+            }
+            if ((bolean1.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[21].Value = ((bool)(bolean1.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[21].Value = global::System.DBNull.Value;
+            }
+            if ((bolean2.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[22].Value = ((bool)(bolean2.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[22].Value = global::System.DBNull.Value;
+            }
+            if ((bolean3.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[23].Value = ((bool)(bolean3.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[23].Value = global::System.DBNull.Value;
+            }
+            if ((price.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[24].Value = ((int)(price.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[24].Value = global::System.DBNull.Value;
+            }
+            if ((totalvalue.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[25].Value = ((int)(totalvalue.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[25].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class MTGCardsImagesTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public MTGCardsImagesTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "MTGCardsImages";
+            tableMapping.ColumnMappings.Add("ImageID", "ImageID");
+            tableMapping.ColumnMappings.Add("OriginalFormat", "OriginalFormat");
+            tableMapping.ColumnMappings.Add("ImageData", "ImageData");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[MTGCardsImages] ([ImageID], [OriginalFormat], [ImageData]) VAL" +
+                "UES (@ImageID, @OriginalFormat, @ImageData)";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ImageID", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ImageID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OriginalFormat", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OriginalFormat", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ImageData", global::System.Data.SqlDbType.VarBinary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ImageData", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::Dark_Oak.Properties.Settings.Default.DarkOakDBConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT ImageID, OriginalFormat, ImageData FROM dbo.MTGCardsImages";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(DarkOakDBDataSet.MTGCardsImagesDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual DarkOakDBDataSet.MTGCardsImagesDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            DarkOakDBDataSet.MTGCardsImagesDataTable dataTable = new DarkOakDBDataSet.MTGCardsImagesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(DarkOakDBDataSet.MTGCardsImagesDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(DarkOakDBDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "MTGCardsImages");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(string ImageID, string OriginalFormat, byte[] ImageData) {
+            if ((ImageID == null)) {
+                throw new global::System.ArgumentNullException("ImageID");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(ImageID));
+            }
+            if ((OriginalFormat == null)) {
+                throw new global::System.ArgumentNullException("OriginalFormat");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(OriginalFormat));
+            }
+            if ((ImageData == null)) {
+                throw new global::System.ArgumentNullException("ImageData");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((byte[])(ImageData));
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+    }
     
     /// <summary>
     ///Represents the connection and commands used to retrieve and save data.
@@ -1702,42 +4653,62 @@ namespace Dark_Oak.DarkOakDBDataSetTableAdapters {
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "Ikoria";
-            tableMapping.ColumnMappings.Add("id", "id");
+            tableMapping.ColumnMappings.Add("card_number", "card_number");
             tableMapping.ColumnMappings.Add("web_scraper_order", "web_scraper_order");
-            tableMapping.ColumnMappings.Add("web_scraper_start_url", "web_scraper_start_url");
-            tableMapping.ColumnMappings.Add("category_linked", "category_linked");
             tableMapping.ColumnMappings.Add("category_linked_href", "category_linked_href");
-            tableMapping.ColumnMappings.Add("subcategory_link", "subcategory_link");
-            tableMapping.ColumnMappings.Add("subcategory_link_href", "subcategory_link_href");
             tableMapping.ColumnMappings.Add("card_name", "card_name");
             tableMapping.ColumnMappings.Add("creature_type", "creature_type");
             tableMapping.ColumnMappings.Add("card_rules2", "card_rules2");
-            tableMapping.ColumnMappings.Add("mana_cost_src", "mana_cost_src");
             tableMapping.ColumnMappings.Add("card_stats", "card_stats");
-            tableMapping.ColumnMappings.Add("card_art_src", "card_art_src");
-            tableMapping.ColumnMappings.Add("ImageName", "ImageName");
-            tableMapping.ColumnMappings.Add("OriginalFormat", "OriginalFormat");
-            tableMapping.ColumnMappings.Add("ImageFile", "ImageFile");
+            tableMapping.ColumnMappings.Add("card_type", "card_type");
+            tableMapping.ColumnMappings.Add("set_name", "set_name");
+            tableMapping.ColumnMappings.Add("note", "note");
+            tableMapping.ColumnMappings.Add("note2", "note2");
+            tableMapping.ColumnMappings.Add("note3", "note3");
+            tableMapping.ColumnMappings.Add("note4", "note4");
+            tableMapping.ColumnMappings.Add("rareity_code", "rareity_code");
+            tableMapping.ColumnMappings.Add("rareity_image", "rareity_image");
+            tableMapping.ColumnMappings.Add("gfx1", "gfx1");
+            tableMapping.ColumnMappings.Add("gfx2", "gfx2");
+            tableMapping.ColumnMappings.Add("int1", "int1");
+            tableMapping.ColumnMappings.Add("int2", "int2");
+            tableMapping.ColumnMappings.Add("int3", "int3");
+            tableMapping.ColumnMappings.Add("int4", "int4");
+            tableMapping.ColumnMappings.Add("bolean1", "bolean1");
+            tableMapping.ColumnMappings.Add("bolean2", "bolean2");
+            tableMapping.ColumnMappings.Add("bolean3", "bolean3");
+            tableMapping.ColumnMappings.Add("price", "price");
+            tableMapping.ColumnMappings.Add("totalvalue", "totalvalue");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Ikoria] ([web_scraper_order], [web_scraper_start_url], [category_linked], [category_linked_href], [subcategory_link], [subcategory_link_href], [card_name], [creature_type], [card_rules2], [mana_cost_src], [card_stats], [card_art_src], [ImageName], [OriginalFormat], [ImageFile]) VALUES (@web_scraper_order, @web_scraper_start_url, @category_linked, @category_linked_href, @subcategory_link, @subcategory_link_href, @card_name, @creature_type, @card_rules2, @mana_cost_src, @card_stats, @card_art_src, @ImageName, @OriginalFormat, @ImageFile)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Ikoria] ([web_scraper_order], [category_linked_href], [card_name], [creature_type], [card_rules2], [card_stats], [card_type], [set_name], [note], [note2], [note3], [note4], [rareity_code], [rareity_image], [gfx1], [gfx2], [int1], [int2], [int3], [int4], [bolean1], [bolean2], [bolean3], [price], [totalvalue]) VALUES (@web_scraper_order, @category_linked_href, @card_name, @creature_type, @card_rules2, @card_stats, @card_type, @set_name, @note, @note2, @note3, @note4, @rareity_code, @rareity_image, @gfx1, @gfx2, @int1, @int2, @int3, @int4, @bolean1, @bolean2, @bolean3, @price, @totalvalue)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@web_scraper_order", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "web_scraper_order", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@web_scraper_start_url", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "web_scraper_start_url", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@category_linked", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "category_linked", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@category_linked_href", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "category_linked_href", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@subcategory_link", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "subcategory_link", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@subcategory_link_href", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "subcategory_link_href", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@card_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "card_name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@creature_type", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "creature_type", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@card_rules2", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "card_rules2", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@mana_cost_src", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "mana_cost_src", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@card_stats", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "card_stats", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@card_art_src", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "card_art_src", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ImageName", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ImageName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OriginalFormat", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OriginalFormat", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ImageFile", global::System.Data.SqlDbType.VarBinary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ImageFile", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@card_type", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "card_type", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@set_name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "set_name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@note", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "note", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@note2", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "note2", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@note3", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "note3", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@note4", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "note4", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@rareity_code", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "rareity_code", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@rareity_image", global::System.Data.SqlDbType.VarBinary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "rareity_image", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@gfx1", global::System.Data.SqlDbType.VarBinary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "gfx1", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@gfx2", global::System.Data.SqlDbType.VarBinary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "gfx2", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@int1", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "int1", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@int2", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "int2", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@int3", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "int3", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@int4", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "int4", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@bolean1", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "bolean1", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@bolean2", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "bolean2", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@bolean3", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "bolean3", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@price", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "price", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@totalvalue", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "totalvalue", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1753,7 +4724,7 @@ namespace Dark_Oak.DarkOakDBDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT id, web_scraper_order, web_scraper_start_url, category_linked, category_linked_href, subcategory_link, subcategory_link_href, card_name, creature_type, card_rules2, mana_cost_src, card_stats, card_art_src, ImageName, OriginalFormat, ImageFile FROM dbo.Ikoria";
+            this._commandCollection[0].CommandText = @"SELECT card_number, web_scraper_order, category_linked_href, card_name, creature_type, card_rules2, card_stats, card_type, set_name, note, note2, note3, note4, rareity_code, rareity_image, gfx1, gfx2, int1, int2, int3, int4, bolean1, bolean2, bolean3, price, totalvalue FROM dbo.Ikoria";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -1814,96 +4785,181 @@ namespace Dark_Oak.DarkOakDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string web_scraper_order, string web_scraper_start_url, string category_linked, string category_linked_href, string subcategory_link, string subcategory_link_href, string card_name, string creature_type, string card_rules2, string mana_cost_src, string card_stats, string card_art_src, string ImageName, string OriginalFormat, byte[] ImageFile) {
+        public virtual int Insert(
+                    string web_scraper_order, 
+                    string category_linked_href, 
+                    string card_name, 
+                    string creature_type, 
+                    string card_rules2, 
+                    string card_stats, 
+                    string card_type, 
+                    string set_name, 
+                    string note, 
+                    string note2, 
+                    string note3, 
+                    string note4, 
+                    string rareity_code, 
+                    byte[] rareity_image, 
+                    byte[] gfx1, 
+                    byte[] gfx2, 
+                    global::System.Nullable<long> int1, 
+                    global::System.Nullable<long> int2, 
+                    global::System.Nullable<int> int3, 
+                    global::System.Nullable<int> int4, 
+                    global::System.Nullable<bool> bolean1, 
+                    global::System.Nullable<bool> bolean2, 
+                    global::System.Nullable<bool> bolean3, 
+                    global::System.Nullable<int> price, 
+                    global::System.Nullable<int> totalvalue) {
             if ((web_scraper_order == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((string)(web_scraper_order));
             }
-            if ((web_scraper_start_url == null)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(web_scraper_start_url));
-            }
-            if ((category_linked == null)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(category_linked));
-            }
             if ((category_linked_href == null)) {
                 throw new global::System.ArgumentNullException("category_linked_href");
             }
             else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(category_linked_href));
-            }
-            if ((subcategory_link == null)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(subcategory_link));
-            }
-            if ((subcategory_link_href == null)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(subcategory_link_href));
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(category_linked_href));
             }
             if ((card_name == null)) {
                 throw new global::System.ArgumentNullException("card_name");
             }
             else {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(card_name));
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(card_name));
             }
             if ((creature_type == null)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(creature_type));
+            }
+            if ((card_rules2 == null)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(card_rules2));
+            }
+            if ((card_stats == null)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(card_stats));
+            }
+            if ((card_type == null)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(card_type));
+            }
+            if ((set_name == null)) {
                 this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(creature_type));
+                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(set_name));
             }
-            if ((card_rules2 == null)) {
+            if ((note == null)) {
                 this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(card_rules2));
+                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(note));
             }
-            if ((mana_cost_src == null)) {
+            if ((note2 == null)) {
                 this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[9].Value = ((string)(mana_cost_src));
+                this.Adapter.InsertCommand.Parameters[9].Value = ((string)(note2));
             }
-            if ((card_stats == null)) {
+            if ((note3 == null)) {
                 this.Adapter.InsertCommand.Parameters[10].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[10].Value = ((string)(card_stats));
+                this.Adapter.InsertCommand.Parameters[10].Value = ((string)(note3));
             }
-            if ((card_art_src == null)) {
-                throw new global::System.ArgumentNullException("card_art_src");
+            if ((note4 == null)) {
+                this.Adapter.InsertCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[11].Value = ((string)(card_art_src));
+                this.Adapter.InsertCommand.Parameters[11].Value = ((string)(note4));
             }
-            if ((ImageName == null)) {
+            if ((rareity_code == null)) {
                 this.Adapter.InsertCommand.Parameters[12].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[12].Value = ((string)(ImageName));
+                this.Adapter.InsertCommand.Parameters[12].Value = ((string)(rareity_code));
             }
-            if ((OriginalFormat == null)) {
+            if ((rareity_image == null)) {
                 this.Adapter.InsertCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[13].Value = ((string)(OriginalFormat));
+                this.Adapter.InsertCommand.Parameters[13].Value = ((byte[])(rareity_image));
             }
-            if ((ImageFile == null)) {
+            if ((gfx1 == null)) {
                 this.Adapter.InsertCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[14].Value = ((byte[])(ImageFile));
+                this.Adapter.InsertCommand.Parameters[14].Value = ((byte[])(gfx1));
+            }
+            if ((gfx2 == null)) {
+                this.Adapter.InsertCommand.Parameters[15].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[15].Value = ((byte[])(gfx2));
+            }
+            if ((int1.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[16].Value = ((long)(int1.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[16].Value = global::System.DBNull.Value;
+            }
+            if ((int2.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[17].Value = ((long)(int2.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[17].Value = global::System.DBNull.Value;
+            }
+            if ((int3.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[18].Value = ((int)(int3.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[18].Value = global::System.DBNull.Value;
+            }
+            if ((int4.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[19].Value = ((int)(int4.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[19].Value = global::System.DBNull.Value;
+            }
+            if ((bolean1.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[20].Value = ((bool)(bolean1.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[20].Value = global::System.DBNull.Value;
+            }
+            if ((bolean2.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[21].Value = ((bool)(bolean2.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[21].Value = global::System.DBNull.Value;
+            }
+            if ((bolean3.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[22].Value = ((bool)(bolean3.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[22].Value = global::System.DBNull.Value;
+            }
+            if ((price.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[23].Value = ((int)(price.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[23].Value = global::System.DBNull.Value;
+            }
+            if ((totalvalue.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[24].Value = ((int)(totalvalue.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[24].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -2043,18 +5099,18 @@ namespace Dark_Oak.DarkOakDBDataSetTableAdapters {
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "IkoriaImages";
-            tableMapping.ColumnMappings.Add("OriginalFormat", "OriginalFormat");
             tableMapping.ColumnMappings.Add("ImageID", "ImageID");
+            tableMapping.ColumnMappings.Add("OriginalFormat", "OriginalFormat");
             tableMapping.ColumnMappings.Add("ImageData", "ImageData");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [IkoriaImages] ([OriginalFormat], [ImageData], [ImageID]) VALUES (@Or" +
-                "iginalFormat, @ImageData, @ImageID)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[IkoriaImages] ([ImageID], [OriginalFormat], [ImageData]) VALUE" +
+                "S (@ImageID, @OriginalFormat, @ImageData)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ImageID", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ImageID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OriginalFormat", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OriginalFormat", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ImageData", global::System.Data.SqlDbType.VarBinary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ImageData", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ImageID", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ImageID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2070,7 +5126,7 @@ namespace Dark_Oak.DarkOakDBDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT OriginalFormat, ImageData, ImageID FROM IkoriaImages";
+            this._commandCollection[0].CommandText = "SELECT ImageID, OriginalFormat, ImageData FROM dbo.IkoriaImages";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -2131,24 +5187,24 @@ namespace Dark_Oak.DarkOakDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string OriginalFormat, byte[] ImageData, string ImageID) {
+        public virtual int Insert(string ImageID, string OriginalFormat, byte[] ImageData) {
+            if ((ImageID == null)) {
+                throw new global::System.ArgumentNullException("ImageID");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(ImageID));
+            }
             if ((OriginalFormat == null)) {
                 throw new global::System.ArgumentNullException("OriginalFormat");
             }
             else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(OriginalFormat));
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(OriginalFormat));
             }
             if ((ImageData == null)) {
                 throw new global::System.ArgumentNullException("ImageData");
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((byte[])(ImageData));
-            }
-            if ((ImageID == null)) {
-                throw new global::System.ArgumentNullException("ImageID");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(ImageID));
+                this.Adapter.InsertCommand.Parameters[2].Value = ((byte[])(ImageData));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -2179,6 +5235,10 @@ namespace Dark_Oak.DarkOakDBDataSetTableAdapters {
         
         private UpdateOrderOption _updateOrder;
         
+        private MTGCardsTableAdapter _mTGCardsTableAdapter;
+        
+        private MTGCardsImagesTableAdapter _mTGCardsImagesTableAdapter;
+        
         private IkoriaTableAdapter _ikoriaTableAdapter;
         
         private IkoriaImagesTableAdapter _ikoriaImagesTableAdapter;
@@ -2195,6 +5255,34 @@ namespace Dark_Oak.DarkOakDBDataSetTableAdapters {
             }
             set {
                 this._updateOrder = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
+        public MTGCardsTableAdapter MTGCardsTableAdapter {
+            get {
+                return this._mTGCardsTableAdapter;
+            }
+            set {
+                this._mTGCardsTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
+        public MTGCardsImagesTableAdapter MTGCardsImagesTableAdapter {
+            get {
+                return this._mTGCardsImagesTableAdapter;
+            }
+            set {
+                this._mTGCardsImagesTableAdapter = value;
             }
         }
         
@@ -2245,6 +5333,14 @@ namespace Dark_Oak.DarkOakDBDataSetTableAdapters {
                 if ((this._connection != null)) {
                     return this._connection;
                 }
+                if (((this._mTGCardsTableAdapter != null) 
+                            && (this._mTGCardsTableAdapter.Connection != null))) {
+                    return this._mTGCardsTableAdapter.Connection;
+                }
+                if (((this._mTGCardsImagesTableAdapter != null) 
+                            && (this._mTGCardsImagesTableAdapter.Connection != null))) {
+                    return this._mTGCardsImagesTableAdapter.Connection;
+                }
                 if (((this._ikoriaTableAdapter != null) 
                             && (this._ikoriaTableAdapter.Connection != null))) {
                     return this._ikoriaTableAdapter.Connection;
@@ -2266,6 +5362,12 @@ namespace Dark_Oak.DarkOakDBDataSetTableAdapters {
         public int TableAdapterInstanceCount {
             get {
                 int count = 0;
+                if ((this._mTGCardsTableAdapter != null)) {
+                    count = (count + 1);
+                }
+                if ((this._mTGCardsImagesTableAdapter != null)) {
+                    count = (count + 1);
+                }
                 if ((this._ikoriaTableAdapter != null)) {
                     count = (count + 1);
                 }
@@ -2283,6 +5385,24 @@ namespace Dark_Oak.DarkOakDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateUpdatedRows(DarkOakDBDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
+            if ((this._mTGCardsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.MTGCards.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._mTGCardsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._mTGCardsImagesTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.MTGCardsImages.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._mTGCardsImagesTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._ikoriaTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Ikoria.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -2311,6 +5431,22 @@ namespace Dark_Oak.DarkOakDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateInsertedRows(DarkOakDBDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
+            if ((this._mTGCardsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.MTGCards.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._mTGCardsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._mTGCardsImagesTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.MTGCardsImages.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._mTGCardsImagesTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._ikoriaTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Ikoria.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -2353,6 +5489,22 @@ namespace Dark_Oak.DarkOakDBDataSetTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
+            if ((this._mTGCardsImagesTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.MTGCardsImages.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._mTGCardsImagesTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._mTGCardsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.MTGCards.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._mTGCardsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             return result;
         }
         
@@ -2391,6 +5543,16 @@ namespace Dark_Oak.DarkOakDBDataSetTableAdapters {
             }
             if ((dataSet.HasChanges() == false)) {
                 return 0;
+            }
+            if (((this._mTGCardsTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._mTGCardsTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
+                        "tring.");
+            }
+            if (((this._mTGCardsImagesTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._mTGCardsImagesTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
+                        "tring.");
             }
             if (((this._ikoriaTableAdapter != null) 
                         && (this.MatchTableAdapterConnection(this._ikoriaTableAdapter.Connection) == false))) {
@@ -2434,6 +5596,24 @@ namespace Dark_Oak.DarkOakDBDataSetTableAdapters {
             try {
                 // ---- Prepare for update -----------
                 //
+                if ((this._mTGCardsTableAdapter != null)) {
+                    revertConnections.Add(this._mTGCardsTableAdapter, this._mTGCardsTableAdapter.Connection);
+                    this._mTGCardsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._mTGCardsTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._mTGCardsTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._mTGCardsTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._mTGCardsTableAdapter.Adapter);
+                    }
+                }
+                if ((this._mTGCardsImagesTableAdapter != null)) {
+                    revertConnections.Add(this._mTGCardsImagesTableAdapter, this._mTGCardsImagesTableAdapter.Connection);
+                    this._mTGCardsImagesTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._mTGCardsImagesTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._mTGCardsImagesTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._mTGCardsImagesTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._mTGCardsImagesTableAdapter.Adapter);
+                    }
+                }
                 if ((this._ikoriaTableAdapter != null)) {
                     revertConnections.Add(this._ikoriaTableAdapter, this._ikoriaTableAdapter.Connection);
                     this._ikoriaTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
@@ -2509,6 +5689,14 @@ namespace Dark_Oak.DarkOakDBDataSetTableAdapters {
             finally {
                 if (workConnOpened) {
                     workConnection.Close();
+                }
+                if ((this._mTGCardsTableAdapter != null)) {
+                    this._mTGCardsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._mTGCardsTableAdapter]));
+                    this._mTGCardsTableAdapter.Transaction = null;
+                }
+                if ((this._mTGCardsImagesTableAdapter != null)) {
+                    this._mTGCardsImagesTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._mTGCardsImagesTableAdapter]));
+                    this._mTGCardsImagesTableAdapter.Transaction = null;
                 }
                 if ((this._ikoriaTableAdapter != null)) {
                     this._ikoriaTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._ikoriaTableAdapter]));
