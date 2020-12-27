@@ -1,0 +1,83 @@
+﻿-- ***** Guide
+-- Data er todelt 1 tabel med kort data og en tabel med billede data
+-- 
+
+
+
+-- ###############################################
+-- ##											##
+-- ##   Import af Images til SQL varbinary		##
+-- ##											##
+-- ##											##
+-- ###############################################
+--
+-- Denne kode laver table kaldet IkoriaImages (Navnet skal selvfølige reflektere sættet)
+-- Henter den jpg filerne og laver dem om til varbinary 
+-- Et andet script kombinere så images med kort data
+
+    CREATE TABLE dbo.IkoriaImages
+    (
+          [ImageID] [varchar](80) NOT NULL,
+          [OriginalFormat] [nvarchar](5) NOT NULL, 
+          [ImageData] [varbinary](max) NOT NULL
+     )    
+
+use DarkOakDB
+Declare @Numberofcards int = 402 -- Sætter antal af kort skal svare til ID column i kort datasæt
+Declare @Image nvarchar(max) 
+Declare @String nvarchar(max)
+	while (@Numberofcards > 0) --Kør kort igennem
+	Begin
+		set @Image = (select [web_scraper_order] from dbo.Ikoria where [id] = @Numberofcards)
+		set @String='
+		Insert into dbo.IkoriaImages (ImageID,OriginalFormat,ImageData)
+		Select '+''''+@Image+''''+',''jpg'',ImageFile 
+		FROM OPENROWSET(BULK N''C:\Users\Max\Desktop\ikoria\'+@Image+'-card-art.jpg'', SINGLE_BLOB) AS ImageSource(ImageFile);'
+		print @String
+		set @Numberofcards = @Numberofcards - 1
+		exec(@String)
+	End
+
+
+
+
+-------------------------------
+
+-- ###############################################
+-- ##											##
+-- ##   Move Imported data into new table		##
+-- ##											##
+-- ##											##
+-- ###############################################
+
+-- Create table named eg. CORE2020, CommanderLegend2020
+
+CREATE TABLE [dbo].[Ikoria](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[web_scraper_order] [nvarchar](50)  NULL,
+	[web_scraper_start_url] [nvarchar](50)  NULL,
+	[category_linked] [nvarchar](1) NULL,
+	[category_linked_href] [nvarchar](50) NOT NULL,
+	[subcategory_link] [nvarchar](50) NULL,
+	[subcategory_link_href] [nvarchar](50) NULL,
+	[card_name] [nvarchar](50) NOT NULL,
+	[creature_type] [nvarchar](50) NULL,
+	[card_rules2] [nvarchar](850) NULL,
+	[mana_cost_src] [nvarchar](50) NULL,
+	[card_stats] [nvarchar](50) NULL,
+	[card_art_src] [nvarchar](50) NOT NULL
+
+) ON [PRIMARY]
+GO
+ -- Select from handmade CSV import
+if exists (select * from dbo.IkoriaIndput ) --If exists select from name of the input database
+insert into Ikoria ([web_scraper_order],[web_scraper_start_url],[category_linked],[category_linked_href]
+,[subcategory_link],[subcategory_link_href],[card_name],[creature_type],[card_rules2],[mana_cost_src],[card_stats],[card_art_src])
+select [web_scraper_order],[web_scraper_start_url],[category_linked],[category_linked_href]
+,[subcategory_link],[subcategory_link_href],[card_name],[creature_type],[card_rules2],[mana_cost_src],[card_stats],[card_art_src]
+from dbo.IkoriaIndput order by [category_linked_href] asc
+go
+
+  
+
+
