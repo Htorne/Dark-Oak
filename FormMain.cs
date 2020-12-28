@@ -32,7 +32,7 @@ namespace Dark_Oak
             DataTable dt = new DataTable();
             SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
             //please connect to SQL using the information provided by user and stored in settings, mykay.
-            string query = "select [card_number],[web_scraper_order],[card_name] as [Name],[creature_type] as [Type],[card_rules2] from [dbo].[MTGCards]";
+            string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
            
             //Just grab whatever is written above from the SQL server
             SqlCommand cmd = new SqlCommand(query, conn);
@@ -65,9 +65,11 @@ namespace Dark_Oak
                     int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
                     DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
                     string a = Convert.ToString(selectedRow.Cells["web_scraper_order"].Value);
+                    string b = Convert.ToString(selectedRow.Cells["card_name"].Value);
                     byte[] result = Database.GetImage(a);
                     MemoryStream stream = new MemoryStream(result);
                     pictureBox1.Image = Image.FromStream(stream);
+                    label6.Text = b;
 
                 }
             }
@@ -85,14 +87,12 @@ namespace Dark_Oak
             //this.ikoriaTableAdapter.Fill(this.darkOakDBDataSet.MTGCards);
 
         }
-
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
             DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
             string a = Convert.ToString(selectedRow.Cells["web_scraper_order"].Value);
         }
-
         public void textBox1_TextChanged(object sender, EventArgs e)
         {
             PullData();
@@ -133,12 +133,10 @@ namespace Dark_Oak
             this.mTGCardsDataGridView.Columns[4].Width = 400;
             this.mTGCardsDataGridView.AllowUserToAddRows = false;
         }
-
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
             filterstuff();
         }
-
         public void filterstuff()
         {
             
@@ -153,9 +151,9 @@ namespace Dark_Oak
             if (!string.IsNullOrEmpty(cardname))
             {
                 if (filt == "")
-                    filt += "[Name] LIKE '%" + cardname + "%'";
+                    filt += "[card_name] LIKE '%" + cardname + "%'";
                 else
-                    filt += " And [Name] LIKE '%" + cardname + "%' ";
+                    filt += " And [card_name] LIKE '%" + cardname + "%' ";
             }
 
 
@@ -185,6 +183,29 @@ namespace Dark_Oak
                 MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
             }
 
+        }
+
+        private void mTGCardsDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        { /*
+            foreach (DataGridViewRow Myrow in mTGCardsDataGridView.Rows)
+            {            //Here 2 cell is target value and 1 cell is Volume
+                if (Convert.ToString(Myrow.Cells[8].Value) == "G")// Or your condition 
+                {
+                    Myrow.DefaultCellStyle.ForeColor = Color.Green;
+                }
+                else
+                {
+                    Myrow.DefaultCellStyle.ForeColor = Color.Black;
+                }
+                if (Convert.ToString(Myrow.Cells[8].Value) == "U")// Or your condition 
+                {
+                    Myrow.DefaultCellStyle.ForeColor = Color.Blue;
+                }
+                else
+                {
+                    Myrow.DefaultCellStyle.ForeColor = Color.Black;
+                }
+            }*/
         }
     }
 }

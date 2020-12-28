@@ -48,12 +48,12 @@ namespace Dark_Oak
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.Filters = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikoriaBindingSource)).BeginInit();
@@ -131,7 +131,7 @@ namespace Dark_Oak
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Segoe UI Historic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Fuchsia;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label1.Location = new System.Drawing.Point(505, 77);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(264, 48);
@@ -140,7 +140,7 @@ namespace Dark_Oak
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(1395, 103);
+            this.button2.Location = new System.Drawing.Point(1160, 189);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(146, 39);
             this.button2.TabIndex = 7;
@@ -176,6 +176,7 @@ namespace Dark_Oak
             this.mTGCardsDataGridView.RowTemplate.Height = 18;
             this.mTGCardsDataGridView.Size = new System.Drawing.Size(1516, 656);
             this.mTGCardsDataGridView.TabIndex = 8;
+            this.mTGCardsDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.mTGCardsDataGridView_CellFormatting);
             this.mTGCardsDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.mTGCardsDataGridView_DataBindingComplete);
             this.mTGCardsDataGridView.SelectionChanged += new System.EventHandler(this.datagridview1_SelectionChanged);
             // 
@@ -211,6 +212,15 @@ namespace Dark_Oak
             this.Filters.TabIndex = 11;
             this.Filters.TabStop = false;
             this.Filters.Text = "Filters";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(410, 31);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 20);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Card Text";
             // 
             // textBox4
             // 
@@ -255,19 +265,11 @@ namespace Dark_Oak
             this.label3.TabIndex = 12;
             this.label3.Text = "Card No.";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(410, 31);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 20);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "Card Text";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Myanmar Text", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label6.Location = new System.Drawing.Point(28, 128);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(432, 56);
@@ -276,8 +278,8 @@ namespace Dark_Oak
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(2817, 1116);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.Filters);
