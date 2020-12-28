@@ -79,5 +79,27 @@ from dbo.IkoriaIndput order by [category_linked_href] asc
 go
 
   
+ -------------------------------
 
+-- ###############################################
+-- ##											##
+-- ##   Move Imported data into new table		##
+-- ##											##
+-- ##											##
+-- ###############################################
 
+  SELECT *
+  INTO  MTGCards
+FROM
+(
+        SELECT     *
+    FROM         Ikoria
+    UNION
+    SELECT     *
+    FROM         Zendikar_Rising
+    UNION
+    SELECT     *
+    FROM         [Core_2021]
+    UNION
+  
+) a
