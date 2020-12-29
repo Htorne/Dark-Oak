@@ -246,8 +246,8 @@ namespace Dark_Oak
            // string full_card_id = card_number + " " + set_name + " " + card_name;
            // MessageBox.Show(full_card_id);
 
-            
-            string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCards] where [card_number] like '" + card_number+"' and [set_name] like '"+set_name+"' and [card_name] like ''"+card_name+"'';";
+            card_name = card_name.Replace("'", $"{(char)39}");
+            string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCards] where [card_number] like '" + card_number+"' and [set_name] like '"+set_name+"' and [card_name] like '"+card_name.Replace("'", "''") +"'" ; 
             using (SqlConnection myConnection = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString))
                 {
                     myConnection.Open();
@@ -292,7 +292,7 @@ namespace Dark_Oak
             }
             catch (Exception ed)
             {
-                MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
+              //  MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
             }
         }
 
