@@ -33,7 +33,7 @@ namespace Dark_Oak
             SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
             //please connect to SQL using the information provided by user and stored in settings, mykay.
             string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
-           
+            
             //Just grab whatever is written above from the SQL server
             SqlCommand cmd = new SqlCommand(query, conn);
             //Make a new fancy command 
