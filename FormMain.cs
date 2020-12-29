@@ -152,7 +152,7 @@ namespace Dark_Oak
             this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
             this.mTGCardsDataGridView.AllowUserToResizeColumns = false;
             this.mTGCardsDataGridView.AllowUserToResizeRows = false;
-            this.mTGCardsDataGridView.Columns[0].Width = 35;
+            this.mTGCardsDataGridView.Columns[0].Width = 40;
             this.mTGCardsDataGridView.Columns[2].Width = 150;
             this.mTGCardsDataGridView.Columns[3].Width = 150;
             this.mTGCardsDataGridView.Columns[4].Width = 400;
@@ -257,7 +257,7 @@ namespace Dark_Oak
                     }
                     myConnection.Close();
                 }
-                MessageBox.Show(Command);
+            //    MessageBox.Show(Command);
             PullDataFromSortBoard();
         }
 
@@ -270,7 +270,7 @@ namespace Dark_Oak
             this.mtgSortingBoardDataGridView.AllowUserToResizeColumns = false;
             this.mtgSortingBoardDataGridView.AllowUserToResizeRows = false;
             this.mtgSortingBoardDataGridView.Columns[0].Width = 35;
-            this.mtgSortingBoardDataGridView.Columns[1].Width = 150;
+            this.mtgSortingBoardDataGridView.Columns[1].Width = 212;
             this.mtgSortingBoardDataGridView.Columns[2].Width = 150;
             this.mtgSortingBoardDataGridView.AllowUserToAddRows = false;
         }
@@ -297,7 +297,7 @@ namespace Dark_Oak
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {/*
+        {
             string Command = "Delete from MTGCardsSortBoard";
             using (SqlConnection myConnection = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString))
             {
@@ -309,7 +309,38 @@ namespace Dark_Oak
                 myConnection.Close();
             }
             //  MessageBox.Show(Command);
-            PullDataFromSortBoard();*/
+            PullDataFromSortBoard();
+        }
+
+
+
+        private void mTGCardsDataGridView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Add)
+            {
+                int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
+                string card_number = Convert.ToString(selectedRow.Cells["card_number"].Value);
+                string set_name = Convert.ToString(selectedRow.Cells["set_name"].Value);
+                string card_name = Convert.ToString(selectedRow.Cells["card_name"].Value);
+                // string full_card_id = card_number + " " + set_name + " " + card_name;
+                // MessageBox.Show(full_card_id);
+
+                card_name = card_name.Replace("'", $"{(char)39}");
+                string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCards] where [card_number] like '" + card_number + "' and [set_name] like '" + set_name + "' and [card_name] like '" + card_name.Replace("'", "''") + "'";
+                using (SqlConnection myConnection = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString))
+                {
+                    myConnection.Open();
+                    using (SqlCommand myCommand = new SqlCommand(Command, myConnection))
+                    {
+                        myCommand.ExecuteScalar(); //runs Command string hopefully
+                    }
+                    myConnection.Close();
+                }
+               // MessageBox.Show(Command);
+                PullDataFromSortBoard();
+            }
+            else { }
         }
     }
 }

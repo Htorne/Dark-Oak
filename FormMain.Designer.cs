@@ -57,8 +57,8 @@ namespace Dark_Oak
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.mtgSortingBoardDataGridView = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikoriaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.darkOakDBDataSet)).BeginInit();
@@ -183,6 +183,7 @@ namespace Dark_Oak
             this.mTGCardsDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.mTGCardsDataGridView_CellFormatting);
             this.mTGCardsDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.mTGCardsDataGridView_DataBindingComplete);
             this.mTGCardsDataGridView.SelectionChanged += new System.EventHandler(this.datagridview1_SelectionChanged);
+            this.mTGCardsDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mTGCardsDataGridView_KeyDown);
             // 
             // textBox1
             // 
@@ -319,15 +320,6 @@ namespace Dark_Oak
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sorting board";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(235, 31);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(144, 39);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Send to collection";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
@@ -338,6 +330,15 @@ namespace Dark_Oak
             this.button2.Text = "Clear board";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(235, 31);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(144, 39);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Send to collection";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
