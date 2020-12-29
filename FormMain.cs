@@ -51,6 +51,31 @@ namespace Dark_Oak
             
         }
 
+        public void PullDataFromSortBoard()
+        //Lets pull some data shall we
+        {
+            DataTable dtsort = new DataTable();
+            SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
+            //please connect to SQL using the information provided by user and stored in settings, mykay.
+            string query = "select [card_number] as [#],[card_name],[set_name],[web_scraper_order] from [dbo].[MTGCardsSortBoard]";
+
+            //Just grab whatever is written above from the SQL server
+            SqlCommand cmd = new SqlCommand(query, conn);
+            //Make a new fancy command 
+            conn.Open();
+            //Connect to SQL Server
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            //Do the disco
+            da.Fill(dtsort);
+            //Using SQLdataAdapter fill datatable with result set from the cmd.
+            conn.Close();
+            //Close SQL Server connection.
+            da.Dispose();
+            //Hide the evidence; dispose data adapter 
+            mtgSortingBoardDataGridView.DataSource = dtsort;
+
+        }
+
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormSettings form = new FormSettings();
@@ -133,6 +158,8 @@ namespace Dark_Oak
             this.mTGCardsDataGridView.Columns[4].Width = 400;
             this.mTGCardsDataGridView.AllowUserToAddRows = false;
         }
+
+     
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
             filterstuff();
@@ -206,6 +233,83 @@ namespace Dark_Oak
                     Myrow.DefaultCellStyle.ForeColor = Color.Black;
                 }
             }*/
+        }
+
+        private void mTGCardsDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
+            DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
+            string card_number = Convert.ToString(selectedRow.Cells["card_number"].Value);
+            string set_name = Convert.ToString(selectedRow.Cells["set_name"].Value);
+            string card_name = Convert.ToString(selectedRow.Cells["card_name"].Value);
+           // string full_card_id = card_number + " " + set_name + " " + card_name;
+           // MessageBox.Show(full_card_id);
+
+            
+            string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCards] where [card_number] like '" + card_number+"' and [set_name] like '"+set_name+"' and [card_name] like ''"+card_name+"'';";
+            using (SqlConnection myConnection = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString))
+                {
+                    myConnection.Open();
+                    using (SqlCommand myCommand = new SqlCommand(Command, myConnection))
+                    {
+                       myCommand.ExecuteScalar(); //runs Command string hopefully
+                    }
+                    myConnection.Close();
+                }
+                MessageBox.Show(Command);
+            PullDataFromSortBoard();
+        }
+
+        private void mtgSortingBoardDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            this.mtgSortingBoardDataGridView.Columns["web_scraper_order"].Visible = false;
+            this.mtgSortingBoardDataGridView.Columns[0].HeaderText = "#";
+            this.mtgSortingBoardDataGridView.Columns[1].HeaderText = "Name";
+            this.mtgSortingBoardDataGridView.Columns[2].HeaderText = "Set";
+            this.mtgSortingBoardDataGridView.AllowUserToResizeColumns = false;
+            this.mtgSortingBoardDataGridView.AllowUserToResizeRows = false;
+            this.mtgSortingBoardDataGridView.Columns[0].Width = 35;
+            this.mtgSortingBoardDataGridView.Columns[1].Width = 150;
+            this.mtgSortingBoardDataGridView.Columns[2].Width = 150;
+            this.mtgSortingBoardDataGridView.AllowUserToAddRows = false;
+        }
+        private void mtgSortingBoardDataGridView_SelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (mTGCardsDataGridView.SelectedCells.Count > 0)
+                {
+                    int selectedrowindex = mtgSortingBoardDataGridView.SelectedCells[0].RowIndex;
+                    DataGridViewRow selectedRow = mtgSortingBoardDataGridView.Rows[selectedrowindex];
+                    string a = Convert.ToString(selectedRow.Cells["web_scraper_order"].Value);
+                    string b = Convert.ToString(selectedRow.Cells["card_name"].Value);
+                    byte[] result = Database.GetImage(a);
+                    MemoryStream stream = new MemoryStream(result);
+                    pictureBox1.Image = Image.FromStream(stream);
+                    label6.Text = b;
+                }
+            }
+            catch (Exception ed)
+            {
+                MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {/*
+            string Command = "Delete from MTGCardsSortBoard";
+            using (SqlConnection myConnection = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString))
+            {
+                myConnection.Open();
+                using (SqlCommand myCommand = new SqlCommand(Command, myConnection))
+                {
+                    myCommand.ExecuteScalar(); //runs Command string hopefully
+                }
+                myConnection.Close();
+            }
+            //  MessageBox.Show(Command);
+            PullDataFromSortBoard();*/
         }
     }
 }

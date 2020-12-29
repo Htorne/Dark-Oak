@@ -40,7 +40,6 @@ namespace Dark_Oak
             this.darkOakDBDataSet = new Dark_Oak.DarkOakDBDataSet();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             this.tableAdapterManager = new Dark_Oak.DarkOakDBDataSetTableAdapters.TableAdapterManager();
             this.mTGCardsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mTGCardsTableAdapter = new Dark_Oak.DarkOakDBDataSetTableAdapters.MTGCardsTableAdapter();
@@ -55,6 +54,11 @@ namespace Dark_Oak
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.mtgSortingBoardDataGridView = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikoriaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.darkOakDBDataSet)).BeginInit();
@@ -62,6 +66,9 @@ namespace Dark_Oak
             ((System.ComponentModel.ISupportInitialize)(this.mTGCardsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mTGCardsDataGridView)).BeginInit();
             this.Filters.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mtgSortingBoardDataGridView)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -73,7 +80,7 @@ namespace Dark_Oak
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(2817, 33);
+            this.menuStrip1.Size = new System.Drawing.Size(2062, 33);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -117,10 +124,10 @@ namespace Dark_Oak
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(26, 245);
+            this.pictureBox1.Location = new System.Drawing.Point(38, 211);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(416, 656);
+            this.pictureBox1.Size = new System.Drawing.Size(416, 608);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
@@ -132,20 +139,11 @@ namespace Dark_Oak
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Segoe UI Historic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label1.Location = new System.Drawing.Point(505, 77);
+            this.label1.Location = new System.Drawing.Point(468, 77);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(264, 48);
             this.label1.TabIndex = 5;
             this.label1.Text = "MTG Database";
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(1160, 189);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(146, 39);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Add to collection";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // tableAdapterManager
             // 
@@ -168,14 +166,20 @@ namespace Dark_Oak
             // 
             // mTGCardsDataGridView
             // 
+            this.mTGCardsDataGridView.AllowUserToAddRows = false;
+            this.mTGCardsDataGridView.AllowUserToDeleteRows = false;
             this.mTGCardsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.mTGCardsDataGridView.Location = new System.Drawing.Point(513, 245);
+            this.mTGCardsDataGridView.Location = new System.Drawing.Point(461, 245);
             this.mTGCardsDataGridView.Name = "mTGCardsDataGridView";
+            this.mTGCardsDataGridView.ReadOnly = true;
             this.mTGCardsDataGridView.RowHeadersVisible = false;
             this.mTGCardsDataGridView.RowHeadersWidth = 62;
+            this.mTGCardsDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.mTGCardsDataGridView.RowTemplate.Height = 18;
-            this.mTGCardsDataGridView.Size = new System.Drawing.Size(1516, 656);
+            this.mTGCardsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.mTGCardsDataGridView.Size = new System.Drawing.Size(1516, 574);
             this.mTGCardsDataGridView.TabIndex = 8;
+            this.mTGCardsDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mTGCardsDataGridView_CellDoubleClick);
             this.mTGCardsDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.mTGCardsDataGridView_CellFormatting);
             this.mTGCardsDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.mTGCardsDataGridView_DataBindingComplete);
             this.mTGCardsDataGridView.SelectionChanged += new System.EventHandler(this.datagridview1_SelectionChanged);
@@ -206,7 +210,7 @@ namespace Dark_Oak
             this.Filters.Controls.Add(this.label3);
             this.Filters.Controls.Add(this.textBox1);
             this.Filters.Controls.Add(this.textBox2);
-            this.Filters.Location = new System.Drawing.Point(513, 128);
+            this.Filters.Location = new System.Drawing.Point(466, 139);
             this.Filters.Name = "Filters";
             this.Filters.Size = new System.Drawing.Size(626, 100);
             this.Filters.TabIndex = 11;
@@ -276,15 +280,76 @@ namespace Dark_Oak
             this.label6.TabIndex = 12;
             this.label6.Text = "Very long card name is bad";
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(461, 894);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 62;
+            this.dataGridView1.RowTemplate.Height = 28;
+            this.dataGridView1.Size = new System.Drawing.Size(1516, 464);
+            this.dataGridView1.TabIndex = 13;
+            // 
+            // mtgSortingBoardDataGridView
+            // 
+            this.mtgSortingBoardDataGridView.AllowUserToAddRows = false;
+            this.mtgSortingBoardDataGridView.AllowUserToDeleteRows = false;
+            this.mtgSortingBoardDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.mtgSortingBoardDataGridView.Location = new System.Drawing.Point(38, 894);
+            this.mtgSortingBoardDataGridView.Name = "mtgSortingBoardDataGridView";
+            this.mtgSortingBoardDataGridView.ReadOnly = true;
+            this.mtgSortingBoardDataGridView.RowHeadersVisible = false;
+            this.mtgSortingBoardDataGridView.RowHeadersWidth = 62;
+            this.mtgSortingBoardDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.mtgSortingBoardDataGridView.RowTemplate.Height = 18;
+            this.mtgSortingBoardDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.mtgSortingBoardDataGridView.Size = new System.Drawing.Size(400, 394);
+            this.mtgSortingBoardDataGridView.TabIndex = 14;
+            this.mtgSortingBoardDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.mtgSortingBoardDataGridView_DataBindingComplete);
+            this.mtgSortingBoardDataGridView.SelectionChanged += new System.EventHandler(this.mtgSortingBoardDataGridView_SelectionChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Location = new System.Drawing.Point(38, 1294);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(400, 81);
+            this.groupBox1.TabIndex = 15;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Sorting board";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(235, 31);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(144, 39);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Send to collection";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.button2.Location = new System.Drawing.Point(16, 31);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(112, 39);
+            this.button2.TabIndex = 16;
+            this.button2.Text = "Clear board";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(2817, 1116);
+            this.ClientSize = new System.Drawing.Size(2062, 1400);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.mtgSortingBoardDataGridView);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.Filters);
             this.Controls.Add(this.mTGCardsDataGridView);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
@@ -302,6 +367,9 @@ namespace Dark_Oak
             ((System.ComponentModel.ISupportInitialize)(this.mTGCardsDataGridView)).EndInit();
             this.Filters.ResumeLayout(false);
             this.Filters.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mtgSortingBoardDataGridView)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -319,7 +387,6 @@ namespace Dark_Oak
         private DarkOakDBDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.BindingSource mTGCardsBindingSource;
         private DarkOakDBDataSetTableAdapters.MTGCardsTableAdapter mTGCardsTableAdapter;
         private System.Windows.Forms.DataGridView mTGCardsDataGridView;
@@ -333,6 +400,11 @@ namespace Dark_Oak
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView mtgSortingBoardDataGridView;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
