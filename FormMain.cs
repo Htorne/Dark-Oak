@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using RestAPITester;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,6 +8,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -33,7 +36,7 @@ namespace Dark_Oak
             SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
             //please connect to SQL using the information provided by user and stored in settings, mykay.
             //string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
-            string query = "select [number] as [#],[name],[setCode] as [Set Name],[originalType],[originalText] from dbo.cards";
+            string query = "select [number] as [#],[name],[setCode] as [Set Name],[originalType],[originalText],[scryfallid] from dbo.cards";
             //Just grab whatever is written above from the SQL server
             SqlCommand cmd = new SqlCommand(query, conn);
             //Make a new fancy command 
@@ -83,25 +86,8 @@ namespace Dark_Oak
         }
         public void datagridview1_SelectionChanged(object sender, EventArgs e)
         {
-            try
-            {
-                if (mTGCardsDataGridView.SelectedCells.Count > 0)
-                {
-                    int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
-                    DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
-                    string a = Convert.ToString(selectedRow.Cells["web_scraper_order"].Value);
-                    string b = Convert.ToString(selectedRow.Cells["card_name"].Value);
-                    byte[] result = Database.GetImage(a);
-                    MemoryStream stream = new MemoryStream(result);
-                    pictureBox1.Image = Image.FromStream(stream);
-                    label6.Text = b;
-
-                }
-            }
-            catch (Exception ed)
-            {
-                MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
-            }
+           
+          
 
         }
         public void FormMain_Load(object sender, EventArgs e)
@@ -352,6 +338,68 @@ namespace Dark_Oak
             else { }
         }
 
+        private void mTGCardsDataGridView_MouseClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
+                string scryfallid = Convert.ToString(selectedRow.Cells["scryfallid"].Value);
+                RestClient rClient = new RestClient();
+                rClient.endPoint = "https://api.scryfall.com/cards/" + scryfallid;
 
+                //  debugoutput("Rest Client Created");
+
+                string strResponse = string.Empty;
+
+                strResponse = rClient.makeRequest();
+                // debugoutput(strResponse);
+                try
+                {
+                    JObject jsonObj = JObject.Parse(strResponse);
+
+                    foreach (JProperty obj in jsonObj.Properties())
+                    {
+                        if (obj.Name == "image_uris")
+                        {
+                            //string gogo = (string)obj[0]["small"][0];
+                            String text = Convert.ToString(obj);
+                            //  MessageBox.Show(text);
+                            //   debugoutput(Convert.ToString(obj));
+                            // MessageBox.Show("Type is " + Convert.ToString(obj.GetType()));
+                            var stringliste = new List<string> { };
+
+                            string[] authorInfo = text.Split();
+                            foreach (string info in authorInfo)
+                            {
+                                // MessageBox.Show(info);
+
+                                stringliste.Add(info);
+                            }
+                            // MessageBox.Show(stringliste[11]);
+                            string a1 = (stringliste[11]);
+                            a1 = a1.Remove(0, 1);
+                            a1 = a1.Substring(0, a1.Length - 2);
+                            // MessageBox.Show(a1);
+                            var wc = new WebClient();
+                            Image x = Image.FromStream(wc.OpenRead(a1));
+                            pictureBox1.Image = x;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Program most likely had a 404 error see debug log or messageboxes for details " + Convert.ToString(ex));
+                }
+
+
+
+
+            }
+            catch (Exception ed)
+            {
+                //MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
+            }
+        }
     }
 }
