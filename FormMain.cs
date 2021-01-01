@@ -32,8 +32,8 @@ namespace Dark_Oak
             DataTable dt = new DataTable();
             SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
             //please connect to SQL using the information provided by user and stored in settings, mykay.
-            string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
-            
+            //string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
+            string query = "select [number] as [#],[name],[setCode] as [Set Name],[originalType],[originalText] from dbo.cards";
             //Just grab whatever is written above from the SQL server
             SqlCommand cmd = new SqlCommand(query, conn);
             //Make a new fancy command 
@@ -48,7 +48,7 @@ namespace Dark_Oak
             da.Dispose();
             //Hide the evidence; dispose data adapter 
             mTGCardsDataGridView.DataSource = dt;
-            
+
         }
 
         public void PullDataFromSortBoard()
@@ -116,19 +116,21 @@ namespace Dark_Oak
         {
             int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
             DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
-            string a = Convert.ToString(selectedRow.Cells["web_scraper_order"].Value);
+            // [OLD] string a = Convert.ToString(selectedRow.Cells["web_scraper_order"].Value);
         }
         public void textBox1_TextChanged(object sender, EventArgs e)
         {
             PullData();
-            try { 
-            if (textBox1.Text == "")
+            try
             {
-                (mTGCardsDataGridView.DataSource as DataTable).DefaultView.RowFilter = string.Empty;
-            }
-            else { 
-                (mTGCardsDataGridView.DataSource as DataTable).DefaultView.RowFilter = string.Format("[card_number] = '{0}'", textBox1.Text);
-            }
+                if (textBox1.Text == "")
+                {
+                    (mTGCardsDataGridView.DataSource as DataTable).DefaultView.RowFilter = string.Empty;
+                }
+                else
+                {
+                    (mTGCardsDataGridView.DataSource as DataTable).DefaultView.RowFilter = string.Format("[#] = '{0}'", textBox1.Text);
+                }
             }
             catch (Exception ed)
             {
@@ -147,65 +149,72 @@ namespace Dark_Oak
         }
         private void mTGCardsDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            this.mTGCardsDataGridView.Columns["web_scraper_order"].Visible = false;
+            // this.mTGCardsDataGridView.Columns["web_scraper_order"].Visible = false;
             this.mTGCardsDataGridView.Columns[0].HeaderText = "#";
+            this.mTGCardsDataGridView.Columns[1].HeaderText = "Card Name";
+            this.mTGCardsDataGridView.Columns[2].HeaderText = "Set";
+            this.mTGCardsDataGridView.Columns[3].HeaderText = "Type";
             this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
+            // this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
             this.mTGCardsDataGridView.AllowUserToResizeColumns = false;
             this.mTGCardsDataGridView.AllowUserToResizeRows = false;
-            this.mTGCardsDataGridView.Columns[0].Width = 40;
-            this.mTGCardsDataGridView.Columns[2].Width = 150;
-            this.mTGCardsDataGridView.Columns[3].Width = 150;
-            this.mTGCardsDataGridView.Columns[4].Width = 400;
+            this.mTGCardsDataGridView.Columns[0].Width = 60;
+            this.mTGCardsDataGridView.Columns[1].Width = 200;
+            this.mTGCardsDataGridView.Columns[2].Width = 60;
+            this.mTGCardsDataGridView.Columns[3].Width = 300;
+            this.mTGCardsDataGridView.Columns[4].Width = 500;
             this.mTGCardsDataGridView.AllowUserToAddRows = false;
         }
 
-     
+
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
             filterstuff();
         }
         public void filterstuff()
         {
-            
+
             BindingSource bs = new BindingSource();
             bs.DataSource = mTGCardsDataGridView.DataSource;
             string cardname = textBox2.Text;
-            string type = textBox3.Text;
-            string cardrules = textBox4.Text;
+            string set = textBox3.Text;
+            string originalType = textBox4.Text;
             var filt = "";
 
 
             if (!string.IsNullOrEmpty(cardname))
             {
                 if (filt == "")
-                    filt += "[card_name] LIKE '%" + cardname + "%'";
+                    filt += "[name] LIKE '%" + cardname + "%'";
                 else
-                    filt += " And [card_name] LIKE '%" + cardname + "%' ";
+                    filt += " And [name] LIKE '%" + cardname + "%' ";
             }
 
 
-            if (!string.IsNullOrEmpty(type))
+            if (!string.IsNullOrEmpty(set))
             {
                 if (filt == "")
-                    filt += "[Type] LIKE '%" + type + "%'";
+                    filt += "[Set Name] LIKE '%" + set + "%'";
                 else
-                    filt += " And [Type] LIKE '%" + type + "%' ";
+                    filt += " And [Set Name] LIKE '%" + set + "%' ";
             }
 
-            
-            if (!string.IsNullOrEmpty(cardrules))
+
+            if (!string.IsNullOrEmpty(originalType))
             {
                 if (filt == "")
-                    filt += "[card_rules2] LIKE '%" + cardrules + "%'";
+                    filt += "[originalType] LIKE '%" + originalType + "%'";
                 else
-                    filt += " And [card_rules2] LIKE '%" + cardrules + "%' ";
+                    filt += " And [originalType] LIKE '%" + originalType + "%' ";
             }
 
-            try { 
+            try
+            {
 
-            bs.Filter = filt;
-            mTGCardsDataGridView.DataSource = bs;
-            } catch (Exception ed)
+                bs.Filter = filt;
+                mTGCardsDataGridView.DataSource = bs;
+            }
+            catch (Exception ed)
             {
                 MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
             }
@@ -243,20 +252,20 @@ namespace Dark_Oak
             string card_number = Convert.ToString(selectedRow.Cells["card_number"].Value);
             string set_name = Convert.ToString(selectedRow.Cells["set_name"].Value);
             string card_name = Convert.ToString(selectedRow.Cells["card_name"].Value);
-           // string full_card_id = card_number + " " + set_name + " " + card_name;
-           // MessageBox.Show(full_card_id);
+            // string full_card_id = card_number + " " + set_name + " " + card_name;
+            // MessageBox.Show(full_card_id);
 
             card_name = card_name.Replace("'", $"{(char)39}");
-            string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCards] where [card_number] like '" + card_number+"' and [set_name] like '"+set_name+"' and [card_name] like '"+card_name.Replace("'", "''") +"'" ; 
+            string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCards] where [card_number] like '" + card_number + "' and [set_name] like '" + set_name + "' and [card_name] like '" + card_name.Replace("'", "''") + "'";
             using (SqlConnection myConnection = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString))
+            {
+                myConnection.Open();
+                using (SqlCommand myCommand = new SqlCommand(Command, myConnection))
                 {
-                    myConnection.Open();
-                    using (SqlCommand myCommand = new SqlCommand(Command, myConnection))
-                    {
-                       myCommand.ExecuteScalar(); //runs Command string hopefully
-                    }
-                    myConnection.Close();
+                    myCommand.ExecuteScalar(); //runs Command string hopefully
                 }
+                myConnection.Close();
+            }
             //    MessageBox.Show(Command);
             PullDataFromSortBoard();
         }
@@ -292,7 +301,7 @@ namespace Dark_Oak
             }
             catch (Exception ed)
             {
-              //  MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
+                //  MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
             }
         }
 
@@ -337,7 +346,7 @@ namespace Dark_Oak
                     }
                     myConnection.Close();
                 }
-               // MessageBox.Show(Command);
+                // MessageBox.Show(Command);
                 PullDataFromSortBoard();
             }
             else { }
