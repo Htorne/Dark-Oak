@@ -36,7 +36,7 @@ namespace Dark_Oak
             SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
             //please connect to SQL using the information provided by user and stored in settings, mykay.
             //string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
-            string query = "select [number] as [#],[name],[setCode] as [Set Name],[originalType],[originalText],[scryfallid] from dbo.cards";
+            string query = "select [number] as [#],[name],[setCode] as [Set Name],[originalType],[originalText],[scryfallid],[mcmid] from dbo.cards";
             //Just grab whatever is written above from the SQL server
             SqlCommand cmd = new SqlCommand(query, conn);
             //Make a new fancy command 
@@ -92,10 +92,7 @@ namespace Dark_Oak
         }
         public void FormMain_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'darkOakDBDataSet.MTGCards' table. You can move, or remove it, as needed.
-            this.mTGCardsTableAdapter.Fill(this.darkOakDBDataSet.MTGCards);
-            // TODO: This line of code loads data into the 'darkOakDBDataSet.Ikoria' table. You can move, or remove it, as needed.
-            //this.ikoriaTableAdapter.Fill(this.darkOakDBDataSet.MTGCards);
+       
 
         }
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -207,33 +204,10 @@ namespace Dark_Oak
 
         }
 
-        private void mTGCardsDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        { /*
-            foreach (DataGridViewRow Myrow in mTGCardsDataGridView.Rows)
-            {            //Here 2 cell is target value and 1 cell is Volume
-                if (Convert.ToString(Myrow.Cells[8].Value) == "G")// Or your condition 
-                {
-                    Myrow.DefaultCellStyle.ForeColor = Color.Green;
-                }
-                else
-                {
-                    Myrow.DefaultCellStyle.ForeColor = Color.Black;
-                }
-                if (Convert.ToString(Myrow.Cells[8].Value) == "U")// Or your condition 
-                {
-                    Myrow.DefaultCellStyle.ForeColor = Color.Blue;
-                }
-                else
-                {
-                    Myrow.DefaultCellStyle.ForeColor = Color.Black;
-                }
-            }*/
-        }
-
         private void mTGCardsDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
-            int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
+            int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex; //
             DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
             string card_number = Convert.ToString(selectedRow.Cells["card_number"].Value);
             string set_name = Convert.ToString(selectedRow.Cells["set_name"].Value);
@@ -310,6 +284,7 @@ namespace Dark_Oak
 
 
         private void mTGCardsDataGridView_KeyDown(object sender, KeyEventArgs e)
+            // If you press the plus sign on the numpad it adds a card to the collection board.
         {
             if (e.KeyCode == Keys.Add)
             {
@@ -339,6 +314,7 @@ namespace Dark_Oak
         }
 
         private void mTGCardsDataGridView_MouseClick(object sender, MouseEventArgs e)
+            // When you use the mouse to select a card in the table
         {
             try
             {
@@ -348,12 +324,12 @@ namespace Dark_Oak
                 RestClient rClient = new RestClient();
                 rClient.endPoint = "https://api.scryfall.com/cards/" + scryfallid;
 
-                //  debugoutput("Rest Client Created");
+                
 
                 string strResponse = string.Empty;
 
                 strResponse = rClient.makeRequest();
-                // debugoutput(strResponse);
+               // MessageBox.Show(Convert.ToString(strResponse));
                 try
                 {
                     JObject jsonObj = JObject.Parse(strResponse);
@@ -364,7 +340,7 @@ namespace Dark_Oak
                         {
                             //string gogo = (string)obj[0]["small"][0];
                             String text = Convert.ToString(obj);
-                            //  MessageBox.Show(text);
+                             // MessageBox.Show(text);
                             //   debugoutput(Convert.ToString(obj));
                             // MessageBox.Show("Type is " + Convert.ToString(obj.GetType()));
                             var stringliste = new List<string> { };
@@ -400,6 +376,91 @@ namespace Dark_Oak
             {
                 //MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
             }
+
+            
+             try
+            {
+                int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
+                string mcmid = Convert.ToString(selectedRow.Cells["mcmid"].Value);
+                RestClient rClient = new RestClient();
+                rClient.endPoint = "https://api.scryfall.com/cards/cardmarket/" + mcmid;
+
+                string strResponse = string.Empty;
+
+                strResponse = rClient.makeRequest();
+                //MessageBox.Show(Convert.ToString(strResponse));
+                try
+                {
+                    JObject jsonObj = JObject.Parse(strResponse);
+
+                    foreach (JProperty obj in jsonObj.Properties())
+                    {
+                        if (obj.Name == "prices")
+                        {
+                            
+                            String text = Convert.ToString(obj);
+                            var stringliste = new List<string> { };
+
+                            string[] jsonarray = text.Split();
+                            foreach (string info in jsonarray)
+                            {
+                                stringliste.Add(info);
+                            }
+                           
+                            string foilprice = (stringliste[11]);
+                            //MessageBox.Show(foilprice);
+                            if (foilprice == "null," ) { MessageBox.Show("No foil price found"); } else { 
+                            foilprice = foilprice.Remove(0, 1);
+                            foilprice = foilprice.Substring(0, foilprice.Length - 2);
+                            MessageBox.Show("Foil Price is: " + foilprice + " USD");
+                            }
+                        }
+                      
+                    }
+
+                    foreach (JProperty obj in jsonObj.Properties())
+                    {
+                        if (obj.Name == "prices")
+                        {
+                            //string gogo = (string)obj[0]["small"][0];
+                            String text = Convert.ToString(obj);
+                            //MessageBox.Show(text);
+                          
+                           // MessageBox.Show("Type is " + Convert.ToString(obj.GetType()));
+                            var stringliste = new List<string> { };
+
+                            string[] authorInfo = text.Split();
+                            foreach (string info in authorInfo)
+                            {
+                                // MessageBox.Show(info);
+
+                                stringliste.Add(info);
+                            }
+                         
+                            string Nonfoilprice = (stringliste[6]);
+                            Nonfoilprice = Nonfoilprice.Remove(0, 1);
+                            Nonfoilprice = Nonfoilprice.Substring(0, Nonfoilprice.Length - 2);
+                            MessageBox.Show("Non-foil price is: " + Nonfoilprice + " USD");
+
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Program most likely had a 404 error see debug log or messageboxes for details " + Convert.ToString(ex));
+                }
+
+
+
+
+            }
+            catch (Exception ed)
+            {
+                //MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
+            }
+
         }
     }
 }

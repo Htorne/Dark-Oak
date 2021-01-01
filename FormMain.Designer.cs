@@ -1,5 +1,11 @@
 ﻿
 namespace Dark_Oak
+
+
+/*
+ Noter - mana ikoner -> https://scryfall.com/docs/api/colors
+
+ */
 {
     partial class FormMain
     {
@@ -129,10 +135,10 @@ namespace Dark_Oak
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(38, 102);
+            this.pictureBox1.Location = new System.Drawing.Point(38, 211);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(416, 580);
+            this.pictureBox1.Size = new System.Drawing.Size(400, 546);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
@@ -201,7 +207,6 @@ namespace Dark_Oak
             this.mTGCardsDataGridView.Size = new System.Drawing.Size(1516, 546);
             this.mTGCardsDataGridView.TabIndex = 8;
             this.mTGCardsDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mTGCardsDataGridView_CellDoubleClick);
-            this.mTGCardsDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.mTGCardsDataGridView_CellFormatting);
             this.mTGCardsDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.mTGCardsDataGridView_DataBindingComplete);
             this.mTGCardsDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mTGCardsDataGridView_KeyDown);
             this.mTGCardsDataGridView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mTGCardsDataGridView_MouseClick);
@@ -329,7 +334,7 @@ namespace Dark_Oak
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Segoe UI Historic", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label6.Location = new System.Drawing.Point(31, 51);
+            this.label6.Location = new System.Drawing.Point(31, 115);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(355, 38);
             this.label6.TabIndex = 12;
