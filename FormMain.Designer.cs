@@ -70,6 +70,8 @@ namespace Dark_Oak
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.updatePricesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikoriaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.darkOakDBDataSet)).BeginInit();
@@ -105,7 +107,9 @@ namespace Dark_Oak
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
-            this.deckBuilderToolStripMenuItem});
+            this.deckBuilderToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.updatePricesToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(69, 29);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -113,14 +117,14 @@ namespace Dark_Oak
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(212, 34);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // deckBuilderToolStripMenuItem
             // 
             this.deckBuilderToolStripMenuItem.Name = "deckBuilderToolStripMenuItem";
-            this.deckBuilderToolStripMenuItem.Size = new System.Drawing.Size(212, 34);
+            this.deckBuilderToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.deckBuilderToolStripMenuItem.Text = "Deck Builder";
             // 
             // ikoriaBindingSource
@@ -403,6 +407,18 @@ namespace Dark_Oak
             this.button1.Text = "Send to collection";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(267, 6);
+            // 
+            // updatePricesToolStripMenuItem
+            // 
+            this.updatePricesToolStripMenuItem.Name = "updatePricesToolStripMenuItem";
+            this.updatePricesToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.updatePricesToolStripMenuItem.Text = "Update Prices";
+            this.updatePricesToolStripMenuItem.Click += new System.EventHandler(this.updatePricesToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
@@ -472,6 +488,8 @@ namespace Dark_Oak
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem updatePricesToolStripMenuItem;
     }
 }
 
