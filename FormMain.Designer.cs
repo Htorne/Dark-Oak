@@ -44,6 +44,8 @@ namespace Dark_Oak
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deckBuilderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.updatePricesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ikoriaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.darkOakDBDataSet = new Dark_Oak.DarkOakDBDataSet();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -70,8 +72,7 @@ namespace Dark_Oak
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.updatePricesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button3 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikoriaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.darkOakDBDataSet)).BeginInit();
@@ -117,15 +118,27 @@ namespace Dark_Oak
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(222, 34);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // deckBuilderToolStripMenuItem
             // 
             this.deckBuilderToolStripMenuItem.Name = "deckBuilderToolStripMenuItem";
-            this.deckBuilderToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.deckBuilderToolStripMenuItem.Size = new System.Drawing.Size(222, 34);
             this.deckBuilderToolStripMenuItem.Text = "Deck Builder";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(219, 6);
+            // 
+            // updatePricesToolStripMenuItem
+            // 
+            this.updatePricesToolStripMenuItem.Name = "updatePricesToolStripMenuItem";
+            this.updatePricesToolStripMenuItem.Size = new System.Drawing.Size(222, 34);
+            this.updatePricesToolStripMenuItem.Text = "Update Prices";
+            this.updatePricesToolStripMenuItem.Click += new System.EventHandler(this.updatePricesToolStripMenuItem_Click);
             // 
             // ikoriaBindingSource
             // 
@@ -183,6 +196,9 @@ namespace Dark_Oak
             // 
             this.mTGCardsDataGridView.AllowUserToAddRows = false;
             this.mTGCardsDataGridView.AllowUserToDeleteRows = false;
+            this.mTGCardsDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -233,6 +249,9 @@ namespace Dark_Oak
             // 
             // Filters
             // 
+            this.Filters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Filters.BackColor = System.Drawing.Color.Transparent;
             this.Filters.Controls.Add(this.label8);
             this.Filters.Controls.Add(this.label7);
@@ -407,23 +426,22 @@ namespace Dark_Oak
             this.button1.Text = "Send to collection";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // toolStripSeparator1
+            // button3
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(267, 6);
-            // 
-            // updatePricesToolStripMenuItem
-            // 
-            this.updatePricesToolStripMenuItem.Name = "updatePricesToolStripMenuItem";
-            this.updatePricesToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.updatePricesToolStripMenuItem.Text = "Update Prices";
-            this.updatePricesToolStripMenuItem.Click += new System.EventHandler(this.updatePricesToolStripMenuItem_Click);
+            this.button3.Location = new System.Drawing.Point(265, 78);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 16;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(2062, 1400);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.mtgSortingBoardDataGridView);
             this.Controls.Add(this.dataGridView1);
@@ -490,6 +508,7 @@ namespace Dark_Oak
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem updatePricesToolStripMenuItem;
+        private System.Windows.Forms.Button button3;
     }
 }
 

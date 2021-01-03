@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -28,62 +29,6 @@ namespace Dark_Oak
             PullData();
 
         }
-
-        public string GetDateInformation(string mcmid)
-        {
-
-            try
-            {
-                var dataSet = new DataSet();
-                SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
-                conn.Open();
-                string query = "select [lastupdated] from dbo.mcmcards where mcmid ='" + mcmid + "'";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(dataSet);
-                return dataSet.Tables[0].Rows[0][""].ToString();
-                //This then needs to be convertet into datetime format 
-                //So I can run comparrison
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(Convert.ToString(ex));
-                return "Error";
-            }
-
-
-
-
-        }
-        public string Update_mcmcards(string mcmid)
-        {
-
-            try
-            {
-                var dataSet = new DataSet();
-                SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
-                conn.Open();
-                string query = "select  from dbo.mcmcards where mcmid ='" + mcmid + "'";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(dataSet);
-                return dataSet.Tables[0].Rows[0][""].ToString();
-                //This then needs to be convertet into datetime format 
-                //So I can run comparrison
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(Convert.ToString(ex));
-                return "Error";
-            }
-
-
-
-
-        }
-
         public void PullData()
         //Lets pull some data shall we
         {
@@ -91,7 +36,7 @@ namespace Dark_Oak
             SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
             //please connect to SQL using the information provided by user and stored in settings, mykay.
             //string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
-            string query = "select [number] as [#],[name],[setCode] as [Set Name],[originalType],[originalText],[scryfallid],[mcmid] from dbo.cards";
+            string query = "select [number] as [#],[name],[setCode] as [Set Name],[originalType],[originalText],[scryfallid],[regularprice],[foilprice],[isReserved] from dbo.MTGCardsDatabase";
             //Just grab whatever is written above from the SQL server
             SqlCommand cmd = new SqlCommand(query, conn);
             //Make a new fancy command 
@@ -108,7 +53,6 @@ namespace Dark_Oak
             mTGCardsDataGridView.DataSource = dt;
 
         }
-
         public void PullDataFromSortBoard()
         //Lets pull some data shall we
         {
@@ -133,19 +77,12 @@ namespace Dark_Oak
             mtgSortingBoardDataGridView.DataSource = dtsort;
 
         }
-
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormSettings form = new FormSettings();
             form.Show();
         }
         // Opens the settings menu vis the Strip menu
-        public void datagridview1_SelectionChanged(object sender, EventArgs e)
-        {
-
-
-
-        }
         public void FormMain_Load(object sender, EventArgs e)
         {
 
@@ -189,12 +126,14 @@ namespace Dark_Oak
         private void mTGCardsDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             this.mTGCardsDataGridView.Columns["scryfallid"].Visible = false;
-            this.mTGCardsDataGridView.Columns["mcmid"].Visible = false;
+            //this.mTGCardsDataGridView.Columns["mcmid"].Visible = false;
             this.mTGCardsDataGridView.Columns[0].HeaderText = "#";
             this.mTGCardsDataGridView.Columns[1].HeaderText = "Card Name";
             this.mTGCardsDataGridView.Columns[2].HeaderText = "Set";
             this.mTGCardsDataGridView.Columns[3].HeaderText = "Type";
             this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
+            this.mTGCardsDataGridView.Columns[6].HeaderText = "Normal";
+            this.mTGCardsDataGridView.Columns[7].HeaderText = "Foil";
             // this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
             this.mTGCardsDataGridView.AllowUserToResizeColumns = false;
             this.mTGCardsDataGridView.AllowUserToResizeRows = false;
@@ -203,9 +142,12 @@ namespace Dark_Oak
             this.mTGCardsDataGridView.Columns[2].Width = 60;
             this.mTGCardsDataGridView.Columns[3].Width = 300;
             this.mTGCardsDataGridView.Columns[4].Width = 500;
+            this.mTGCardsDataGridView.Columns[6].Width = 60;
+            this.mTGCardsDataGridView.Columns[7].Width = 60;
+
+
             this.mTGCardsDataGridView.AllowUserToAddRows = false;
         }
-
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
             filterstuff();
@@ -259,7 +201,6 @@ namespace Dark_Oak
             }
 
         }
-
         private void mTGCardsDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -285,7 +226,6 @@ namespace Dark_Oak
             //    MessageBox.Show(Command);
             PullDataFromSortBoard();
         }
-
         private void mtgSortingBoardDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             this.mtgSortingBoardDataGridView.Columns["scryfallid"].Visible = false;
@@ -300,7 +240,6 @@ namespace Dark_Oak
             this.mtgSortingBoardDataGridView.Columns[2].Width = 150;
             this.mtgSortingBoardDataGridView.AllowUserToAddRows = false;
         }
-
         private void mtgSortingBoardDataGridView_SelectionChanged(object sender, EventArgs e)
         {
             try
@@ -313,8 +252,14 @@ namespace Dark_Oak
                     string b = Convert.ToString(selectedRow.Cells["card_name"].Value);
                     byte[] result = Database.GetImage(a);
                     MemoryStream stream = new MemoryStream(result);
-                    pictureBox1.Image = Image.FromStream(stream);
+
+                    Image img = Image.FromStream(stream);
+                    pictureBox1.Image = img;
                     label6.Text = b;
+                    string path =
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    MessageBox.Show(path + @"\Dreameater");
+                    img.Save(Path.GetTempPath() + path, ImageFormat.Jpeg);
                 }
             }
             catch (Exception ed)
@@ -322,7 +267,6 @@ namespace Dark_Oak
                 //  MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
             }
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             string Command = "Delete from MTGCardsSortBoard";
@@ -338,7 +282,6 @@ namespace Dark_Oak
             //  MessageBox.Show(Command);
             PullDataFromSortBoard();
         }
-
         private void mTGCardsDataGridView_KeyDown(object sender, KeyEventArgs e)
         // If you press the plus sign on the numpad it adds a card to the collection board.
         {
@@ -368,10 +311,21 @@ namespace Dark_Oak
             }
             else { }
         }
-
         private void mTGCardsDataGridView_MouseClick(object sender, MouseEventArgs e)
         // When you use the mouse to select a card in the table
         {
+
+            int selectedrowindex2 = mTGCardsDataGridView.SelectedCells[0].RowIndex;
+            DataGridViewRow selectedRow2 = mTGCardsDataGridView.Rows[selectedrowindex2];
+            string scryfallid2 = Convert.ToString(selectedRow2.Cells["scryfallid"].Value);
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Dreameater\"; // Define path as C:\Users\user\Documents\Dreameater
+
+            if (File.Exists(path+scryfallid2+".jpeg")) //Testing to see if image has allready been downloaded.
+            { 
+                pictureBox1.ImageLocation = (path + scryfallid2 + ".jpeg");
+            
+            } else { 
+
             try
             {
                 int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
@@ -394,28 +348,31 @@ namespace Dark_Oak
                     {
                         if (obj.Name == "image_uris")
                         {
-                            //string gogo = (string)obj[0]["small"][0];
+
                             String text = Convert.ToString(obj);
-                            // MessageBox.Show(text);
-                            //   debugoutput(Convert.ToString(obj));
-                            // MessageBox.Show("Type is " + Convert.ToString(obj.GetType()));
+
                             var stringliste = new List<string> { };
 
                             string[] image_uris = text.Split();
                             foreach (string info in image_uris)
                             {
-                                // MessageBox.Show(info);
-
-                                stringliste.Add(info);
+                                stringliste.Add(info); 
                             }
-                            // MessageBox.Show(stringliste[11]);
-                            string image_uris_result = (stringliste[11]);
-                            image_uris_result = image_uris_result.Remove(0, 1);
-                            image_uris_result = image_uris_result.Substring(0, image_uris_result.Length - 2);
-                            // MessageBox.Show(image_uris_result);
-                            var wc = new WebClient();
-                            Image x = Image.FromStream(wc.OpenRead(image_uris_result));
-                            pictureBox1.Image = x;
+                           
+                            string image_uris_result = (stringliste[11]); // Get string from list in position 11 
+                            image_uris_result = image_uris_result.Remove(0, 1); // Clean the string and remove the first "
+                            image_uris_result = image_uris_result.Substring(0, image_uris_result.Length - 2); // Clean the string and remove the two last chars ",
+                            
+                            var wc = new WebClient(); // Create a new webclient
+                            Image x = Image.FromStream(wc.OpenRead(image_uris_result)); // Use webclient to read datastream as an image and save to variable x
+                            pictureBox1.Image = x; // Assign picturebox image as x
+
+                            
+                            if (Directory.Exists(path)) { // If that path exisits do nothing yet
+                            } else { CreateFolder(path); } // If that path does NOT exist create the folder
+                            x.Save(path + scryfallid + ".jpeg", ImageFormat.Jpeg); // Save data from variable x to path + \ + the scryfallid + jpeg as a image format jpeg.
+
+
                         }
                     }
                 }
@@ -467,7 +424,7 @@ namespace Dark_Oak
                             }
                             string foilprice = (stringliste[11]);
                             //MessageBox.Show(foilprice);
-                            if (foilprice == "null,") {  } else {
+                            if (foilprice == "null,") { } else {
                                 foilprice = foilprice.Remove(0, 1);
                                 foilprice = foilprice.Substring(0, foilprice.Length - 2);
                                 decimal foilrealprice = Convert.ToDecimal(foilprice);
@@ -508,18 +465,17 @@ namespace Dark_Oak
             {
                 //MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
             }
-
+            }
         }
-
         private void updatePricesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+
             int lenght = retrieveMCMids().Count;
             MessageBox.Show(Convert.ToString(lenght));
             int counter = 0;
-            
-                foreach (var card in retrieveMCMids())
-                {
+
+            foreach (var card in retrieveMCMids())
+            {
                 counter++;
                 try
                 {
@@ -580,26 +536,26 @@ namespace Dark_Oak
                                     // MessageBox.Show(info);
                                     stringliste.Add(priceinfo);
                                 }
-                                
+
                                 string Nonfoilprice = (stringliste[6]);
-                                if(Nonfoilprice == "null,") { }
-                                else { 
-                                Nonfoilprice = Nonfoilprice.Remove(0, 1);
-                                Nonfoilprice = Nonfoilprice.Substring(0, Nonfoilprice.Length - 2);
-                                decimal nonfoilprice = Convert.ToDecimal(Nonfoilprice);
-                                ext_Nonfoilprice = nonfoilprice;
+                                if (Nonfoilprice == "null,") { }
+                                else {
+                                    Nonfoilprice = Nonfoilprice.Remove(0, 1);
+                                    Nonfoilprice = Nonfoilprice.Substring(0, Nonfoilprice.Length - 2);
+                                    decimal nonfoilprice = Convert.ToDecimal(Nonfoilprice);
+                                    ext_Nonfoilprice = nonfoilprice;
                                 }
 
 
                             }
-                            
+
                         }
-                        System.Diagnostics.Debug.WriteLine("FOIL = " + ext_foilprice+ " : Regular = " + ext_Nonfoilprice + " [MCMid = " + card + "]");
+                        System.Diagnostics.Debug.WriteLine("FOIL = " + ext_foilprice + " : Regular = " + ext_Nonfoilprice + " [MCMid = " + card + "]");
                         System.Diagnostics.Debug.WriteLine(counter);
-                        runsqlquery("insert into mcmcards values(" + card + "," + ext_foilprice +","+ ext_Nonfoilprice+")" );
+                        runsqlquery("insert into mcmcards values(" + card + "," + ext_foilprice + "," + ext_Nonfoilprice + ")");
 
 
-                    }  
+                    }
                     catch (Exception ex)
                     {
                         System.Diagnostics.Debug.WriteLine(Convert.ToString(ex));
@@ -614,10 +570,9 @@ namespace Dark_Oak
                     //MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
                 }
                 //System.Diagnostics.Debug.WriteLine(card);
-                }
-            
-        }
+            }
 
+        }
         public static List<string> retrieveMCMids()
         {
             List<string> columnData = new List<string>();
@@ -626,7 +581,7 @@ namespace Dark_Oak
             {
                 connection.Open();
                 string query = "SELECT mcmid FROM dbo.cards where mcmid is not null";
-               
+
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -638,12 +593,12 @@ namespace Dark_Oak
                     }
                 }
             }
-            
+
             return columnData;
         }
         public void runsqlquery(string query)
         {
-            
+
             SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
             //SqlCommand cmd = new SqlCommand(query, conn);
             conn.Open();
@@ -654,10 +609,15 @@ namespace Dark_Oak
             conn.Close();
 
         }
-
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string path =
+             Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            MessageBox.Show(path + @"\Dreameater");
+        }
+        public static void CreateFolder(string path){
+            DirectoryInfo di = Directory.CreateDirectory(path);
+        }
     }
-
-
-
-    }
+}
 
