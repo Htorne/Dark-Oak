@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -94,6 +95,7 @@ namespace Dark_Oak
             DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
             // [OLD] string a = Convert.ToString(selectedRow.Cells["web_scraper_order"].Value);
         }
+        #region filters
         public void textBox1_TextChanged(object sender, EventArgs e)
         {
             PullData();
@@ -122,31 +124,6 @@ namespace Dark_Oak
 
             filterstuff();
 
-        }
-        private void mTGCardsDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            this.mTGCardsDataGridView.Columns["scryfallid"].Visible = false;
-            //this.mTGCardsDataGridView.Columns["mcmid"].Visible = false;
-            this.mTGCardsDataGridView.Columns[0].HeaderText = "#";
-            this.mTGCardsDataGridView.Columns[1].HeaderText = "Card Name";
-            this.mTGCardsDataGridView.Columns[2].HeaderText = "Set";
-            this.mTGCardsDataGridView.Columns[3].HeaderText = "Type";
-            this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
-            this.mTGCardsDataGridView.Columns[6].HeaderText = "Normal";
-            this.mTGCardsDataGridView.Columns[7].HeaderText = "Foil";
-            // this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
-            this.mTGCardsDataGridView.AllowUserToResizeColumns = false;
-            this.mTGCardsDataGridView.AllowUserToResizeRows = false;
-            this.mTGCardsDataGridView.Columns[0].Width = 60;
-            this.mTGCardsDataGridView.Columns[1].Width = 200;
-            this.mTGCardsDataGridView.Columns[2].Width = 60;
-            this.mTGCardsDataGridView.Columns[3].Width = 300;
-            this.mTGCardsDataGridView.Columns[4].Width = 500;
-            this.mTGCardsDataGridView.Columns[6].Width = 60;
-            this.mTGCardsDataGridView.Columns[7].Width = 60;
-
-
-            this.mTGCardsDataGridView.AllowUserToAddRows = false;
         }
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
@@ -201,6 +178,49 @@ namespace Dark_Oak
             }
 
         }
+        #endregion
+        #region GridFormatting 
+        private void mTGCardsDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            this.mTGCardsDataGridView.Columns["scryfallid"].Visible = false;
+            //this.mTGCardsDataGridView.Columns["mcmid"].Visible = false;
+            this.mTGCardsDataGridView.Columns[0].HeaderText = "#";
+            this.mTGCardsDataGridView.Columns[1].HeaderText = "Card Name";
+            this.mTGCardsDataGridView.Columns[2].HeaderText = "Set";
+            this.mTGCardsDataGridView.Columns[3].HeaderText = "Type";
+            this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
+            this.mTGCardsDataGridView.Columns[6].HeaderText = "Normal";
+            this.mTGCardsDataGridView.Columns[7].HeaderText = "Foil";
+            // this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
+            this.mTGCardsDataGridView.AllowUserToResizeColumns = false;
+            this.mTGCardsDataGridView.AllowUserToResizeRows = false;
+            this.mTGCardsDataGridView.Columns[0].Width = 45;
+            this.mTGCardsDataGridView.Columns[1].Width = 200;
+            this.mTGCardsDataGridView.Columns[2].Width = 60;
+            this.mTGCardsDataGridView.Columns[3].Width = 225;
+            this.mTGCardsDataGridView.Columns[4].Width = 500;
+            this.mTGCardsDataGridView.Columns[6].Width = 60;
+            this.mTGCardsDataGridView.Columns[7].Width = 60;
+
+
+            this.mTGCardsDataGridView.AllowUserToAddRows = false;
+        }
+        private void mtgSortingBoardDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            this.mtgSortingBoardDataGridView.Columns["scryfallid"].Visible = false;
+            this.mtgSortingBoardDataGridView.Columns["mcmid"].Visible = false;
+            this.mtgSortingBoardDataGridView.Columns[0].HeaderText = "#";
+            this.mtgSortingBoardDataGridView.Columns[1].HeaderText = "Name";
+            this.mtgSortingBoardDataGridView.Columns[2].HeaderText = "Set";
+            this.mtgSortingBoardDataGridView.AllowUserToResizeColumns = false;
+            this.mtgSortingBoardDataGridView.AllowUserToResizeRows = false;
+            this.mtgSortingBoardDataGridView.Columns[0].Width = 35;
+            this.mtgSortingBoardDataGridView.Columns[1].Width = 212;
+            this.mtgSortingBoardDataGridView.Columns[2].Width = 150;
+            this.mtgSortingBoardDataGridView.AllowUserToAddRows = false;
+        }
+        #endregion
+
         private void mTGCardsDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -226,20 +246,7 @@ namespace Dark_Oak
             //    MessageBox.Show(Command);
             PullDataFromSortBoard();
         }
-        private void mtgSortingBoardDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            this.mtgSortingBoardDataGridView.Columns["scryfallid"].Visible = false;
-            this.mtgSortingBoardDataGridView.Columns["mcmid"].Visible = false;
-            this.mtgSortingBoardDataGridView.Columns[0].HeaderText = "#";
-            this.mtgSortingBoardDataGridView.Columns[1].HeaderText = "Name";
-            this.mtgSortingBoardDataGridView.Columns[2].HeaderText = "Set";
-            this.mtgSortingBoardDataGridView.AllowUserToResizeColumns = false;
-            this.mtgSortingBoardDataGridView.AllowUserToResizeRows = false;
-            this.mtgSortingBoardDataGridView.Columns[0].Width = 35;
-            this.mtgSortingBoardDataGridView.Columns[1].Width = 212;
-            this.mtgSortingBoardDataGridView.Columns[2].Width = 150;
-            this.mtgSortingBoardDataGridView.AllowUserToAddRows = false;
-        }
+        
         private void mtgSortingBoardDataGridView_SelectionChanged(object sender, EventArgs e)
         {
             try
@@ -255,7 +262,7 @@ namespace Dark_Oak
 
                     Image img = Image.FromStream(stream);
                     pictureBox1.Image = img;
-                    label6.Text = b;
+                    
                     string path =
                     Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                     MessageBox.Show(path + @"\Dreameater");
@@ -319,7 +326,7 @@ namespace Dark_Oak
             DataGridViewRow selectedRow2 = mTGCardsDataGridView.Rows[selectedrowindex2];
             string scryfallid2 = Convert.ToString(selectedRow2.Cells["scryfallid"].Value);
             string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Dreameater\"; // Define path as C:\Users\user\Documents\Dreameater
-
+            label6.Text = scryfallid2;
             if (File.Exists(path+scryfallid2+".jpeg")) //Testing to see if image has allready been downloaded.
             { 
                 pictureBox1.ImageLocation = (path + scryfallid2 + ".jpeg");
@@ -333,8 +340,8 @@ namespace Dark_Oak
                 string scryfallid = Convert.ToString(selectedRow.Cells["scryfallid"].Value);
                 RestClient rClient = new RestClient();
                 rClient.endPoint = "https://api.scryfall.com/cards/" + scryfallid;
-                //Get data from Scryfall API
-
+                    //Get data from Scryfall API
+                  
                 string strResponse = string.Empty;
                 //Initiate variable
 
@@ -617,6 +624,18 @@ namespace Dark_Oak
         }
         public static void CreateFolder(string path){
             DirectoryInfo di = Directory.CreateDirectory(path);
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            string path =
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            Process.Start(path + @"\Dreameater");
         }
     }
 }
