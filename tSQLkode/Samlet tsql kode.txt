@@ -13,3 +13,27 @@ left join
 	on a.mcmId= b.mcmid_b -- Join on the mcmID 
 
 
+    /*
+    Add card to database collection
+
+    
+    */
+
+    
+if exists (SELECT * FROM MTGCardsCollection WHERE scryfallId = '35c7c392-6782-40c8-bb24-6aad24f14660') --Lets check to see if the cards is present in the database
+	begin
+	declare @number_of_cards_in_collection as int
+	set @number_of_cards_in_collection = (select amount_owned from MTGCardsCollection where scryfallId = '35c7c392-6782-40c8-bb24-6aad24f14660')
+	set @number_of_cards_in_collection = @number_of_cards_in_collection + 1
+	update MTGCardsCollection
+	set amount_owned = @number_of_cards_in_collection
+end
+else
+begin
+	insert into MTGCardsCollection
+	select *,1,0,'','',''  from MTGCardsDatabase 
+	where scryfallId = '35c7c392-6782-40c8-bb24-6aad24f14660'
+end
+
+
+
