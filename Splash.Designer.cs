@@ -36,6 +36,7 @@ namespace Dark_Oak
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1440, 1041);
             this.ControlBox = false;
@@ -44,8 +45,10 @@ namespace Dark_Oak
             this.MinimizeBox = false;
             this.Name = "Splash";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Splash";
-            this.Load += new System.EventHandler(this.Splash_Load);
+            this.TopMost = true;
+            this.Shown += new System.EventHandler(this.Splash_Shown);
             this.ResumeLayout(false);
 
         }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,9 +18,12 @@ namespace Dark_Oak
             InitializeComponent();
         }
 
-        private void Splash_Load(object sender, EventArgs e)
+
+
+        private void Splash_Shown(object sender, EventArgs e)
         {
-            Application.Run(new FormMain());
+            Thread.Sleep(8000);
+            this.Close();
         }
     }
 }

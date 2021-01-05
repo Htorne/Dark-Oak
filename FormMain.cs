@@ -27,7 +27,8 @@ namespace Dark_Oak
         public FormMain()
         {
             InitializeComponent();
-            
+            Splash form = new Splash();
+            form.Show();
             PullData();
 
         }
