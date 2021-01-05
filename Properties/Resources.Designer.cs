@@ -63,9 +63,9 @@ namespace Dark_Oak.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _319 {
+        internal static System.Drawing.Bitmap ReservedList {
             get {
-                object obj = ResourceManager.GetObject("319", resourceCulture);
+                object obj = ResourceManager.GetObject("ReservedList", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -27,17 +27,19 @@ namespace Dark_Oak
         public FormMain()
         {
             InitializeComponent();
+            
             PullData();
 
         }
         public void PullData()
         //Lets pull some data shall we
         {
+            try { 
             DataTable dt = new DataTable();
             SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
             //please connect to SQL using the information provided by user and stored in settings, mykay.
             //string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
-            string query = "select [number] as [#],[name],[setCode] as [Set Name],[originalType],[originalText],[scryfallid],[regularprice],[foilprice],[isReserved] from dbo.MTGCardsDatabase";
+            string query = "select [number] as [#],[name],[setCode] as [Set Name],[originalType],[originalText],[scryfallid],[regularprice],[foilprice],[isReserved],[isOnlineOnly] from dbo.MTGCardsDatabase";
             //Just grab whatever is written above from the SQL server
             SqlCommand cmd = new SqlCommand(query, conn);
             //Make a new fancy command 
@@ -52,7 +54,7 @@ namespace Dark_Oak
             da.Dispose();
             //Hide the evidence; dispose data adapter 
             mTGCardsDataGridView.DataSource = dt;
-
+            } catch { MessageBox.Show("Unable to open a connection to the database "); }
         }
         public void PullDataFromSortBoard()
         //Lets pull some data shall we
@@ -182,6 +184,7 @@ namespace Dark_Oak
         #region GridFormatting 
         private void mTGCardsDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+            try { 
             this.mTGCardsDataGridView.Columns["scryfallid"].Visible = false;
             //this.mTGCardsDataGridView.Columns["mcmid"].Visible = false;
             this.mTGCardsDataGridView.Columns[0].HeaderText = "#";
@@ -200,10 +203,12 @@ namespace Dark_Oak
             this.mTGCardsDataGridView.Columns[3].Width = 225;
             this.mTGCardsDataGridView.Columns[4].Width = 500;
             this.mTGCardsDataGridView.Columns[6].Width = 60;
-            this.mTGCardsDataGridView.Columns[7].Width = 60;
-
-
+                this.mTGCardsDataGridView.Columns[7].Width = 60;
             this.mTGCardsDataGridView.AllowUserToAddRows = false;
+            } catch
+            {
+                MessageBox.Show("");
+            }
         }
         private void mtgSortingBoardDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
@@ -321,13 +326,19 @@ namespace Dark_Oak
         private void mTGCardsDataGridView_MouseClick(object sender, MouseEventArgs e)
         // When you use the mouse to select a card in the table
         {
-
+            try { 
             int selectedrowindex2 = mTGCardsDataGridView.SelectedCells[0].RowIndex;
             DataGridViewRow selectedRow2 = mTGCardsDataGridView.Rows[selectedrowindex2];
             string scryfallid2 = Convert.ToString(selectedRow2.Cells["scryfallid"].Value);
             string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Dreameater\"; // Define path as C:\Users\user\Documents\Dreameater
             label6.Text = scryfallid2;
-            if (File.Exists(path+scryfallid2+".jpeg")) //Testing to see if image has allready been downloaded.
+            label11.Text = Convert.ToString(selectedRow2.Cells["regularprice"].Value);
+                int is_reserved = Convert.ToInt32(selectedRow2.Cells["isReserved"].Value);
+                int is_online = Convert.ToInt32(selectedRow2.Cells["isonlineonly"].Value);
+                if(is_reserved == 1 ) { pictureBox2.Visible = true; } else { pictureBox2.Visible = false; }
+                if (is_online == 1) { pictureBox3.Visible = true; } else { pictureBox3.Visible = false; }
+                label12.Text = Convert.ToString(selectedRow2.Cells["foilprice"].Value);
+                if (File.Exists(path+scryfallid2+".jpeg")) //Testing to see if image has allready been downloaded.
             { 
                 pictureBox1.ImageLocation = (path + scryfallid2 + ".jpeg");
             
@@ -340,8 +351,8 @@ namespace Dark_Oak
                 string scryfallid = Convert.ToString(selectedRow.Cells["scryfallid"].Value);
                 RestClient rClient = new RestClient();
                 rClient.endPoint = "https://api.scryfall.com/cards/" + scryfallid;
-                    //Get data from Scryfall API
-                  
+                        //Get data from Scryfall API
+                          
                 string strResponse = string.Empty;
                 //Initiate variable
 
@@ -473,6 +484,8 @@ namespace Dark_Oak
                 //MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
             }
             }
+            }
+            catch { MessageBox.Show("No connection to data found, check your data source"); }
         }
         private void updatePricesToolStripMenuItem_Click(object sender, EventArgs e)
         {
