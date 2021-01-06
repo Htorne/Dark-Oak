@@ -68,7 +68,7 @@ DECLARE @scryfallid nvarchar(max)
 	begin
 				insert into DarkOakDB.dbo.MTGCardsCollection
 		
-				select *,1,0,'','',''  from DarkOakDB.dbo.MTGCardsDatabase 
+				select *,1,0,'','','','',''  from DarkOakDB.dbo.MTGCardsDatabase 
 			
 				where scryfallId = @scryfallid
 				print 'Just saw new card'
@@ -82,4 +82,5 @@ end
 CLOSE MY_CURSOR
 DEALLOCATE MY_CURSOR
 select [name],[amount_owned] from [DarkOakDB].[dbo].[MTGCardsCollection]
---delete from [DarkOakDB].[dbo].[MTGCardsCollection]
+
+delete from [DarkOakDB].[dbo].[MTGCardsSortBoard]
