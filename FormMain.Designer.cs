@@ -163,10 +163,10 @@ namespace Dark_Oak
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(35, 150);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 32);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(363, 565);
+            this.pictureBox1.Size = new System.Drawing.Size(497, 683);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
@@ -212,7 +212,7 @@ namespace Dark_Oak
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.Desktop;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.mTGCardsDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
-            this.mTGCardsDataGridView.Location = new System.Drawing.Point(418, 150);
+            this.mTGCardsDataGridView.Location = new System.Drawing.Point(539, 150);
             this.mTGCardsDataGridView.Margin = new System.Windows.Forms.Padding(2);
             this.mTGCardsDataGridView.Name = "mTGCardsDataGridView";
             this.mTGCardsDataGridView.ReadOnly = true;
@@ -221,11 +221,12 @@ namespace Dark_Oak
             this.mTGCardsDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.mTGCardsDataGridView.RowTemplate.Height = 18;
             this.mTGCardsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.mTGCardsDataGridView.Size = new System.Drawing.Size(1682, 565);
+            this.mTGCardsDataGridView.Size = new System.Drawing.Size(1561, 565);
             this.mTGCardsDataGridView.TabIndex = 8;
             this.mTGCardsDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mTGCardsDataGridView_CellDoubleClick);
             this.mTGCardsDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.mTGCardsDataGridView_DataBindingComplete);
             this.mTGCardsDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mTGCardsDataGridView_KeyDown);
+            this.mTGCardsDataGridView.KeyUp += new System.Windows.Forms.KeyEventHandler(this.mTGCardsDataGridView_KeyUp);
             this.mTGCardsDataGridView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mTGCardsDataGridView_MouseClick);
             // 
             // textBox1
@@ -260,11 +261,11 @@ namespace Dark_Oak
             this.Filters.Controls.Add(this.label3);
             this.Filters.Controls.Add(this.textBox1);
             this.Filters.Controls.Add(this.textBox2);
-            this.Filters.Location = new System.Drawing.Point(418, 63);
+            this.Filters.Location = new System.Drawing.Point(539, 63);
             this.Filters.Margin = new System.Windows.Forms.Padding(2);
             this.Filters.Name = "Filters";
             this.Filters.Padding = new System.Windows.Forms.Padding(2);
-            this.Filters.Size = new System.Drawing.Size(1263, 83);
+            this.Filters.Size = new System.Drawing.Size(1142, 83);
             this.Filters.TabIndex = 11;
             this.Filters.TabStop = false;
             this.Filters.Text = "Filters";

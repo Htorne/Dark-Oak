@@ -264,30 +264,7 @@ namespace Dark_Oak
         
         private void mtgSortingBoardDataGridView_SelectionChanged(object sender, EventArgs e)
         {
-            try
-            {
-                if (mTGCardsDataGridView.SelectedCells.Count > 0)
-                {
-                    int selectedrowindex = mtgSortingBoardDataGridView.SelectedCells[0].RowIndex;
-                    DataGridViewRow selectedRow = mtgSortingBoardDataGridView.Rows[selectedrowindex];
-                    string a = Convert.ToString(selectedRow.Cells["web_scraper_order"].Value);
-                    string b = Convert.ToString(selectedRow.Cells["card_name"].Value);
-                    byte[] result = Database.GetImage(a);
-                    MemoryStream stream = new MemoryStream(result);
-
-                    Image img = Image.FromStream(stream);
-                    pictureBox1.Image = img;
-                    
-                    string path =
-                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                    MessageBox.Show(path + @"\Dreameater");
-                    img.Save(Path.GetTempPath() + path, ImageFormat.Jpeg);
-                }
-            }
-            catch (Exception ed)
-            {
-                //  MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
-            }
+          
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -307,6 +284,174 @@ namespace Dark_Oak
         private void mTGCardsDataGridView_KeyDown(object sender, KeyEventArgs e)
         // If you press the plus sign on the numpad it adds a card to the collection board.
         {
+            try
+            {
+                //Get 
+                int selectedrowindex2 = mTGCardsDataGridView.SelectedCells[0].RowIndex+1;
+                DataGridViewRow selectedRow2 = mTGCardsDataGridView.Rows[selectedrowindex2];
+                string scryfallid2 = Convert.ToString(selectedRow2.Cells["scryfallid"].Value);
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Dreameater\"; // Define path as C:\Users\user\Documents\Dreameater
+                label6.Text = scryfallid2;
+                label11.Text = Convert.ToString(selectedRow2.Cells["regularprice"].Value);
+                int is_reserved = Convert.ToInt32(selectedRow2.Cells["isReserved"].Value);
+                int is_online = Convert.ToInt32(selectedRow2.Cells["isonlineonly"].Value);
+                if (is_reserved == 1) { pictureBox2.Visible = true; } else { pictureBox2.Visible = false; }
+                if (is_online == 1) { pictureBox3.Visible = true; } else { pictureBox3.Visible = false; }
+                label12.Text = Convert.ToString(selectedRow2.Cells["foilprice"].Value);
+                if (File.Exists(path + scryfallid2 + ".jpeg")) //Testing to see if image has allready been downloaded.
+                {
+                    pictureBox1.ImageLocation = (path + scryfallid2 + ".jpeg");
+
+                }
+                else
+                { //If the image is not downloaded - go online and download it
+
+                    try
+                    {
+                        int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
+                        DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
+                        string scryfallid = Convert.ToString(selectedRow.Cells["scryfallid"].Value);
+                        RestClient rClient = new RestClient();
+                        rClient.endPoint = "https://api.scryfall.com/cards/" + scryfallid;
+                        //Get data from Scryfall API
+
+                        string strResponse = string.Empty;
+                        //Initiate variable
+
+                        strResponse = rClient.makeRequest();
+                        // MessageBox.Show(Convert.ToString(strResponse));
+                        try
+                        {
+                            JObject jsonObj = JObject.Parse(strResponse);
+
+                            foreach (JProperty obj in jsonObj.Properties())
+                            {
+                                if (obj.Name == "image_uris")
+                                {
+
+                                    String text = Convert.ToString(obj);
+
+                                    var stringliste = new List<string> { };
+
+                                    string[] image_uris = text.Split();
+                                    foreach (string info in image_uris)
+                                    {
+                                        stringliste.Add(info);
+                                    }
+
+                                    string image_uris_result = (stringliste[11]); // Get string from list in position 11 
+                                    image_uris_result = image_uris_result.Remove(0, 1); // Clean the string and remove the first "
+                                    image_uris_result = image_uris_result.Substring(0, image_uris_result.Length - 2); // Clean the string and remove the two last chars ",
+
+                                    var wc = new WebClient(); // Create a new webclient
+                                    Image x = Image.FromStream(wc.OpenRead(image_uris_result)); // Use webclient to read datastream as an image and save to variable x
+                                    pictureBox1.Image = x; // Assign picturebox image as x
+
+
+                                    if (Directory.Exists(path))
+                                    { // If that path exisits do nothing yet
+                                    }
+                                    else { CreateFolder(path); } // If that path does NOT exist create the folder
+                                    x.Save(path + scryfallid + ".jpeg", ImageFormat.Jpeg); // Save data from variable x to path + \ + the scryfallid + jpeg as a image format jpeg.
+
+
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Program most likely had a 404 error see debug log or messageboxes for details " + Convert.ToString(ex));
+                        }
+
+
+
+
+                    }
+                    catch (Exception ed)
+                    {
+                        MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
+                    }
+
+                    // With the first part above done, where we got the image using the scryfall scryfallid, we now 
+                    // attempt to get market data using the mcmid information to get the regular and foil prices. 
+                    try
+                    {
+
+                        int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
+                        DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
+                        string mcmid = Convert.ToString(selectedRow.Cells["mcmid"].Value);
+                        RestClient rClient = new RestClient();
+                        rClient.endPoint = "https://api.scryfall.com/cards/cardmarket/" + mcmid;
+                        // Here we retrive the card mcmid information from the database and preform an
+                        // API call to check to see if the card has any market data. There are serval
+                        // cards which does not have any market data on scryfall.
+
+                        string strResponse = string.Empty;
+                        strResponse = rClient.makeRequest();
+                        //MessageBox.Show(Convert.ToString(strResponse));
+                        try
+                        {
+                            JObject jsonObj = JObject.Parse(strResponse);
+
+                            foreach (JProperty obj in jsonObj.Properties())
+                            {
+                                if (obj.Name == "prices")
+                                {
+                                    String text = Convert.ToString(obj);
+                                    var stringliste = new List<string> { };
+                                    string[] jsonarray = text.Split();
+                                    foreach (string priceinfo in jsonarray)
+                                    {
+                                        stringliste.Add(priceinfo);
+                                    }
+                                    string foilprice = (stringliste[11]);
+                                    //MessageBox.Show(foilprice);
+                                    if (foilprice == "null,") { }
+                                    else
+                                    {
+                                        foilprice = foilprice.Remove(0, 1);
+                                        foilprice = foilprice.Substring(0, foilprice.Length - 2);
+                                        decimal foilrealprice = Convert.ToDecimal(foilprice);
+                                    }
+                                }
+                            }
+                            foreach (JProperty obj in jsonObj.Properties())
+                            {
+                                if (obj.Name == "prices")
+                                {
+                                    //string gogo = (string)obj[0]["small"][0];
+                                    String text = Convert.ToString(obj);
+                                    //MessageBox.Show(text);
+                                    // MessageBox.Show("Type is " + Convert.ToString(obj.GetType()));
+                                    var stringliste = new List<string> { };
+                                    string[] jsonarray = text.Split();
+                                    foreach (string priceinfo in jsonarray)
+                                    {
+                                        // MessageBox.Show(info);
+                                        stringliste.Add(priceinfo);
+                                    }
+                                    string Nonfoilprice = (stringliste[6]);
+                                    Nonfoilprice = Nonfoilprice.Remove(0, 1);
+                                    Nonfoilprice = Nonfoilprice.Substring(0, Nonfoilprice.Length - 2);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Program most likely had a 404 error see debug log or messageboxes for details " + Convert.ToString(ex));
+                        }
+
+
+
+
+                    }
+                    catch (Exception ed)
+                    {
+                        //MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
+                    }
+                }
+            }
+            catch { MessageBox.Show("No connection to data found, check your data source"); }
             if (e.KeyCode == Keys.Add)
             {
                 int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
@@ -314,8 +459,6 @@ namespace Dark_Oak
                 string scryfallid = Convert.ToString(selectedRow.Cells["scryfallid"].Value);
                 string set_name = Convert.ToString(selectedRow.Cells["Set Name"].Value);
                 string name = Convert.ToString(selectedRow.Cells["name"].Value);
-                // string full_card_id = card_number + " " + set_name + " " + card_name;
-                // MessageBox.Show(full_card_id);
 
                 name = name.Replace("'", $"{(char)39}");
                 // string Command = "";
@@ -354,7 +497,7 @@ namespace Dark_Oak
             { 
                 pictureBox1.ImageLocation = (path + scryfallid2 + ".jpeg");
             
-            } else { 
+            } else { //If the image is not downloaded - go online and download it
 
             try
             {
@@ -417,7 +560,7 @@ namespace Dark_Oak
             }
             catch (Exception ed)
             {
-                //MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
+                MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
             }
 
             // With the first part above done, where we got the image using the scryfall scryfallid, we now 
@@ -671,6 +814,205 @@ namespace Dark_Oak
         private void pictureBox2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void mTGCardsDataGridView_KeyUp(object sender, KeyEventArgs e)
+        {
+            // If you press the plus sign on the numpad it adds a card to the collection board.
+            {
+                try
+                {
+                    //Get 
+                    int selectedrowindex2 = mTGCardsDataGridView.SelectedCells[0].RowIndex ;
+                    DataGridViewRow selectedRow2 = mTGCardsDataGridView.Rows[selectedrowindex2];
+                    string scryfallid2 = Convert.ToString(selectedRow2.Cells["scryfallid"].Value);
+                    string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Dreameater\"; // Define path as C:\Users\user\Documents\Dreameater
+                    label6.Text = scryfallid2;
+                    label11.Text = Convert.ToString(selectedRow2.Cells["regularprice"].Value);
+                    int is_reserved = Convert.ToInt32(selectedRow2.Cells["isReserved"].Value);
+                    int is_online = Convert.ToInt32(selectedRow2.Cells["isonlineonly"].Value);
+                    if (is_reserved == 1) { pictureBox2.Visible = true; } else { pictureBox2.Visible = false; }
+                    if (is_online == 1) { pictureBox3.Visible = true; } else { pictureBox3.Visible = false; }
+                    label12.Text = Convert.ToString(selectedRow2.Cells["foilprice"].Value);
+                    if (File.Exists(path + scryfallid2 + ".jpeg")) //Testing to see if image has allready been downloaded.
+                    {
+                        pictureBox1.ImageLocation = (path + scryfallid2 + ".jpeg");
+
+                    }
+                    else
+                    { //If the image is not downloaded - go online and download it
+
+                        try
+                        {
+                            int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
+                            DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
+                            string scryfallid = Convert.ToString(selectedRow.Cells["scryfallid"].Value);
+                            RestClient rClient = new RestClient();
+                            rClient.endPoint = "https://api.scryfall.com/cards/" + scryfallid;
+                            //Get data from Scryfall API
+
+                            string strResponse = string.Empty;
+                            //Initiate variable
+
+                            strResponse = rClient.makeRequest();
+                            // MessageBox.Show(Convert.ToString(strResponse));
+                            try
+                            {
+                                JObject jsonObj = JObject.Parse(strResponse);
+
+                                foreach (JProperty obj in jsonObj.Properties())
+                                {
+                                    if (obj.Name == "image_uris")
+                                    {
+
+                                        String text = Convert.ToString(obj);
+
+                                        var stringliste = new List<string> { };
+
+                                        string[] image_uris = text.Split();
+                                        foreach (string info in image_uris)
+                                        {
+                                            stringliste.Add(info);
+                                        }
+
+                                        string image_uris_result = (stringliste[11]); // Get string from list in position 11 
+                                        image_uris_result = image_uris_result.Remove(0, 1); // Clean the string and remove the first "
+                                        image_uris_result = image_uris_result.Substring(0, image_uris_result.Length - 2); // Clean the string and remove the two last chars ",
+
+                                        var wc = new WebClient(); // Create a new webclient
+                                        Image x = Image.FromStream(wc.OpenRead(image_uris_result)); // Use webclient to read datastream as an image and save to variable x
+                                        pictureBox1.Image = x; // Assign picturebox image as x
+
+
+                                        if (Directory.Exists(path))
+                                        { // If that path exisits do nothing yet
+                                        }
+                                        else { CreateFolder(path); } // If that path does NOT exist create the folder
+                                        x.Save(path + scryfallid + ".jpeg", ImageFormat.Jpeg); // Save data from variable x to path + \ + the scryfallid + jpeg as a image format jpeg.
+
+
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Program most likely had a 404 error see debug log or messageboxes for details " + Convert.ToString(ex));
+                            }
+
+
+
+
+                        }
+                        catch (Exception ed)
+                        {
+                            MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
+                        }
+
+                        // With the first part above done, where we got the image using the scryfall scryfallid, we now 
+                        // attempt to get market data using the mcmid information to get the regular and foil prices. 
+                        try
+                        {
+
+                            int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
+                            DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
+                            string mcmid = Convert.ToString(selectedRow.Cells["mcmid"].Value);
+                            RestClient rClient = new RestClient();
+                            rClient.endPoint = "https://api.scryfall.com/cards/cardmarket/" + mcmid;
+                            // Here we retrive the card mcmid information from the database and preform an
+                            // API call to check to see if the card has any market data. There are serval
+                            // cards which does not have any market data on scryfall.
+
+                            string strResponse = string.Empty;
+                            strResponse = rClient.makeRequest();
+                            //MessageBox.Show(Convert.ToString(strResponse));
+                            try
+                            {
+                                JObject jsonObj = JObject.Parse(strResponse);
+
+                                foreach (JProperty obj in jsonObj.Properties())
+                                {
+                                    if (obj.Name == "prices")
+                                    {
+                                        String text = Convert.ToString(obj);
+                                        var stringliste = new List<string> { };
+                                        string[] jsonarray = text.Split();
+                                        foreach (string priceinfo in jsonarray)
+                                        {
+                                            stringliste.Add(priceinfo);
+                                        }
+                                        string foilprice = (stringliste[11]);
+                                        //MessageBox.Show(foilprice);
+                                        if (foilprice == "null,") { }
+                                        else
+                                        {
+                                            foilprice = foilprice.Remove(0, 1);
+                                            foilprice = foilprice.Substring(0, foilprice.Length - 2);
+                                            decimal foilrealprice = Convert.ToDecimal(foilprice);
+                                        }
+                                    }
+                                }
+                                foreach (JProperty obj in jsonObj.Properties())
+                                {
+                                    if (obj.Name == "prices")
+                                    {
+                                        //string gogo = (string)obj[0]["small"][0];
+                                        String text = Convert.ToString(obj);
+                                        //MessageBox.Show(text);
+                                        // MessageBox.Show("Type is " + Convert.ToString(obj.GetType()));
+                                        var stringliste = new List<string> { };
+                                        string[] jsonarray = text.Split();
+                                        foreach (string priceinfo in jsonarray)
+                                        {
+                                            // MessageBox.Show(info);
+                                            stringliste.Add(priceinfo);
+                                        }
+                                        string Nonfoilprice = (stringliste[6]);
+                                        Nonfoilprice = Nonfoilprice.Remove(0, 1);
+                                        Nonfoilprice = Nonfoilprice.Substring(0, Nonfoilprice.Length - 2);
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Program most likely had a 404 error see debug log or messageboxes for details " + Convert.ToString(ex));
+                            }
+
+
+
+
+                        }
+                        catch (Exception ed)
+                        {
+                            //MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
+                        }
+                    }
+                }
+                catch { MessageBox.Show("No connection to data found, check your data source"); }
+                if (e.KeyCode == Keys.Add)
+                {
+                    int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
+                    DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
+                    string scryfallid = Convert.ToString(selectedRow.Cells["scryfallid"].Value);
+                    string set_name = Convert.ToString(selectedRow.Cells["Set Name"].Value);
+                    string name = Convert.ToString(selectedRow.Cells["name"].Value);
+
+                    name = name.Replace("'", $"{(char)39}");
+                    // string Command = "";
+                    string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCardsDatabase] where [scryfallid] like '" + scryfallid + "' and [setcode] like '" + set_name + "' and [name] like '" + name.Replace("'", "''") + "'";
+                    using (SqlConnection myConnection = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString))
+                    {
+                        myConnection.Open();
+                        using (SqlCommand myCommand = new SqlCommand(Command, myConnection))
+                        {
+                            myCommand.ExecuteScalar(); //runs Command string hopefully
+                        }
+                        myConnection.Close();
+                    }
+                    // MessageBox.Show(Command);
+                    PullDataFromSortBoard();
+                }
+                else { }
+            }
         }
     }
 }
