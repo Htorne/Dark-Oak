@@ -18,11 +18,9 @@ namespace Dark_Oak
             InitializeComponent();
         }
 
-
-
-        private void Splash_Shown(object sender, EventArgs e)
+        private void Splash_Load(object sender, EventArgs e)
         {
-            Thread.Sleep(8000);
+            Thread.Sleep(2000);
             this.Close();
         }
     }

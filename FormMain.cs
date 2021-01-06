@@ -27,8 +27,6 @@ namespace Dark_Oak
         public FormMain()
         {
             InitializeComponent();
-            Splash form = new Splash();
-            form.Show();
             PullData();
 
         }
@@ -40,7 +38,18 @@ namespace Dark_Oak
             SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
             //please connect to SQL using the information provided by user and stored in settings, mykay.
             //string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
-            string query = "select [number] as [#],[name],[setCode] as [Set Name],[originalType],[originalText],[scryfallid],[regularprice],[foilprice],[isReserved],[isOnlineOnly] from dbo.MTGCardsDatabase";
+            string query = "select " +
+                    "[number] as [#]," +              //0
+                    "[name]," +                       //1
+                    "[setCode] as [Set Name]," +      //2
+                    "[originalType]," +               //3
+                    "[originalText]," +               //4
+                    "[scryfallid]," +                 //5
+                    "[regularprice]," +               //6
+                    "[foilprice]," +                  //7
+                    "[isReserved]," +                 //8
+                    "[isOnlineOnly] " +               //9
+                    "from dbo.MTGCardsDatabase";        
             //Just grab whatever is written above from the SQL server
             SqlCommand cmd = new SqlCommand(query, conn);
             //Make a new fancy command 
@@ -63,7 +72,7 @@ namespace Dark_Oak
             DataTable dtsort = new DataTable();
             SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
             //please connect to SQL using the information provided by user and stored in settings, mykay.
-            string query = "select [card_number] as [#],[card_name],[set_name],[web_scraper_order] from [dbo].[MTGCardsSortBoard]";
+            string query = "select [number] as [#],[name],[setCode] from [dbo].[MTGCardsSortBoard]";
 
             //Just grab whatever is written above from the SQL server
             SqlCommand cmd = new SqlCommand(query, conn);
@@ -96,7 +105,7 @@ namespace Dark_Oak
         {
             int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
             DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
-            // [OLD] string a = Convert.ToString(selectedRow.Cells["web_scraper_order"].Value);
+            MessageBox.Show(Convert.ToString(selectedrowindex));
         }
         #region filters
         public void textBox1_TextChanged(object sender, EventArgs e)
@@ -186,26 +195,27 @@ namespace Dark_Oak
         private void mTGCardsDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             try { 
-            this.mTGCardsDataGridView.Columns["scryfallid"].Visible = false;
-            //this.mTGCardsDataGridView.Columns["mcmid"].Visible = false;
-            this.mTGCardsDataGridView.Columns[0].HeaderText = "#";
-            this.mTGCardsDataGridView.Columns[1].HeaderText = "Card Name";
-            this.mTGCardsDataGridView.Columns[2].HeaderText = "Set";
-            this.mTGCardsDataGridView.Columns[3].HeaderText = "Type";
-            this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
-            this.mTGCardsDataGridView.Columns[6].HeaderText = "Normal";
-            this.mTGCardsDataGridView.Columns[7].HeaderText = "Foil";
+                this.mTGCardsDataGridView.Columns["scryfallid"].Visible = false;
+                this.mTGCardsDataGridView.Columns["isReserved"].Visible = false;
+                this.mTGCardsDataGridView.Columns["isOnlineOnly"].Visible = false;
+                this.mTGCardsDataGridView.Columns[0].HeaderText = "#";
+                this.mTGCardsDataGridView.Columns[1].HeaderText = "Card Name";
+                this.mTGCardsDataGridView.Columns[2].HeaderText = "Set";
+                this.mTGCardsDataGridView.Columns[3].HeaderText = "Type";
+                this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
+                this.mTGCardsDataGridView.Columns[6].HeaderText = "Normal";
+                this.mTGCardsDataGridView.Columns[7].HeaderText = "Foil";
             // this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
-            this.mTGCardsDataGridView.AllowUserToResizeColumns = false;
-            this.mTGCardsDataGridView.AllowUserToResizeRows = false;
-            this.mTGCardsDataGridView.Columns[0].Width = 45;
-            this.mTGCardsDataGridView.Columns[1].Width = 200;
-            this.mTGCardsDataGridView.Columns[2].Width = 60;
-            this.mTGCardsDataGridView.Columns[3].Width = 225;
-            this.mTGCardsDataGridView.Columns[4].Width = 500;
-            this.mTGCardsDataGridView.Columns[6].Width = 60;
+                this.mTGCardsDataGridView.AllowUserToResizeColumns = false;
+                this.mTGCardsDataGridView.AllowUserToResizeRows = false;
+                this.mTGCardsDataGridView.Columns[0].Width = 45;
+                this.mTGCardsDataGridView.Columns[1].Width = 200;
+                this.mTGCardsDataGridView.Columns[2].Width = 60;
+                this.mTGCardsDataGridView.Columns[3].Width = 225;
+                this.mTGCardsDataGridView.Columns[4].Width = 500;
+                this.mTGCardsDataGridView.Columns[6].Width = 60;
                 this.mTGCardsDataGridView.Columns[7].Width = 60;
-            this.mTGCardsDataGridView.AllowUserToAddRows = false;
+                this.mTGCardsDataGridView.AllowUserToAddRows = false;
             } catch
             {
                 MessageBox.Show("");
@@ -232,14 +242,13 @@ namespace Dark_Oak
 
             int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex; //
             DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
-            string card_number = Convert.ToString(selectedRow.Cells["card_number"].Value);
-            string set_name = Convert.ToString(selectedRow.Cells["set_name"].Value);
-            string card_name = Convert.ToString(selectedRow.Cells["card_name"].Value);
-            // string full_card_id = card_number + " " + set_name + " " + card_name;
-            // MessageBox.Show(full_card_id);
+            string scryfallid = Convert.ToString(selectedRow.Cells["scryfallid"].Value);
+            string set_name = Convert.ToString(selectedRow.Cells["Set Name"].Value);
+            string name = Convert.ToString(selectedRow.Cells["name"].Value);
 
-            card_name = card_name.Replace("'", $"{(char)39}");
-            string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCards] where [card_number] like '" + card_number + "' and [set_name] like '" + set_name + "' and [card_name] like '" + card_name.Replace("'", "''") + "'";
+            name = name.Replace("'", $"{(char)39}");
+           // string Command = "";
+            string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCardsDatabase] where [scryfallid] like '" + scryfallid + "' and [setcode] like '" + set_name + "' and [name] like '" + name.Replace("'", "''") + "'";
             using (SqlConnection myConnection = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString))
             {
                 myConnection.Open();
@@ -302,14 +311,15 @@ namespace Dark_Oak
             {
                 int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
                 DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
-                string card_number = Convert.ToString(selectedRow.Cells["card_number"].Value);
-                string set_name = Convert.ToString(selectedRow.Cells["set_name"].Value);
-                string card_name = Convert.ToString(selectedRow.Cells["card_name"].Value);
+                string scryfallid = Convert.ToString(selectedRow.Cells["scryfallid"].Value);
+                string set_name = Convert.ToString(selectedRow.Cells["Set Name"].Value);
+                string name = Convert.ToString(selectedRow.Cells["name"].Value);
                 // string full_card_id = card_number + " " + set_name + " " + card_name;
                 // MessageBox.Show(full_card_id);
 
-                card_name = card_name.Replace("'", $"{(char)39}");
-                string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCards] where [card_number] like '" + card_number + "' and [set_name] like '" + set_name + "' and [card_name] like '" + card_name.Replace("'", "''") + "'";
+                name = name.Replace("'", $"{(char)39}");
+                // string Command = "";
+                string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCardsDatabase] where [scryfallid] like '" + scryfallid + "' and [setcode] like '" + set_name + "' and [name] like '" + name.Replace("'", "''") + "'";
                 using (SqlConnection myConnection = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString))
                 {
                     myConnection.Open();
@@ -319,8 +329,8 @@ namespace Dark_Oak
                     }
                     myConnection.Close();
                 }
-                // MessageBox.Show(Command);
-                PullDataFromSortBoard();
+                    // MessageBox.Show(Command);
+                    PullDataFromSortBoard();
             }
             else { }
         }
@@ -328,6 +338,7 @@ namespace Dark_Oak
         // When you use the mouse to select a card in the table
         {
             try { 
+            //Get 
             int selectedrowindex2 = mTGCardsDataGridView.SelectedCells[0].RowIndex;
             DataGridViewRow selectedRow2 = mTGCardsDataGridView.Rows[selectedrowindex2];
             string scryfallid2 = Convert.ToString(selectedRow2.Cells["scryfallid"].Value);
@@ -650,6 +661,16 @@ namespace Dark_Oak
             string path =
             Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             Process.Start(path + @"\Dreameater");
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

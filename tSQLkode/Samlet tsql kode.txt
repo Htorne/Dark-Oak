@@ -37,3 +37,49 @@ end
 
 
 
+-------------------
+
+DECLARE @sortboard int
+DECLARE MY_CURSOR CURSOR 
+
+
+LOCAL STATIC READ_ONLY FORWARD_ONLY
+FOR 
+SELECT DISTINCT sortboard 
+FROM DarkOakDB.dbo.MTGCardsSortBoard
+OPEN MY_CURSOR
+FETCH NEXT FROM MY_CURSOR INTO @sortboard
+WHILE @@FETCH_STATUS = 0
+BEGIN 
+DECLARE @number_of_cards_in_collection int	
+DECLARE @scryfallid nvarchar(max)	
+	set @scryfallid = (select scryfallid from DarkOakDB.dbo.MTGCardsSortBoard where sortboard = @sortboard)
+	print  @scryfallid
+		if exists (SELECT * FROM DarkOakDB.dbo.MTGCardsCollection WHERE scryfallId = @scryfallid ) --Lets check to see if the cards is present in the database
+			begin
+		
+				set @number_of_cards_in_collection = (select amount_owned from DarkOakDB.dbo.MTGCardsCollection where scryfallId = @scryfallid)
+	
+				set @number_of_cards_in_collection = @number_of_cards_in_collection + 1
+	
+				update DarkOakDB.dbo.MTGCardsCollection set	amount_owned = @number_of_cards_in_collection where scryfallID = @scryfallid
+			end
+		else
+	begin
+				insert into DarkOakDB.dbo.MTGCardsCollection
+		
+				select *,1,0,'','',''  from DarkOakDB.dbo.MTGCardsDatabase 
+			
+				where scryfallId = @scryfallid
+				print 'Just saw new card'
+	end
+
+	PRINT @sortboard
+	FETCH NEXT FROM MY_CURSOR INTO @sortboard
+
+end
+
+CLOSE MY_CURSOR
+DEALLOCATE MY_CURSOR
+select [name],[amount_owned] from [DarkOakDB].[dbo].[MTGCardsCollection]
+--delete from [DarkOakDB].[dbo].[MTGCardsCollection]

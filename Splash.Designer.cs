@@ -48,7 +48,7 @@ namespace Dark_Oak
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Splash";
             this.TopMost = true;
-            this.Shown += new System.EventHandler(this.Splash_Shown);
+            this.Load += new System.EventHandler(this.Splash_Load);
             this.ResumeLayout(false);
 
         }
