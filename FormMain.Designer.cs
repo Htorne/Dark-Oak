@@ -36,8 +36,9 @@ namespace Dark_Oak
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,7 +66,7 @@ namespace Dark_Oak
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.mTGCollectionDataGridView = new System.Windows.Forms.DataGridView();
             this.mtgSortingBoardDataGridView = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -73,13 +74,14 @@ namespace Dark_Oak
             this.button3 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikoriaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.darkOakDBDataSet)).BeginInit();
@@ -87,7 +89,7 @@ namespace Dark_Oak
             ((System.ComponentModel.ISupportInitialize)(this.mTGCardsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mTGCardsDataGridView)).BeginInit();
             this.Filters.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mTGCollectionDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mtgSortingBoardDataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -195,23 +197,23 @@ namespace Dark_Oak
             // 
             this.mTGCardsDataGridView.AllowUserToAddRows = false;
             this.mTGCardsDataGridView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.mTGCardsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.mTGCardsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.mTGCardsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.mTGCardsDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.mTGCardsDataGridView.DefaultCellStyle = dataGridViewCellStyle5;
             this.mTGCardsDataGridView.Location = new System.Drawing.Point(539, 150);
             this.mTGCardsDataGridView.Margin = new System.Windows.Forms.Padding(2);
             this.mTGCardsDataGridView.Name = "mTGCardsDataGridView";
@@ -225,7 +227,6 @@ namespace Dark_Oak
             this.mTGCardsDataGridView.TabIndex = 8;
             this.mTGCardsDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mTGCardsDataGridView_CellDoubleClick);
             this.mTGCardsDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.mTGCardsDataGridView_DataBindingComplete);
-            this.mTGCardsDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mTGCardsDataGridView_KeyDown);
             this.mTGCardsDataGridView.KeyUp += new System.Windows.Forms.KeyEventHandler(this.mTGCardsDataGridView_KeyUp);
             this.mTGCardsDataGridView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mTGCardsDataGridView_MouseClick);
             // 
@@ -299,7 +300,6 @@ namespace Dark_Oak
             this.label2.Size = new System.Drawing.Size(69, 17);
             this.label2.TabIndex = 15;
             this.label2.Text = "Card Text";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // textBox4
             // 
@@ -360,16 +360,31 @@ namespace Dark_Oak
             this.label3.TabIndex = 12;
             this.label3.Text = "#";
             // 
-            // dataGridView1
+            // mTGCollectionDataGridView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(837, 839);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 62;
-            this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(1263, 387);
-            this.dataGridView1.TabIndex = 13;
+            this.mTGCollectionDataGridView.AllowUserToAddRows = false;
+            this.mTGCollectionDataGridView.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.mTGCollectionDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.mTGCollectionDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.mTGCollectionDataGridView.Location = new System.Drawing.Point(837, 839);
+            this.mTGCollectionDataGridView.Margin = new System.Windows.Forms.Padding(2);
+            this.mTGCollectionDataGridView.Name = "mTGCollectionDataGridView";
+            this.mTGCollectionDataGridView.ReadOnly = true;
+            this.mTGCollectionDataGridView.RowHeadersVisible = false;
+            this.mTGCollectionDataGridView.RowHeadersWidth = 62;
+            this.mTGCollectionDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.mTGCollectionDataGridView.RowTemplate.Height = 18;
+            this.mTGCollectionDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.mTGCollectionDataGridView.Size = new System.Drawing.Size(1263, 387);
+            this.mTGCollectionDataGridView.TabIndex = 13;
+            this.mTGCollectionDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.mTGCollectionDataGridView_DataBindingComplete);
             // 
             // mtgSortingBoardDataGridView
             // 
@@ -387,19 +402,20 @@ namespace Dark_Oak
             this.mtgSortingBoardDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.mtgSortingBoardDataGridView.Size = new System.Drawing.Size(393, 387);
             this.mtgSortingBoardDataGridView.TabIndex = 14;
-            this.mtgSortingBoardDataGridView.SelectionChanged += new System.EventHandler(this.mtgSortingBoardDataGridView_SelectionChanged);
+            this.mtgSortingBoardDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.mtgSortingBoardDataGridView_DataBindingComplete);
+            this.mtgSortingBoardDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mtgSortingBoardDataGridView_KeyDown);
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.ForeColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.groupBox1.Location = new System.Drawing.Point(426, 768);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(390, 67);
+            this.groupBox1.Size = new System.Drawing.Size(272, 67);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sorting board";
@@ -408,7 +424,7 @@ namespace Dark_Oak
             // 
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.button2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button2.Location = new System.Drawing.Point(13, 26);
+            this.button2.Location = new System.Drawing.Point(723, 1230);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(93, 32);
@@ -420,13 +436,14 @@ namespace Dark_Oak
             // button1
             // 
             this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button1.Location = new System.Drawing.Point(196, 26);
+            this.button1.Location = new System.Drawing.Point(113, 26);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 32);
+            this.button1.Size = new System.Drawing.Size(144, 32);
             this.button1.TabIndex = 0;
             this.button1.Text = "Send to collection";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button3
             // 
@@ -450,9 +467,6 @@ namespace Dark_Oak
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Controls.Add(this.pictureBox3);
-            this.groupBox2.Controls.Add(this.pictureBox2);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label10);
@@ -465,38 +479,27 @@ namespace Dark_Oak
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Card Details";
             // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(20, 117);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(64, 17);
-            this.label13.TabIndex = 6;
-            this.label13.Text = "Legaility:";
-            // 
             // pictureBox3
             // 
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(160, 185);
+            this.pictureBox3.Location = new System.Drawing.Point(398, 640);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(117, 144);
+            this.pictureBox3.Size = new System.Drawing.Size(56, 75);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 5;
             this.pictureBox3.TabStop = false;
             this.pictureBox3.Visible = false;
-            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::Dark_Oak.Properties.Resources.ReservedList;
-            this.pictureBox2.Location = new System.Drawing.Point(269, 185);
+            this.pictureBox2.Location = new System.Drawing.Point(449, 640);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(117, 144);
+            this.pictureBox2.Size = new System.Drawing.Size(60, 75);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Visible = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // label12
             // 
@@ -536,17 +539,42 @@ namespace Dark_Oak
             this.label9.TabIndex = 0;
             this.label9.Text = "Regular price:";
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(539, 722);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(159, 32);
+            this.button4.TabIndex = 17;
+            this.button4.Text = "Add to sorting board";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.button5.Location = new System.Drawing.Point(14, 26);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(94, 32);
+            this.button5.TabIndex = 1;
+            this.button5.Text = "Foil";
+            this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(2374, 1335);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.mtgSortingBoardDataGridView);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.mTGCollectionDataGridView);
             this.Controls.Add(this.Filters);
             this.Controls.Add(this.mTGCardsDataGridView);
             this.Controls.Add(this.pictureBox1);
@@ -556,7 +584,6 @@ namespace Dark_Oak
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormMain";
             this.Text = "Unofficial MTG Database Dark-Oak";
-            this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikoriaBindingSource)).EndInit();
@@ -566,7 +593,7 @@ namespace Dark_Oak
             ((System.ComponentModel.ISupportInitialize)(this.mTGCardsDataGridView)).EndInit();
             this.Filters.ResumeLayout(false);
             this.Filters.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mTGCollectionDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mtgSortingBoardDataGridView)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -601,7 +628,7 @@ namespace Dark_Oak
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView mTGCollectionDataGridView;
         private System.Windows.Forms.DataGridView mtgSortingBoardDataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button1;
@@ -620,7 +647,8 @@ namespace Dark_Oak
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
     }
 }
 
