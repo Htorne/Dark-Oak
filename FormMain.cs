@@ -103,8 +103,6 @@ namespace Dark_Oak
                 {
                     DataTable dt = new DataTable();
                     SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
-                    //please connect to SQL using the information provided by user and stored in settings, mykay.
-                    //string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
                     string query = "select " +
                             "[number] as [#]," +              //0
                             "[name]," +                       //1
@@ -114,8 +112,7 @@ namespace Dark_Oak
                             "[scryfallid]," +                 //5
                             "[regularprice]," +               //6
                             "[foilprice]," +                  //7
-                            "[isReserved]," +                 //8
-                            "[isOnlineOnly] " +               //9
+                            "[amount_owned]" +               //10
                             "from dbo.MTGCardsCollection";
                     //Just grab whatever is written above from the SQL server
                     SqlCommand cmd = new SqlCommand(query, conn);
@@ -192,6 +189,7 @@ namespace Dark_Oak
             string cardname = textBox2.Text;
             string set = textBox3.Text;
             string originalType = textBox4.Text;
+            string cardtext = textBox5.Text;
             var filt = "";
 
 
@@ -219,6 +217,14 @@ namespace Dark_Oak
                     filt += "[originalType] LIKE '%" + originalType + "%'";
                 else
                     filt += " And [originalType] LIKE '%" + originalType + "%' ";
+            }
+
+            if (!string.IsNullOrEmpty(cardtext))
+            {
+                if (filt == "")
+                    filt += "[originalText] LIKE '%" + cardtext + "%'";
+                else
+                    filt += " And [originalText] LIKE '%" + cardtext + "%' ";
             }
 
             try
@@ -261,19 +267,16 @@ namespace Dark_Oak
                 this.mTGCardsDataGridView.Columns[7].Width = 60;
                 this.mTGCardsDataGridView.AllowUserToAddRows = false;
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("");
+                MessageBox.Show(Convert.ToString(ex));
             }
         }
-
         private void mTGCollectionDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             try
             {
                 this.mTGCollectionDataGridView.Columns["scryfallid"].Visible = false;
-                this.mTGCollectionDataGridView.Columns["isReserved"].Visible = false;
-                this.mTGCollectionDataGridView.Columns["isOnlineOnly"].Visible = false;
                 this.mTGCollectionDataGridView.Columns[0].HeaderText = "#";
                 this.mTGCollectionDataGridView.Columns[1].HeaderText = "Card Name";
                 this.mTGCollectionDataGridView.Columns[2].HeaderText = "Set";
@@ -291,30 +294,37 @@ namespace Dark_Oak
                 this.mTGCollectionDataGridView.Columns[4].Width = 500;
                 this.mTGCollectionDataGridView.Columns[6].Width = 60;
                 this.mTGCollectionDataGridView.Columns[7].Width = 60;
+                //this.mTGCollectionDataGridView.Columns[10].Width = 45;
                 this.mTGCollectionDataGridView.AllowUserToAddRows = false;
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("");
+                MessageBox.Show(Convert.ToString(ex));
             }
         }
-
-
         private void mtgSortingBoardDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            this.mtgSortingBoardDataGridView.Columns["scryfallid"].Visible = false;
-            this.mtgSortingBoardDataGridView.Columns[0].HeaderText = "#";
-            this.mtgSortingBoardDataGridView.Columns[1].HeaderText = "Name";
-            this.mtgSortingBoardDataGridView.Columns[2].HeaderText = "Set";
-            this.mtgSortingBoardDataGridView.AllowUserToResizeColumns = false;
-            this.mtgSortingBoardDataGridView.AllowUserToResizeRows = false;
-            this.mtgSortingBoardDataGridView.Columns[0].Width = 45;
-            this.mtgSortingBoardDataGridView.Columns[1].Width = 200;
-            this.mtgSortingBoardDataGridView.Columns[2].Width = 60;
-            this.mtgSortingBoardDataGridView.AllowUserToAddRows = false;
+            try
+            {
+                this.mtgSortingBoardDataGridView.Columns["scryfallid"].Visible = false;
+                this.mtgSortingBoardDataGridView.Columns[0].HeaderText = "#";
+                this.mtgSortingBoardDataGridView.Columns[1].HeaderText = "Name";
+                this.mtgSortingBoardDataGridView.Columns[2].HeaderText = "Set";
+                this.mtgSortingBoardDataGridView.AllowUserToResizeColumns = false;
+                this.mtgSortingBoardDataGridView.AllowUserToResizeRows = false;
+                this.mtgSortingBoardDataGridView.Columns[0].Width = 45;
+                this.mtgSortingBoardDataGridView.Columns[1].Width = 200;
+                this.mtgSortingBoardDataGridView.Columns[2].Width = 60;
+                this.mtgSortingBoardDataGridView.AllowUserToAddRows = false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Convert.ToString(ex));
+            }
         }
-        #endregion
-        private void mTGCardsDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+    #endregion
+    private void mTGCardsDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
             int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex; //
@@ -398,17 +408,17 @@ namespace Dark_Oak
 
                             foreach (JProperty obj in jsonObj.Properties())
                             {
-                                if (obj.Name == "image_uris")
+                                if (obj.Name == "image_uris") //select list of links
                                 {
 
                                     String text = Convert.ToString(obj);
 
-                                    var stringliste = new List<string> { };
+                                    var stringliste = new List<string> { }; //create a empty list
 
-                                    string[] image_uris = text.Split();
+                                    string[] image_uris = text.Split(); //split into strings
                                     foreach (string info in image_uris)
                                     {
-                                        stringliste.Add(info);
+                                        stringliste.Add(info); //and each substring
                                     }
 
                                     string image_uris_result = (stringliste[11]); // Get string from list in position 11 
@@ -419,14 +429,11 @@ namespace Dark_Oak
                                     Image x = Image.FromStream(wc.OpenRead(image_uris_result)); // Use webclient to read datastream as an image and save to variable x
                                     pictureBox1.Image = x; // Assign picturebox image as x
 
-
                                     if (Directory.Exists(path))
                                     { // If that path exisits do nothing yet
                                     }
                                     else { CreateFolder(path); } // If that path does NOT exist create the folder
                                     x.Save(path + scryfallid + ".jpeg", ImageFormat.Jpeg); // Save data from variable x to path + \ + the scryfallid + jpeg as a image format jpeg.
-
-
                                 }
                             }
                         }
@@ -434,88 +441,10 @@ namespace Dark_Oak
                         {
                             MessageBox.Show("Program most likely had a 404 error see debug log or messageboxes for details " + Convert.ToString(ex));
                         }
-
-
-
-
                     }
                     catch (Exception ed)
                     {
                         MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
-                    }
-
-                    // With the first part above done, where we got the image using the scryfall scryfallid, we now 
-                    // attempt to get market data using the mcmid information to get the regular and foil prices. 
-                    try
-                    {
-
-                        int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
-                        DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
-                        string mcmid = Convert.ToString(selectedRow.Cells["mcmid"].Value);
-                        RestClient rClient = new RestClient();
-                        rClient.endPoint = "https://api.scryfall.com/cards/cardmarket/" + mcmid;
-                        // Here we retrive the card mcmid information from the database and preform an
-                        // API call to check to see if the card has any market data. There are serval
-                        // cards which does not have any market data on scryfall.
-
-                        string strResponse = string.Empty;
-                        strResponse = rClient.makeRequest();
-                        //MessageBox.Show(Convert.ToString(strResponse));
-                        try
-                        {
-                            JObject jsonObj = JObject.Parse(strResponse);
-
-                            foreach (JProperty obj in jsonObj.Properties())
-                            {
-                                if (obj.Name == "prices")
-                                {
-                                    String text = Convert.ToString(obj);
-                                    var stringliste = new List<string> { };
-                                    string[] jsonarray = text.Split();
-                                    foreach (string priceinfo in jsonarray)
-                                    {
-                                        stringliste.Add(priceinfo);
-                                    }
-                                    string foilprice = (stringliste[11]);
-                                    //MessageBox.Show(foilprice);
-                                    if (foilprice == "null,") { }
-                                    else
-                                    {
-                                        foilprice = foilprice.Remove(0, 1);
-                                        foilprice = foilprice.Substring(0, foilprice.Length - 2);
-                                        decimal foilrealprice = Convert.ToDecimal(foilprice);
-                                    }
-                                }
-                            }
-                            foreach (JProperty obj in jsonObj.Properties())
-                            {
-                                if (obj.Name == "prices")
-                                {
-                                    //string gogo = (string)obj[0]["small"][0];
-                                    String text = Convert.ToString(obj);
-                                    //MessageBox.Show(text);
-                                    // MessageBox.Show("Type is " + Convert.ToString(obj.GetType()));
-                                    var stringliste = new List<string> { };
-                                    string[] jsonarray = text.Split();
-                                    foreach (string priceinfo in jsonarray)
-                                    {
-                                        // MessageBox.Show(info);
-                                        stringliste.Add(priceinfo);
-                                    }
-                                    string Nonfoilprice = (stringliste[6]);
-                                    Nonfoilprice = Nonfoilprice.Remove(0, 1);
-                                    Nonfoilprice = Nonfoilprice.Substring(0, Nonfoilprice.Length - 2);
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Program most likely had a 404 error see debug log or messageboxes for details " + Convert.ToString(ex));
-                        }
-                    }
-                    catch (Exception ed)
-                    {
-                        //MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
                     }
                 }
             }
@@ -991,6 +920,11 @@ namespace Dark_Oak
             }
 
 
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            filterstuff();
         }
     }
 }
