@@ -16,5 +16,8 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;Persist Security Info=True;User ID=Max;Password=Ia3#qFJz</Value>
     </Setting>
+    <Setting Name="IncludeOnlineOnlyCards" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

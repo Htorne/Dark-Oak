@@ -57,5 +57,17 @@ namespace Dark_Oak.Properties {
                 return ((string)(this["DarkOakDBConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IncludeOnlineOnlyCards {
+            get {
+                return ((bool)(this["IncludeOnlineOnlyCards"]));
+            }
+            set {
+                this["IncludeOnlineOnlyCards"] = value;
+            }
+        }
     }
 }
