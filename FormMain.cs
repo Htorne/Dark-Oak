@@ -40,21 +40,14 @@ namespace Dark_Oak
 
                 {
                     DataTable dt = new DataTable();
-                    SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
+                    SqlConnection conn = new SqlConnection ();
                     //please connect to SQL using the information provided by user and stored in settings, mykay.
                     //string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
                     string query = "select " +
-                            "[number] as [#]," +              //0
+                            "[collector_number] as [#]," +              //0
                             "[name]," +                       //1
-                            "[setCode] as [Set Name]," +      //2
-                            "[originalType]," +               //3
-                            "[originalText]," +               //4
-                            "[scryfallid]," +                 //5
-                            "[regularprice]," +               //6
-                            "[foilprice]," +                  //7
-                            "[isReserved]," +                 //8
-                            "[isOnlineOnly], " +               //9
-                            "[artist]" +                      //10
+                            "[set_name] as [Set Name]," +      //2
+                           
                             "from dbo.MTGCardsDatabase";
                     //Just grab whatever is written above from the SQL server
                     SqlCommand cmd = new SqlCommand(query, conn);
@@ -71,53 +64,48 @@ namespace Dark_Oak
                     //Hide the evidence; dispose data adapter 
                     mTGCardsDataGridView.DataSource = dt;
                 }
-                catch { MessageBox.Show("Unable to open a connection to the database "); }
+                catch { MessageBox.Show("Unable BOOM 1to open a connection to the database "); }
             }else
             {
                 try
 
                 {
                     DataTable dt = new DataTable();
-                    SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
-                    //please connect to SQL using the information provided by user and stored in settings, mykay.
-                    //string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
-                    string query = "select " +
-                            "[number] as [#]," +              //0
-                            "[name]," +                       //1
-                            "[setCode] as [Set Name]," +      //2
-                            "[originalType]," +               //3
-                            "[originalText]," +               //4
-                            "[scryfallid]," +                 //5
-                            "[regularprice]," +               //6
-                            "[foilprice]," +                  //7
-                            "[isReserved]," +                 //8
-                            "[isOnlineOnly], " +               //9
-                            "[artist]" +                      //10
-                            "from dbo.MTGCardsDatabase " + 
-                            "where [isOnlineOnly] like '0' ";
-                    //Just grab whatever is written above from the SQL server
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    //Make a new fancy command 
-                    conn.Open();
-                    //Connect to SQL Server
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    //Do the disco
-                    da.Fill(dt);
-                    //Using SQLdataAdapter fill datatable with result set from the cmd.
-                    conn.Close();
-                    //Close SQL Server connection.
-                    da.Dispose();
-                    //Hide the evidence; dispose data adapter 
-                    mTGCardsDataGridView.DataSource = dt;
+                    using (SqlConnection conn = new SqlConnection
+                       (Properties.Settings.Default.DarkOakDBConnectionString))
+                    {
+                        //please connect to SQL using the information provided by user and stored in settings, mykay.
+                        //string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
+
+                        string query = "select name as name, [id] as [scryfallid], priceseur as [regularprice], priceseur_foil as foilprice, reserved as isReserved from MTGCardsDatabase";
+
+                        // "where [isOnlineOnly] like '0' ";
+                        //Just grab whatever is written above from the SQL server
+                        SqlCommand cmd = new SqlCommand(query, conn);
+                        //Make a new fancy command 
+                       
+                        conn.Open();
+                     
+                        //Connect to SQL Server
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        //Do the disco
+                        da.Fill(dt);
+                        //Using SQLdataAdapter fill datatable with result set from the cmd.
+                        conn.Close();
+                        //Close SQL Server connection.
+                        da.Dispose();
+                        //Hide the evidence; dispose data adapter 
+                        mTGCardsDataGridView.DataSource = dt;
+                    }
                 }
-                catch { MessageBox.Show("Unable to open a connection to the database "); }
+                catch (Exception ex) { MessageBox.Show("Unable BOOM 2 to open a connection to the database ::::" + ex); }
             }
         }
         public void PullDataFromSortBoard()
         //Lets pull some data shall we
         {
             DataTable dtsort = new DataTable();
-            SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
+            SqlConnection conn = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString);
             //please connect to SQL using the information provided by user and stored in settings, mykay.
             string query = "select [number] as [#],[name],[setCode],[scryfallId] from [dbo].[MTGCardsSortBoard]";
 
@@ -145,7 +133,7 @@ namespace Dark_Oak
                 try
                 {
                     DataTable dt = new DataTable();
-                    SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
+                    SqlConnection conn = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString);
                     string query = "select " +
                             "[number] as [#]," +              //0
                             "[name]," +                       //1
@@ -175,7 +163,7 @@ namespace Dark_Oak
                     //Hide the evidence; dispose data adapter 
                     mTGCollectionDataGridView.DataSource = dt;
                 }
-                catch (Exception ex) { MessageBox.Show("Unable to open a connection to the database ::::" + ex); }
+                catch (Exception ex) { MessageBox.Show("Unable BOOM 33 to open a connection to the database ::::" + ex); }
 
             }
 
@@ -330,27 +318,27 @@ namespace Dark_Oak
         {
             try
             {
-                this.mTGCardsDataGridView.Columns["scryfallid"].Visible = false;
-                this.mTGCardsDataGridView.Columns["isReserved"].Visible = false;
-                this.mTGCardsDataGridView.Columns["isOnlineOnly"].Visible = false;
-                this.mTGCardsDataGridView.Columns[0].HeaderText = "#";
-                this.mTGCardsDataGridView.Columns[1].HeaderText = "Card Name";
-                this.mTGCardsDataGridView.Columns[2].HeaderText = "Set";
-                this.mTGCardsDataGridView.Columns[3].HeaderText = "Type";
-                this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
-                this.mTGCardsDataGridView.Columns[6].HeaderText = "Normal";
-                this.mTGCardsDataGridView.Columns[7].HeaderText = "Foil";
+                //this.mTGCardsDataGridView.Columns["scryfallid"].Visible = false;
+               // this.mTGCardsDataGridView.Columns["isReserved"].Visible = false;
+              //  this.mTGCardsDataGridView.Columns["isOnlineOnly"].Visible = false;
+               this.mTGCardsDataGridView.Columns[0].HeaderText = "name";
+              //  this.mTGCardsDataGridView.Columns[1].HeaderText = "Card Name";
+              //  this.mTGCardsDataGridView.Columns[2].HeaderText = "Set";
+             //   this.mTGCardsDataGridView.Columns[3].HeaderText = "Type";
+             //   this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
+             //   this.mTGCardsDataGridView.Columns[6].HeaderText = "Normal";
+             //   this.mTGCardsDataGridView.Columns[7].HeaderText = "Foil";
                 // this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
-                this.mTGCardsDataGridView.AllowUserToResizeColumns = false;
-                this.mTGCardsDataGridView.AllowUserToResizeRows = false;
-                this.mTGCardsDataGridView.Columns[0].Width = 45;
-                this.mTGCardsDataGridView.Columns[1].Width = 200;
-                this.mTGCardsDataGridView.Columns[2].Width = 60;
-                this.mTGCardsDataGridView.Columns[3].Width = 225;
-                this.mTGCardsDataGridView.Columns[4].Width = 500;
-                this.mTGCardsDataGridView.Columns[6].Width = 60;
-                this.mTGCardsDataGridView.Columns[7].Width = 60;
-                this.mTGCardsDataGridView.AllowUserToAddRows = false;
+            //    this.mTGCardsDataGridView.AllowUserToResizeColumns = false;
+            //    this.mTGCardsDataGridView.AllowUserToResizeRows = false;
+            //   this.mTGCardsDataGridView.Columns[0].Width = 45;
+            //    this.mTGCardsDataGridView.Columns[1].Width = 200;
+             //   this.mTGCardsDataGridView.Columns[2].Width = 60;
+            //    this.mTGCardsDataGridView.Columns[3].Width = 225;
+             //   this.mTGCardsDataGridView.Columns[4].Width = 500;
+             //   this.mTGCardsDataGridView.Columns[6].Width = 60;
+            //    this.mTGCardsDataGridView.Columns[7].Width = 60;
+             //   this.mTGCardsDataGridView.AllowUserToAddRows = false;
             }
             catch (Exception ex)
             {
@@ -466,10 +454,10 @@ namespace Dark_Oak
                 string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Dreameater\"; // Define path as C:\Users\user\Documents\Dreameater
                 label6.Text = scryfallid2;
                 label11.Text = Convert.ToString(selectedRow2.Cells["regularprice"].Value);
-                int is_reserved = Convert.ToInt32(selectedRow2.Cells["isReserved"].Value);
-                int is_online = Convert.ToInt32(selectedRow2.Cells["isonlineonly"].Value);
-                if (is_reserved == 1) { pictureBox2.Visible = true; } else { pictureBox2.Visible = false; }
-                if (is_online == 1) { pictureBox3.Visible = true; } else { pictureBox3.Visible = false; }
+                //int is_reserved = Convert.ToInt32(selectedRow2.Cells["isReserved"].Value);
+                //int is_online = Convert.ToInt32(selectedRow2.Cells["isonlineonly"].Value);
+               // if (is_reserved == 1) { pictureBox2.Visible = true; } else { pictureBox2.Visible = false; }
+               // if (is_online == 1) { pictureBox3.Visible = true; } else { pictureBox3.Visible = false; }
                 label12.Text = Convert.ToString(selectedRow2.Cells["foilprice"].Value);
                 if (File.Exists(path + scryfallid2 + ".jpeg")) //Testing to see if image has allready been downloaded.
                 {
@@ -539,7 +527,10 @@ namespace Dark_Oak
                     }
                 }
             }
-            catch { MessageBox.Show("No connection to data found, check your data source"); }
+            catch (Exception ex)
+            {
+                MessageBox.Show("bonkers42 " + Convert.ToString(ex));
+            }
         }
         private void updatePricesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -648,7 +639,7 @@ namespace Dark_Oak
         {
             List<string> columnData = new List<string>();
 
-            using (SqlConnection connection = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz"))
+            using (SqlConnection connection = new SqlConnection(@"Data Source=sqlsrv-mtgdb.database.windows.net;Initial Catalog=DarkOakDB;User ID=htorne;Password=Ia3#qFJz"))
             {
                 connection.Open();
                 string query = "SELECT mcmid FROM dbo.cards where mcmid is not null";
@@ -670,7 +661,7 @@ namespace Dark_Oak
         public void runsqlquery(string query)
         {
 
-            SqlConnection conn = new SqlConnection(@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz");
+            SqlConnection conn = new SqlConnection(@"Data Source=sqlsrv-mtgdb.database.windows.net;Initial Catalog=DarkOakDB;User ID=htorne;Password=Ia3#qFJz");
             //SqlCommand cmd = new SqlCommand(query, conn);
             conn.Open();
             using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -867,7 +858,7 @@ namespace Dark_Oak
                         }
                     }
                 }
-                catch { MessageBox.Show("No connection to data found, check your data source"); }
+                catch { MessageBox.Show("No connection to data found, check your data source BONKERS"); }
                 if (e.KeyCode == Keys.Add)
                 {
                     int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;

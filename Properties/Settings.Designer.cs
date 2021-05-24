@@ -50,8 +50,8 @@ namespace Dark_Oak.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.1.117\\Razorback;Initial Catalog=DarkOakDB;Persist Security In" +
-            "fo=True;User ID=Max;Password=Ia3#qFJz")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=sqlsrv-mtgdb.database.windows.net;Initial Catalog=DarkOakDB;User ID=m" +
+            "tgdb2;Password=Ia3#qFJz")]
         public string DarkOakDBConnectionString {
             get {
                 return ((string)(this["DarkOakDBConnectionString"]));

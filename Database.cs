@@ -17,7 +17,7 @@ namespace Dark_Oak
         {
             string SQLUser = Properties.Settings.Default.SQLUser;
             string SQLPassword = Properties.Settings.Default.SQLPassword;
-            string connectionString = @"Data Source=SQL\Razorback;Initial Catalog=Master;User ID=Max;Password=Ia3#qFJz";
+            string connectionString = Properties.Settings.Default.DarkOakDBConnectionString;
             SqlConnection cnn;
             cnn = new SqlConnection(connectionString);
             try
@@ -41,7 +41,7 @@ namespace Dark_Oak
              string query = "SELECT ImageData from MTGCardsImages where ImageID like '"+a +"'";
  
             using (SqlConnection conn = new SqlConnection
-                      (@"Data Source=192.168.1.117\Razorback;Initial Catalog=DarkOakDB;User ID=Max;Password=Ia3#qFJz"))
+                      ("Data Source=sqlsrv-mtgdb.database.windows.net;Initial Catalog=DarkOakDB;User ID=htorne;Password=Ia3#qFJz"))
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
                 conn.Open();
