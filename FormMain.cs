@@ -72,13 +72,15 @@ namespace Dark_Oak
                     {
                         string query = "select " +
                             "           [collector_number] as [#]," +
-                            "           name as [Name], " +                 //0
-                            "           [set_name] as [Set], "+            //1
-                            "           [id] as [ScryFallID]," +            //2
-                            "           priceseur as [NM Price Eur]," +     //3
+                            "           name as [Name], " +                        //0
+                            "           type_line as [Type], " +                        //0
+                            "           [set_name] as [Set], " +                    //1
+                            "           [id] as [ScryFallID]," +                   //2
+                            "           priceseur as [NM Price Eur]," +            //3
                             "           priceseur_foil as [Foil Price Eur]," +     //4
-                            "           reserved as [Reserve List]," +
-                            "           digital as [Digital]"+            //5
+                            "           reserved as [Reserve List]," +             //6
+                            "           digital as [Digital],"+                     //7
+                            "           released_at as [print]"+
                             "           from MTGCardsDatabase";         
 
                         // "where [isOnlineOnly] like '0' ";
@@ -109,7 +111,7 @@ namespace Dark_Oak
             DataTable dtsort = new DataTable();
             SqlConnection conn = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString);
             //please connect to SQL using the information provided by user and stored in settings, mykay.
-            string query = "select [collector_number] as [#],[name],[set_name],[id] from [dbo].[MTGCardsSortBoard]";
+            string query = "select [collector_number] as [#],[name],[set_name],[id],[released_at] as [Print] from [dbo].[MTGCardsSortBoard]";
 
             //Just grab whatever is written above from the SQL server
             SqlCommand cmd = new SqlCommand(query, conn);
@@ -231,9 +233,9 @@ namespace Dark_Oak
             var filt = "";
 
 
-            if (!string.IsNullOrEmpty(cardname))
+            if (!string.IsNullOrEmpty(cardname))  //if there is text then
             {
-                if (filt == "")
+                if (filt == "") 
                     filt += "[name] LIKE '%" + cardname + "%'";
                 else
                     filt += " And [name] LIKE '%" + cardname + "%' ";
@@ -243,18 +245,18 @@ namespace Dark_Oak
             if (!string.IsNullOrEmpty(set))
             {
                 if (filt == "")
-                    filt += "[Set Name] LIKE '%" + set + "%'";
+                    filt += "[Set] LIKE '%" + set + "%'";
                 else
-                    filt += " And [Set Name] LIKE '%" + set + "%' ";
+                    filt += " And [Set] LIKE '%" + set + "%' ";
             }
 
 
-            if (!string.IsNullOrEmpty(originalType))
+            if (!string.IsNullOrEmpty(originalType)) //orginalType is old name for the data field type_line
             {
                 if (filt == "")
-                    filt += "[originalType] LIKE '%" + originalType + "%'";
+                    filt += "[Type] LIKE '%" + originalType + "%'";
                 else
-                    filt += " And [originalType] LIKE '%" + originalType + "%' ";
+                    filt += " And [Type] LIKE '%" + originalType + "%' ";
             }
 
             if (!string.IsNullOrEmpty(cardtext))
@@ -316,10 +318,10 @@ namespace Dark_Oak
         {
             try
             {
-                //this.mTGCardsDataGridView.Columns["scryfallid"].Visible = false;
+                this.mTGCardsDataGridView.Columns["scryfallid"].Visible = false;
                // this.mTGCardsDataGridView.Columns["isReserved"].Visible = false;
               //  this.mTGCardsDataGridView.Columns["isOnlineOnly"].Visible = false;
-               this.mTGCardsDataGridView.Columns[0].HeaderText = "name";
+               this.mTGCardsDataGridView.Columns[0].HeaderText = "#";
               //  this.mTGCardsDataGridView.Columns[1].HeaderText = "Card Name";
               //  this.mTGCardsDataGridView.Columns[2].HeaderText = "Set";
              //   this.mTGCardsDataGridView.Columns[3].HeaderText = "Type";
@@ -329,14 +331,15 @@ namespace Dark_Oak
                 // this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
             //    this.mTGCardsDataGridView.AllowUserToResizeColumns = false;
             //    this.mTGCardsDataGridView.AllowUserToResizeRows = false;
-            //   this.mTGCardsDataGridView.Columns[0].Width = 45;
-            //    this.mTGCardsDataGridView.Columns[1].Width = 200;
-             //   this.mTGCardsDataGridView.Columns[2].Width = 60;
-            //    this.mTGCardsDataGridView.Columns[3].Width = 225;
-             //   this.mTGCardsDataGridView.Columns[4].Width = 500;
-             //   this.mTGCardsDataGridView.Columns[6].Width = 60;
-            //    this.mTGCardsDataGridView.Columns[7].Width = 60;
-             //   this.mTGCardsDataGridView.AllowUserToAddRows = false;
+               this.mTGCardsDataGridView.Columns[0].Width = 45;
+               this.mTGCardsDataGridView.Columns[1].Width = 200;
+               this.mTGCardsDataGridView.Columns[2].Width = 150;
+               this.mTGCardsDataGridView.Columns[3].Width = 150;
+                //   this.mTGCardsDataGridView.Columns[4].Width = 500;
+                //   this.mTGCardsDataGridView.Columns[6].Width = 60;
+                //    this.mTGCardsDataGridView.Columns[7].Width = 60;
+                //   this.mTGCardsDataGridView.AllowUserToAddRows = false;
+               
             }
             catch (Exception ex)
             {
@@ -1053,6 +1056,11 @@ namespace Dark_Oak
                 }
             }
             catch (Exception ex) { MessageBox.Show("No connection to data found, check your data source::::" + ex); }
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
         }
     }
     }
