@@ -65,7 +65,7 @@ namespace Dark_Oak
             this.mtgSortingBoardDataGridView = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button5 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button_send_to_collection = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -76,7 +76,7 @@ namespace Dark_Oak
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.button4 = new System.Windows.Forms.Button();
+            this.button_send_to_sortingboard = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -180,6 +180,7 @@ namespace Dark_Oak
             // 
             this.mTGCardsDataGridView.AllowUserToAddRows = false;
             this.mTGCardsDataGridView.AllowUserToDeleteRows = false;
+            this.mTGCardsDataGridView.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(234)))), ((int)(((byte)(234)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -395,7 +396,7 @@ namespace Dark_Oak
             // 
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.button5);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.button_send_to_collection);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.groupBox1.Location = new System.Drawing.Point(426, 768);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
@@ -417,17 +418,17 @@ namespace Dark_Oak
             this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // button1
+            // button_send_to_collection
             // 
-            this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button1.Location = new System.Drawing.Point(113, 26);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(144, 32);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Send to collection";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button_send_to_collection.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.button_send_to_collection.Location = new System.Drawing.Point(113, 26);
+            this.button_send_to_collection.Margin = new System.Windows.Forms.Padding(2);
+            this.button_send_to_collection.Name = "button_send_to_collection";
+            this.button_send_to_collection.Size = new System.Drawing.Size(144, 32);
+            this.button_send_to_collection.TabIndex = 0;
+            this.button_send_to_collection.Text = "Send to collection";
+            this.button_send_to_collection.UseVisualStyleBackColor = true;
+            this.button_send_to_collection.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -538,15 +539,15 @@ namespace Dark_Oak
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Visible = false;
             // 
-            // button4
+            // button_send_to_sortingboard
             // 
-            this.button4.Location = new System.Drawing.Point(539, 722);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(159, 32);
-            this.button4.TabIndex = 17;
-            this.button4.Text = "Add to sorting board";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button_send_to_sortingboard.Location = new System.Drawing.Point(539, 722);
+            this.button_send_to_sortingboard.Name = "button_send_to_sortingboard";
+            this.button_send_to_sortingboard.Size = new System.Drawing.Size(159, 32);
+            this.button_send_to_sortingboard.TabIndex = 17;
+            this.button_send_to_sortingboard.Text = "Add to sorting board";
+            this.button_send_to_sortingboard.UseVisualStyleBackColor = true;
+            this.button_send_to_sortingboard.Click += new System.EventHandler(this.button_send_to_sortingboard_Click);
             // 
             // groupBox3
             // 
@@ -699,7 +700,7 @@ namespace Dark_Oak
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(2374, 1335);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button_send_to_sortingboard);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label6);
@@ -765,7 +766,7 @@ namespace Dark_Oak
         private System.Windows.Forms.DataGridView mTGCollectionDataGridView;
         private System.Windows.Forms.DataGridView mtgSortingBoardDataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_send_to_collection;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox5;
@@ -780,7 +781,7 @@ namespace Dark_Oak
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button_send_to_sortingboard;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label1;

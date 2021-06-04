@@ -37,47 +37,49 @@ namespace Dark_Oak
             if (Properties.Settings.Default.IncludeOnlineOnlyCards == true)
             {
                 try
-
-                {
-                    DataTable dt = new DataTable();
-                    SqlConnection conn = new SqlConnection ();
-                    //please connect to SQL using the information provided by user and stored in settings, mykay.
-                    //string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
-                    string query = "select " +
-                            "[collector_number] as [#]," +              //0
-                            "[name]," +                       //1
-                            "[set_name] as [Set Name]," +      //2
-                           
-                            "from dbo.MTGCardsDatabase";
-                    //Just grab whatever is written above from the SQL server
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    //Make a new fancy command 
-                    conn.Open();
-                    //Connect to SQL Server
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    //Do the disco
-                    da.Fill(dt);
-                    //Using SQLdataAdapter fill datatable with result set from the cmd.
-                    conn.Close();
-                    //Close SQL Server connection.
-                    da.Dispose();
-                    //Hide the evidence; dispose data adapter 
-                    mTGCardsDataGridView.DataSource = dt;
-                }
-                catch { MessageBox.Show("Unable BOOM 1to open a connection to the database "); }
-            }else
-            {
-                try
-
                 {
                     DataTable dt = new DataTable();
                     using (SqlConnection conn = new SqlConnection
-                       (Properties.Settings.Default.DarkOakDBConnectionString))
-                    {
+                       (Properties.Settings.Default.DarkOakDBConnectionString)) 
+                    { 
                         //please connect to SQL using the information provided by user and stored in settings, mykay.
                         //string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
+                        string query = "select " +
+                            "[collector_number] as [#]," +    //0
+                            "[name]," +                       //1
+                            "[set_name] as [Set Name]" +      //2
+                            "from dbo.MTGCardsDatabase";      
+                        //Just grab whatever is written above from the SQL server
+                        SqlCommand cmd = new SqlCommand(query, conn); //Make a new fancy command
+                        conn.Open(); //Connect to SQL Server
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        da.Fill(dt); //Fill data from adapter into data table "populate table"     
+                        conn.Close(); //Close SQL Server connection.
+                        da.Dispose(); //Hide the evidence; dispose data adapter 
+                        mTGCardsDataGridView.DataSource = dt; //Link form object with data in data table 
+                    }
+                }
+                catch (Exception ex) { MessageBox.Show("An error was catched. ::::" + ex); }
+            }
+            else
+            {
+                try
 
-                        string query = "select name as name, [id] as [scryfallid], priceseur as [regularprice], priceseur_foil as foilprice, reserved as isReserved from MTGCardsDatabase";
+                {   // This datatable is the default 
+                    DataTable dt = new DataTable(); //declare a new datatable
+                    using (SqlConnection conn = new SqlConnection // Create a new connection
+                       (Properties.Settings.Default.DarkOakDBConnectionString)) //Using settings - I need to make this editable from within the program via settings at some point
+                    {
+                        string query = "select " +
+                            "           [collector_number] as [#]," +
+                            "           name as [Name], " +                 //0
+                            "           [set_name] as [Set], "+            //1
+                            "           [id] as [ScryFallID]," +            //2
+                            "           priceseur as [NM Price Eur]," +     //3
+                            "           priceseur_foil as [Foil Price Eur]," +     //4
+                            "           reserved as [Reserve List]," +
+                            "           digital as [Digital]"+            //5
+                            "           from MTGCardsDatabase";         
 
                         // "where [isOnlineOnly] like '0' ";
                         //Just grab whatever is written above from the SQL server
@@ -107,7 +109,7 @@ namespace Dark_Oak
             DataTable dtsort = new DataTable();
             SqlConnection conn = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString);
             //please connect to SQL using the information provided by user and stored in settings, mykay.
-            string query = "select [number] as [#],[name],[setCode],[scryfallId] from [dbo].[MTGCardsSortBoard]";
+            string query = "select [collector_number] as [#],[name],[set_name],[id] from [dbo].[MTGCardsSortBoard]";
 
             //Just grab whatever is written above from the SQL server
             SqlCommand cmd = new SqlCommand(query, conn);
@@ -135,19 +137,17 @@ namespace Dark_Oak
                     DataTable dt = new DataTable();
                     SqlConnection conn = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString);
                     string query = "select " +
-                            "[number] as [#]," +              //0
-                            "[name]," +                       //1
-                            "[setCode] as [Set Name]," +      //2
-                            "[originalType]," +               //3
-                            "[originalText]," +               //4
-                            "[scryfallid]," +                 //5
-                            "[regularprice]," +               //6
-                            "[foilprice]," +                  //7
-                            "[amount_owned]," +               //10
-                            "[Foil], " +                      //11
-                            "[isReserved], " +
-                            "[isonlineonly] "+
-                            "from dbo.MTGCardsCollection";
+                                                "amount_owned, "+
+                                                "           [collector_number] as [#]," +
+                                                "           name as [Name], " +                 //0
+                                                "           [set_name] as [Set], " +            //1
+                                                "           [id] as [ScryFallID]," +            //2
+                                                "           priceseur as [NM Price Eur]," +     //3
+                                                "           priceseur_foil as [Foil Price Eur]," +     //4
+                                                "           reserved as [Reserve List]," +
+                                                "           digital as [Digital]" +            //5
+                                                "           from MTGCardsCollection";
+
                     //Just grab whatever is written above from the SQL server
                     SqlCommand cmd = new SqlCommand(query, conn);
                     //Make a new fancy command 
@@ -215,12 +215,10 @@ namespace Dark_Oak
         {
             filterstuff();
         }
-
         private void textBox10_TextChanged(object sender, EventArgs e)
         {
             filterstuffInCollection();
         }
-
         public void filterstuff()
         {
 
@@ -349,30 +347,30 @@ namespace Dark_Oak
         {
             try
             {
-                this.mTGCollectionDataGridView.Columns["isonlineonly"].Visible = false;
-                this.mTGCollectionDataGridView.Columns["isReserved"].Visible = false; 
-                this.mTGCollectionDataGridView.Columns["scryfallid"].Visible = false;
-                this.mTGCollectionDataGridView.Columns[0].HeaderText = "#";
-                this.mTGCollectionDataGridView.Columns[1].HeaderText = "Card Name";
-                this.mTGCollectionDataGridView.Columns[2].HeaderText = "Set";
-                this.mTGCollectionDataGridView.Columns[3].HeaderText = "Type";
-                this.mTGCollectionDataGridView.Columns[4].HeaderText = "Card Text";
-                this.mTGCollectionDataGridView.Columns[6].HeaderText = "Normal";
-                this.mTGCollectionDataGridView.Columns[7].HeaderText = "Foil";
-                this.mTGCollectionDataGridView.Columns[8].HeaderText = "Owned";
-                this.mTGCollectionDataGridView.Columns[9].HeaderText = "Foil";
-                // this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
+              //  this.mTGCollectionDataGridView.Columns["isonlineonly"].Visible = false;
+              //  this.mTGCollectionDataGridView.Columns["isReserved"].Visible = false; 
+              //this.mTGCollectionDataGridView.Columns["id"].Visible = false;
+              //  this.mTGCollectionDataGridView.Columns[0].HeaderText = "#";
+              //  this.mTGCollectionDataGridView.Columns[1].HeaderText = "Card Name";
+              //  this.mTGCollectionDataGridView.Columns[2].HeaderText = "Set";
+              //  this.mTGCollectionDataGridView.Columns[3].HeaderText = "Type";
+              //  this.mTGCollectionDataGridView.Columns[4].HeaderText = "Card Text";
+              //  this.mTGCollectionDataGridView.Columns[6].HeaderText = "Normal";
+              //  this.mTGCollectionDataGridView.Columns[7].HeaderText = "Foil";
+              //  this.mTGCollectionDataGridView.Columns[8].HeaderText = "Owned";
+              //  this.mTGCollectionDataGridView.Columns[9].HeaderText = "Foil";
+              // this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
                 this.mTGCollectionDataGridView.AllowUserToResizeColumns = false;
                 this.mTGCollectionDataGridView.AllowUserToResizeRows = false;
                 this.mTGCollectionDataGridView.Columns[0].Width = 45;
-                this.mTGCollectionDataGridView.Columns[1].Width = 200;
-                this.mTGCollectionDataGridView.Columns[2].Width = 60;
-                this.mTGCollectionDataGridView.Columns[3].Width = 225;
-                this.mTGCollectionDataGridView.Columns[4].Width = 500;
-                this.mTGCollectionDataGridView.Columns[6].Width = 60;
-                this.mTGCollectionDataGridView.Columns[7].Width = 60;
-                this.mTGCollectionDataGridView.Columns[8].Width = 60;
-                this.mTGCollectionDataGridView.Columns[9].Width = 60;
+             //   this.mTGCollectionDataGridView.Columns[1].Width = 200;
+             //   this.mTGCollectionDataGridView.Columns[2].Width = 60;
+             //   this.mTGCollectionDataGridView.Columns[3].Width = 225;
+             //   this.mTGCollectionDataGridView.Columns[4].Width = 500;
+             //   this.mTGCollectionDataGridView.Columns[6].Width = 60;
+             //   this.mTGCollectionDataGridView.Columns[7].Width = 60;
+             //   this.mTGCollectionDataGridView.Columns[8].Width = 60;
+             //   this.mTGCollectionDataGridView.Columns[9].Width = 60;
                 //this.mTGCollectionDataGridView.Columns[10].Width = 45;
                 this.mTGCollectionDataGridView.AllowUserToAddRows = false;
             }
@@ -385,7 +383,7 @@ namespace Dark_Oak
         {
             try
             {
-                this.mtgSortingBoardDataGridView.Columns["scryfallid"].Visible = false;
+                this.mtgSortingBoardDataGridView.Columns["id"].Visible = false;
                 this.mtgSortingBoardDataGridView.Columns[0].HeaderText = "#";
                 this.mtgSortingBoardDataGridView.Columns[1].HeaderText = "Name";
                 this.mtgSortingBoardDataGridView.Columns[2].HeaderText = "Set";
@@ -408,13 +406,16 @@ namespace Dark_Oak
 
             int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex; //
             DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
-            string scryfallid = Convert.ToString(selectedRow.Cells["scryfallid"].Value);
-            string set_name = Convert.ToString(selectedRow.Cells["Set Name"].Value);
-            string name = Convert.ToString(selectedRow.Cells["name"].Value);
+            string scryfallid = Convert.ToString(selectedRow.Cells["ScryFallID"].Value);
+            string set_name = Convert.ToString(selectedRow.Cells["Set"].Value);
+            string name = Convert.ToString(selectedRow.Cells["Name"].Value);
 
             name = name.Replace("'", $"{(char)39}");
             // string Command = "";
-            string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCardsDatabase] where [scryfallid] like '" + scryfallid + "' and [setcode] like '" + set_name + "' and [name] like '" + name.Replace("'", "''") + "'";
+            string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCardsDatabase] where " +
+                "      [id] like '" + scryfallid +
+                "' and [set_name] like '" + set_name.Replace("'","''") +
+                "' and [name] like '" + name.Replace("'", "''") + "'";
             using (SqlConnection myConnection = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString))
             {
                 myConnection.Open();
@@ -453,12 +454,12 @@ namespace Dark_Oak
                 string scryfallid2 = Convert.ToString(selectedRow2.Cells["scryfallid"].Value);
                 string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Dreameater\"; // Define path as C:\Users\user\Documents\Dreameater
                 label6.Text = scryfallid2;
-                label11.Text = Convert.ToString(selectedRow2.Cells["regularprice"].Value);
+                label11.Text = Convert.ToString(selectedRow2.Cells["NM Price Eur"].Value);
                 //int is_reserved = Convert.ToInt32(selectedRow2.Cells["isReserved"].Value);
                 //int is_online = Convert.ToInt32(selectedRow2.Cells["isonlineonly"].Value);
                // if (is_reserved == 1) { pictureBox2.Visible = true; } else { pictureBox2.Visible = false; }
                // if (is_online == 1) { pictureBox3.Visible = true; } else { pictureBox3.Visible = false; }
-                label12.Text = Convert.ToString(selectedRow2.Cells["foilprice"].Value);
+                label12.Text = Convert.ToString(selectedRow2.Cells["Foil Price Eur"].Value);
                 if (File.Exists(path + scryfallid2 + ".jpeg")) //Testing to see if image has allready been downloaded.
                 {
                     pictureBox1.ImageLocation = (path + scryfallid2 + ".jpeg");
@@ -696,15 +697,15 @@ namespace Dark_Oak
                     //Get 
                     int selectedrowindex2 = mTGCardsDataGridView.SelectedCells[0].RowIndex;
                     DataGridViewRow selectedRow2 = mTGCardsDataGridView.Rows[selectedrowindex2];
-                    string scryfallid2 = Convert.ToString(selectedRow2.Cells["scryfallid"].Value);
+                    string scryfallid2 = Convert.ToString(selectedRow2.Cells["ScryFallID"].Value);
                     string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Dreameater\"; // Define path as C:\Users\user\Documents\Dreameater
                     label6.Text = scryfallid2;
-                    label11.Text = Convert.ToString(selectedRow2.Cells["regularprice"].Value);
-                    int is_reserved = Convert.ToInt32(selectedRow2.Cells["isReserved"].Value);
-                    int is_online = Convert.ToInt32(selectedRow2.Cells["isonlineonly"].Value);
-                    if (is_reserved == 1) { pictureBox2.Visible = true; } else { pictureBox2.Visible = false; }
-                    if (is_online == 1) { pictureBox3.Visible = true; } else { pictureBox3.Visible = false; }
-                    label12.Text = Convert.ToString(selectedRow2.Cells["foilprice"].Value);
+                    label11.Text = Convert.ToString(selectedRow2.Cells["NM Price Eur"].Value);
+                    bool is_reserved = Convert.ToBoolean(selectedRow2.Cells["Reserve List"].Value);
+                    bool is_online = Convert.ToBoolean(selectedRow2.Cells["digital"].Value);
+                    if (is_reserved == true) { pictureBox2.Visible = true; } else { pictureBox2.Visible = false; }
+                    if (is_online == true) { pictureBox3.Visible = true; } else { pictureBox3.Visible = false; }
+                    label12.Text = Convert.ToString(selectedRow2.Cells["Foil Price Eur"].Value);
                     if (File.Exists(path + scryfallid2 + ".jpeg")) //Testing to see if image has allready been downloaded.
                     {
                         pictureBox1.ImageLocation = (path + scryfallid2 + ".jpeg");
@@ -781,95 +782,24 @@ namespace Dark_Oak
 
                         // With the first part above done, where we got the image using the scryfall scryfallid, we now 
                         // attempt to get market data using the mcmid information to get the regular and foil prices. 
-                        try
-                        {
-
-                            int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
-                            DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
-                            string mcmid = Convert.ToString(selectedRow.Cells["mcmid"].Value);
-                            RestClient rClient = new RestClient();
-                            rClient.endPoint = "https://api.scryfall.com/cards/cardmarket/" + mcmid;
-                            // Here we retrive the card mcmid information from the database and preform an
-                            // API call to check to see if the card has any market data. There are serval
-                            // cards which does not have any market data on scryfall.
-
-                            string strResponse = string.Empty;
-                            strResponse = rClient.makeRequest();
-                            //MessageBox.Show(Convert.ToString(strResponse));
-                            try
-                            {
-                                JObject jsonObj = JObject.Parse(strResponse);
-
-                                foreach (JProperty obj in jsonObj.Properties())
-                                {
-                                    if (obj.Name == "prices")
-                                    {
-                                        String text = Convert.ToString(obj);
-                                        var stringliste = new List<string> { };
-                                        string[] jsonarray = text.Split();
-                                        foreach (string priceinfo in jsonarray)
-                                        {
-                                            stringliste.Add(priceinfo);
-                                        }
-                                        string foilprice = (stringliste[11]);
-                                        //MessageBox.Show(foilprice);
-                                        if (foilprice == "null,") { }
-                                        else
-                                        {
-                                            foilprice = foilprice.Remove(0, 1);
-                                            foilprice = foilprice.Substring(0, foilprice.Length - 2);
-                                            decimal foilrealprice = Convert.ToDecimal(foilprice);
-                                        }
-                                    }
-                                }
-                                foreach (JProperty obj in jsonObj.Properties())
-                                {
-                                    if (obj.Name == "prices")
-                                    {
-                                        //string gogo = (string)obj[0]["small"][0];
-                                        String text = Convert.ToString(obj);
-                                        //MessageBox.Show(text);
-                                        // MessageBox.Show("Type is " + Convert.ToString(obj.GetType()));
-                                        var stringliste = new List<string> { };
-                                        string[] jsonarray = text.Split();
-                                        foreach (string priceinfo in jsonarray)
-                                        {
-                                            // MessageBox.Show(info);
-                                            stringliste.Add(priceinfo);
-                                        }
-                                        string Nonfoilprice = (stringliste[6]);
-                                        Nonfoilprice = Nonfoilprice.Remove(0, 1);
-                                        Nonfoilprice = Nonfoilprice.Substring(0, Nonfoilprice.Length - 2);
-                                    }
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Program most likely had a 404 error see debug log or messageboxes for details " + Convert.ToString(ex));
-                            }
-
-
-
-
-                        }
-                        catch (Exception ed)
-                        {
-                            //MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
-                        }
+                       
                     }
                 }
-                catch { MessageBox.Show("No connection to data found, check your data source BONKERS"); }
+                catch (Exception ed)
+                {
+                    MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Mr.Fix it");
+                }
                 if (e.KeyCode == Keys.Add)
                 {
                     int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
                     DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
                     string scryfallid = Convert.ToString(selectedRow.Cells["scryfallid"].Value);
-                    string set_name = Convert.ToString(selectedRow.Cells["Set Name"].Value);
+                    string set_name = Convert.ToString(selectedRow.Cells["Set"].Value);
                     string name = Convert.ToString(selectedRow.Cells["name"].Value);
 
                     name = name.Replace("'", $"{(char)39}");
                     // string Command = "";
-                    string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCardsDatabase] where [scryfallid] like '" + scryfallid + "' and [setcode] like '" + set_name + "' and [name] like '" + name.Replace("'", "''") + "'";
+                    string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCardsDatabase] where [id] like '" + scryfallid + "'";
                     using (SqlConnection myConnection = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString))
                     {
                         myConnection.Open();
@@ -909,17 +839,16 @@ namespace Dark_Oak
                 PullDataFromSortBoard();
             }
         }
-        private void button4_Click(object sender, EventArgs e)
+        private void button_send_to_sortingboard_Click(object sender, EventArgs e)
         {
-            int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex;
-            DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
+            int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex; // Get the row index of the row selected by the user
+            DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex]; 
             string scryfallid = Convert.ToString(selectedRow.Cells["scryfallid"].Value);
-            string set_name = Convert.ToString(selectedRow.Cells["Set Name"].Value);
+            string set_name = Convert.ToString(selectedRow.Cells["Set"].Value);
             string name = Convert.ToString(selectedRow.Cells["name"].Value);
-
             name = name.Replace("'", $"{(char)39}");
             // string Command = "";
-            string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCardsDatabase] where [scryfallid] like '" + scryfallid + "' and [setcode] like '" + set_name + "' and [name] like '" + name.Replace("'", "''") + "'";
+            string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCardsDatabase] where [id] like '" + scryfallid + "' and [set] like '" + set_name + "' and [name] like '" + name.Replace("'", "''") + "'";
             using (SqlConnection myConnection = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString))
             {
                 myConnection.Open();
@@ -988,18 +917,18 @@ namespace Dark_Oak
                 "BEGIN " +
                 "DECLARE @number_of_cards_in_collection int " +
                 "DECLARE @scryfallid nvarchar(max) " +
-                "set @scryfallid = (select scryfallid from DarkOakDB.dbo.MTGCardsSortBoard where sortboard = @sortboard) " +
-                "if exists(SELECT * FROM DarkOakDB.dbo.MTGCardsCollection WHERE scryfallId = @scryfallid) " +
+                "set @scryfallid = (select id from DarkOakDB.dbo.MTGCardsSortBoard where sortboard = @sortboard) " +
+                "if exists(SELECT * FROM DarkOakDB.dbo.MTGCardsCollection WHERE id = @scryfallid) " +
                 "begin " +
-                "set @number_of_cards_in_collection = (select amount_owned from DarkOakDB.dbo.MTGCardsCollection where scryfallId = @scryfallid) " +
+                "set @number_of_cards_in_collection = (select amount_owned from DarkOakDB.dbo.MTGCardsCollection where id = @scryfallid) " +
                 "set @number_of_cards_in_collection = @number_of_cards_in_collection + 1 " +
-                "update DarkOakDB.dbo.MTGCardsCollection set amount_owned = @number_of_cards_in_collection where scryfallID = @scryfallid " +
+                "update DarkOakDB.dbo.MTGCardsCollection set amount_owned = @number_of_cards_in_collection where id = @scryfallid " +
                 "end " +
                 "else " +
                 "begin " +
                 "insert into DarkOakDB.dbo.MTGCardsCollection " +
-                "select *,1,0,'','','',0,0  from DarkOakDB.dbo.MTGCardsDatabase " +
-                "where scryfallId = @scryfallid " +
+                "select 1, MTGCardsDatabase.*  from DarkOakDB.dbo.MTGCardsDatabase " +
+                "where id = @scryfallid " +
                 "end " +
                 "FETCH NEXT FROM MY_CURSOR INTO @sortboard " +
                 "end " +
@@ -1039,7 +968,6 @@ namespace Dark_Oak
                 PullData();
             }
         }
-
         private void mTGCollectionDataGridView_MouseClick(object sender, MouseEventArgs e)
         {
             try
@@ -1047,15 +975,15 @@ namespace Dark_Oak
                 //Get 
                 int selectedrowindex2 = mTGCollectionDataGridView.SelectedCells[0].RowIndex;
                 DataGridViewRow selectedRow2 = mTGCollectionDataGridView.Rows[selectedrowindex2];
-                string scryfallid2 = Convert.ToString(selectedRow2.Cells["scryfallid"].Value);
+                string scryfallid2 = Convert.ToString(selectedRow2.Cells["ScryFallID"].Value);
                 string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Dreameater\"; // Define path as C:\Users\user\Documents\Dreameater
                 label6.Text = scryfallid2;
-                label11.Text = Convert.ToString(selectedRow2.Cells["regularprice"].Value);
-                int is_reserved = Convert.ToInt32(selectedRow2.Cells["isReserved"].Value);
-                int is_online = Convert.ToInt32(selectedRow2.Cells["isonlineonly"].Value);
-                if (is_reserved == 1) { pictureBox2.Visible = true; } else { pictureBox2.Visible = false; }
-                if (is_online == 1) { pictureBox3.Visible = true; } else { pictureBox3.Visible = false; }
-                label12.Text = Convert.ToString(selectedRow2.Cells["foilprice"].Value);
+                label11.Text = Convert.ToString(selectedRow2.Cells["NM Price Eur"].Value);
+                bool is_reserved = Convert.ToBoolean(selectedRow2.Cells["Reserve List"].Value);
+                bool is_online = Convert.ToBoolean(selectedRow2.Cells["digital"].Value);
+                if (is_reserved == true) { pictureBox2.Visible = true; } else { pictureBox2.Visible = false; }
+                if (is_online == true) { pictureBox3.Visible = true; } else { pictureBox3.Visible = false; }
+                label12.Text = Convert.ToString(selectedRow2.Cells["Foil Price Eur"].Value);
                 if (File.Exists(path + scryfallid2 + ".jpeg")) //Testing to see if image has allready been downloaded.
                 {
                     pictureBox1.ImageLocation = (path + scryfallid2 + ".jpeg");
@@ -1068,7 +996,7 @@ namespace Dark_Oak
                     {
                         int selectedrowindex = mTGCollectionDataGridView.SelectedCells[0].RowIndex;
                         DataGridViewRow selectedRow = mTGCollectionDataGridView.Rows[selectedrowindex];
-                        string scryfallid = Convert.ToString(selectedRow.Cells["scryfallid"].Value);
+                        string scryfallid = Convert.ToString(selectedRow.Cells["id"].Value);
                         RestClient rClient = new RestClient();
                         rClient.endPoint = "https://api.scryfall.com/cards/" + scryfallid;
                         //Get data from Scryfall API
