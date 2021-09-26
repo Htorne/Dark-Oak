@@ -28,8 +28,8 @@ namespace Dark_Oak
         {
             InitializeComponent();
             PullData();
-            PullDataFromCollection();
-            PullDataFromSortBoard();
+            //PullDataFromCollection();
+            //PullDataFromSortBoard();
         }
         public void PullData()
         //Lets pull some data shall we
@@ -42,13 +42,13 @@ namespace Dark_Oak
                     using (SqlConnection conn = new SqlConnection
                        (Properties.Settings.Default.DarkOakDBConnectionString)) 
                     { 
-                        //please connect to SQL using the information provided by user and stored in settings, mykay.
+                        //please connect to SQL using the information provided by user and stored in settings.
                         //string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
                         string query = "select " +
                             "[collector_number] as [#]," +    //0
                             "[name]," +                       //1
                             "[set_name] as [Set Name]" +      //2
-                            "from dbo.MTGCardsDatabase";      
+                            "from dbo.Stage$";      
                         //Just grab whatever is written above from the SQL server
                         SqlCommand cmd = new SqlCommand(query, conn); //Make a new fancy command
                         conn.Open(); //Connect to SQL Server
@@ -76,12 +76,12 @@ namespace Dark_Oak
                             "           type_line as [Type], " +                        //0
                             "           [set_name] as [Set], " +                    //1
                             "           [id] as [ScryFallID]," +                   //2
-                            "           priceseur as [NM Price Eur]," +            //3
-                            "           priceseur_foil as [Foil Price Eur]," +     //4
+                            "           eur as [NM Price Eur]," +            //3
+                            "           eur_foil as [Foil Price Eur]," +     //4
                             "           reserved as [Reserve List]," +             //6
                             "           digital as [Digital],"+                     //7
                             "           released_at as [print]"+
-                            "           from MTGCardsDatabase";         
+                            "           from Stage$";         
 
                         // "where [isOnlineOnly] like '0' ";
                         //Just grab whatever is written above from the SQL server

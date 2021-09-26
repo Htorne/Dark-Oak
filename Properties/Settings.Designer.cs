@@ -12,7 +12,7 @@ namespace Dark_Oak.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -50,8 +50,7 @@ namespace Dark_Oak.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=sqlsrv-mtgdb.database.windows.net;Initial Catalog=DarkOakDB;User ID=m" +
-            "tgdb2;Password=Ia3#qFJz")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-G13D478;Initial Catalog=DarkOakDB;Integrated Security=True")]
         public string DarkOakDBConnectionString {
             get {
                 return ((string)(this["DarkOakDBConnectionString"]));
