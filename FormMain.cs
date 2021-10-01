@@ -45,7 +45,7 @@ namespace Dark_Oak
                         //please connect to SQL using the information provided by user and stored in settings.
                         //string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
                         string query = "select " +
-                            "[collector_number] as [#]," +    //0
+                            "[collector_number_1_1] as [#]," +    //0
                             "[name]," +                       //1
                             "[set_name] as [Set Name]" +      //2
                             "from dbo.Stage$";      
@@ -71,13 +71,17 @@ namespace Dark_Oak
                        (Properties.Settings.Default.DarkOakDBConnectionString)) //Using settings - I need to make this editable from within the program via settings at some point
                     {
                         string query = "select " +
-                            "           [collector_number] as [#]," +
+                            "           [collector_number_1_1] as [#]," +
                             "           name as [Name], " +                        //0
-                            "           type_line as [Type], " +                        //0
-                            "           [set_name] as [Set], " +                    //1
+                            "           type_line_1 as  [Type 1], " +                //0
+                            "           type_line_2_1 as [Type 2], " +                //0
+                            "           type_line_2_2_1 as [Type 3], " +                //0
+                            "           type_line_2_2_2 as [Type 4], " +                //0
+                            "           [set_name] as [Set], " +
+                            "           [set] as [Set Code], " +//1
                             "           [id] as [ScryFallID]," +                   //2
-                            "           eur as [NM Price Eur]," +            //3
-                            "           eur_foil as [Foil Price Eur]," +     //4
+                            "           prices_eur as [NM Price Eur]," +            //3
+                            "           prices_eur_foil as [Foil Price Eur]," +     //4
                             "           reserved as [Reserve List]," +             //6
                             "           digital as [Digital],"+                     //7
                             "           released_at as [print]"+
@@ -111,7 +115,7 @@ namespace Dark_Oak
             DataTable dtsort = new DataTable();
             SqlConnection conn = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString);
             //please connect to SQL using the information provided by user and stored in settings, mykay.
-            string query = "select [collector_number] as [#],[name],[set_name],[id],[released_at] as [Print] from [dbo].[MTGCardsSortBoard]";
+            string query = "select [collector_number_1_1] as [#],[name],[set_name],[id],[released_at] as [Print] from [dbo].[MTGCardsSortBoard]";
 
             //Just grab whatever is written above from the SQL server
             SqlCommand cmd = new SqlCommand(query, conn);
@@ -140,7 +144,7 @@ namespace Dark_Oak
                     SqlConnection conn = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString);
                     string query = "select " +
                                                 "amount_owned, "+
-                                                "           [collector_number] as [#]," +
+                                                "           [collector_number_1_1] as [#]," +
                                                 "           name as [Name], " +                 //0
                                                 "           [set_name] as [Set], " +            //1
                                                 "           [id] as [ScryFallID]," +            //2
@@ -213,6 +217,7 @@ namespace Dark_Oak
             filterstuff();
 
         }
+
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
             filterstuff();
@@ -230,8 +235,16 @@ namespace Dark_Oak
             string set = textBox3.Text;
             string originalType = textBox4.Text;
             string cardtext = textBox5.Text;
+            string setcode = textBox14.Text;
             var filt = "";
 
+            if (!string.IsNullOrEmpty(setcode))  //if there is text then
+            {
+                if (filt == "")
+                    filt += "[Set Code] = '" + setcode + "'";
+                else
+                    filt += " And [Set Code] = '" + setcode + "' ";
+            }
 
             if (!string.IsNullOrEmpty(cardname))  //if there is text then
             {
@@ -254,9 +267,9 @@ namespace Dark_Oak
             if (!string.IsNullOrEmpty(originalType)) //orginalType is old name for the data field type_line
             {
                 if (filt == "")
-                    filt += "[Type] LIKE '%" + originalType + "%'";
+                    filt += "[Type 1] LIKE '%" + originalType + "%'";
                 else
-                    filt += " And [Type] LIKE '%" + originalType + "%' ";
+                    filt += " And [Type 1] LIKE '%" + originalType + "%' ";
             }
 
             if (!string.IsNullOrEmpty(cardtext))
@@ -957,6 +970,13 @@ namespace Dark_Oak
         {
             filterstuff();
         }
+
+        private void textBox14_TextChanged(object sender, EventArgs e)
+        {
+            filterstuff();
+        }
+
+
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked == true) 
@@ -1057,11 +1077,17 @@ namespace Dark_Oak
             }
             catch (Exception ex) { MessageBox.Show("No connection to data found, check your data source::::" + ex); }
         }
-
         private void label7_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+    
     }
     }
 
