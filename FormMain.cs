@@ -40,15 +40,15 @@ namespace Dark_Oak
                 {
                     DataTable dt = new DataTable();
                     using (SqlConnection conn = new SqlConnection
-                       (Properties.Settings.Default.DarkOakDBConnectionString)) 
-                    { 
+                       (Properties.Settings.Default.DarkOakDBConnectionString))
+                    {
                         //please connect to SQL using the information provided by user and stored in settings.
                         //string query = "select [card_number],[web_scraper_order],[card_name],[creature_type] as [Type],[card_rules2],[set_name],[rareity_code],[note] as [Artist], [card_type] as [Color] from [dbo].[MTGCards]";
                         string query = "select " +
                             "[collector_number_1_1] as [#]," +    //0
                             "[name]," +                       //1
                             "[set_name] as [Set Name]" +      //2
-                            "from dbo.Stage$";      
+                            "from dbo.Stage$";
                         //Just grab whatever is written above from the SQL server
                         SqlCommand cmd = new SqlCommand(query, conn); //Make a new fancy command
                         conn.Open(); //Connect to SQL Server
@@ -83,17 +83,17 @@ namespace Dark_Oak
                             "           prices_eur as [NM Price Eur]," +            //3
                             "           prices_eur_foil as [Foil Price Eur]," +     //4
                             "           reserved as [Reserve List]," +             //6
-                            "           digital as [Digital],"+                     //7
-                            "           released_at as [print]"+
-                            "           from Stage$";         
+                            "           digital as [Digital]," +                     //7
+                            "           released_at as [print]" +
+                            "           from Stage$";
 
                         // "where [isOnlineOnly] like '0' ";
                         //Just grab whatever is written above from the SQL server
                         SqlCommand cmd = new SqlCommand(query, conn);
                         //Make a new fancy command 
-                       
+
                         conn.Open();
-                     
+
                         //Connect to SQL Server
                         SqlDataAdapter da = new SqlDataAdapter(cmd);
                         //Do the disco
@@ -143,7 +143,7 @@ namespace Dark_Oak
                     DataTable dt = new DataTable();
                     SqlConnection conn = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString);
                     string query = "select " +
-                                                "amount_owned, "+
+                                                "amount_owned, " +
                                                 "           [collector_number_1_1] as [#]," +
                                                 "           name as [Name], " +                 //0
                                                 "           [set_name] as [Set], " +            //1
@@ -234,9 +234,38 @@ namespace Dark_Oak
             string cardname = textBox2.Text;
             string set = textBox3.Text;
             string originalType = textBox4.Text;
+            string type2 = textBox11.Text;
             string cardtext = textBox5.Text;
             string setcode = textBox14.Text;
+            string type3 = textBox12.Text;
+            string type4 = textBox13.Text;
             var filt = "";
+
+            if (!string.IsNullOrEmpty(type4))  //if there is text then
+            {
+                if (filt == "")
+                    filt += "[Type 4] LIKE '%" + type4 + "%'";
+                else
+                    filt += " And [Type 4] LIKE '%" + type4 + "%' ";
+            }
+
+            if (!string.IsNullOrEmpty(type3))  //if there is text then
+            {
+                if (filt == "")
+                    filt += "[Type 3] LIKE '%" + type3 + "%'";
+                else
+                    filt += " And [Type 3] LIKE '%" + type3 + "%' ";
+            }
+
+
+            if (!string.IsNullOrEmpty(type2))  //if there is text then
+            {
+                if (filt == "")
+                    filt += "[Type 2] LIKE '%" + type2 + "%'";
+                else
+                    filt += " And [Type 2] LIKE '%" + type2 + "%' ";
+            }
+
 
             if (!string.IsNullOrEmpty(setcode))  //if there is text then
             {
@@ -248,7 +277,7 @@ namespace Dark_Oak
 
             if (!string.IsNullOrEmpty(cardname))  //if there is text then
             {
-                if (filt == "") 
+                if (filt == "")
                     filt += "[name] LIKE '%" + cardname + "%'";
                 else
                     filt += " And [name] LIKE '%" + cardname + "%' ";
@@ -295,14 +324,14 @@ namespace Dark_Oak
         public void filterstuffInCollection()
         {
 
-           
+
 
             BindingSource bs = new BindingSource();
             bs.DataSource = mTGCollectionDataGridView.DataSource;
             string cardname = textBox10.Text;
-           // string set = textBox10.Text;
-          //  string originalType = textBox4.Text;
-           // string cardtext = textBox5.Text;
+            // string set = textBox10.Text;
+            //  string originalType = textBox4.Text;
+            // string cardtext = textBox5.Text;
             var filt = "";
 
 
@@ -332,27 +361,28 @@ namespace Dark_Oak
             try
             {
                 this.mTGCardsDataGridView.Columns["scryfallid"].Visible = false;
-               // this.mTGCardsDataGridView.Columns["isReserved"].Visible = false;
-              //  this.mTGCardsDataGridView.Columns["isOnlineOnly"].Visible = false;
-               this.mTGCardsDataGridView.Columns[0].HeaderText = "#";
-              //  this.mTGCardsDataGridView.Columns[1].HeaderText = "Card Name";
-              //  this.mTGCardsDataGridView.Columns[2].HeaderText = "Set";
-             //   this.mTGCardsDataGridView.Columns[3].HeaderText = "Type";
-             //   this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
-             //   this.mTGCardsDataGridView.Columns[6].HeaderText = "Normal";
-             //   this.mTGCardsDataGridView.Columns[7].HeaderText = "Foil";
+                // this.mTGCardsDataGridView.Columns["isReserved"].Visible = false;
+                //  this.mTGCardsDataGridView.Columns["isOnlineOnly"].Visible = false;
+                this.mTGCardsDataGridView.Columns[0].HeaderText = "#";
+                //  this.mTGCardsDataGridView.Columns[1].HeaderText = "Card Name";
+                //  this.mTGCardsDataGridView.Columns[2].HeaderText = "Set";
+                //   this.mTGCardsDataGridView.Columns[3].HeaderText = "Type";
+                //   this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
+                //   this.mTGCardsDataGridView.Columns[6].HeaderText = "Normal";
+                //   this.mTGCardsDataGridView.Columns[7].HeaderText = "Foil";
                 // this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
-            //    this.mTGCardsDataGridView.AllowUserToResizeColumns = false;
-            //    this.mTGCardsDataGridView.AllowUserToResizeRows = false;
-               this.mTGCardsDataGridView.Columns[0].Width = 45;
-               this.mTGCardsDataGridView.Columns[1].Width = 200;
-               this.mTGCardsDataGridView.Columns[2].Width = 150;
-               this.mTGCardsDataGridView.Columns[3].Width = 150;
-                //   this.mTGCardsDataGridView.Columns[4].Width = 500;
-                //   this.mTGCardsDataGridView.Columns[6].Width = 60;
+                //    this.mTGCardsDataGridView.AllowUserToResizeColumns = false;
+                //    this.mTGCardsDataGridView.AllowUserToResizeRows = false;
+                this.mTGCardsDataGridView.Columns[0].Width = 45;
+                this.mTGCardsDataGridView.Columns[1].Width = 145;
+                this.mTGCardsDataGridView.Columns[2].Width = 84;
+                this.mTGCardsDataGridView.Columns[3].Width = 90;
+                this.mTGCardsDataGridView.Columns[4].Width = 80;
+                this.mTGCardsDataGridView.Columns[5].Width = 84;
+                this.mTGCardsDataGridView.Columns[6].Width = 130;
                 //    this.mTGCardsDataGridView.Columns[7].Width = 60;
                 //   this.mTGCardsDataGridView.AllowUserToAddRows = false;
-               
+
             }
             catch (Exception ex)
             {
@@ -363,30 +393,30 @@ namespace Dark_Oak
         {
             try
             {
-              //  this.mTGCollectionDataGridView.Columns["isonlineonly"].Visible = false;
-              //  this.mTGCollectionDataGridView.Columns["isReserved"].Visible = false; 
-              //this.mTGCollectionDataGridView.Columns["id"].Visible = false;
-              //  this.mTGCollectionDataGridView.Columns[0].HeaderText = "#";
-              //  this.mTGCollectionDataGridView.Columns[1].HeaderText = "Card Name";
-              //  this.mTGCollectionDataGridView.Columns[2].HeaderText = "Set";
-              //  this.mTGCollectionDataGridView.Columns[3].HeaderText = "Type";
-              //  this.mTGCollectionDataGridView.Columns[4].HeaderText = "Card Text";
-              //  this.mTGCollectionDataGridView.Columns[6].HeaderText = "Normal";
-              //  this.mTGCollectionDataGridView.Columns[7].HeaderText = "Foil";
-              //  this.mTGCollectionDataGridView.Columns[8].HeaderText = "Owned";
-              //  this.mTGCollectionDataGridView.Columns[9].HeaderText = "Foil";
-              // this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
+                //  this.mTGCollectionDataGridView.Columns["isonlineonly"].Visible = false;
+                //  this.mTGCollectionDataGridView.Columns["isReserved"].Visible = false; 
+                //this.mTGCollectionDataGridView.Columns["id"].Visible = false;
+                //  this.mTGCollectionDataGridView.Columns[0].HeaderText = "#";
+                //  this.mTGCollectionDataGridView.Columns[1].HeaderText = "Card Name";
+                //  this.mTGCollectionDataGridView.Columns[2].HeaderText = "Set";
+                //  this.mTGCollectionDataGridView.Columns[3].HeaderText = "Type";
+                //  this.mTGCollectionDataGridView.Columns[4].HeaderText = "Card Text";
+                //  this.mTGCollectionDataGridView.Columns[6].HeaderText = "Normal";
+                //  this.mTGCollectionDataGridView.Columns[7].HeaderText = "Foil";
+                //  this.mTGCollectionDataGridView.Columns[8].HeaderText = "Owned";
+                //  this.mTGCollectionDataGridView.Columns[9].HeaderText = "Foil";
+                // this.mTGCardsDataGridView.Columns[4].HeaderText = "Card Text";
                 this.mTGCollectionDataGridView.AllowUserToResizeColumns = false;
                 this.mTGCollectionDataGridView.AllowUserToResizeRows = false;
                 this.mTGCollectionDataGridView.Columns[0].Width = 45;
-             //   this.mTGCollectionDataGridView.Columns[1].Width = 200;
-             //   this.mTGCollectionDataGridView.Columns[2].Width = 60;
-             //   this.mTGCollectionDataGridView.Columns[3].Width = 225;
-             //   this.mTGCollectionDataGridView.Columns[4].Width = 500;
-             //   this.mTGCollectionDataGridView.Columns[6].Width = 60;
-             //   this.mTGCollectionDataGridView.Columns[7].Width = 60;
-             //   this.mTGCollectionDataGridView.Columns[8].Width = 60;
-             //   this.mTGCollectionDataGridView.Columns[9].Width = 60;
+                //   this.mTGCollectionDataGridView.Columns[1].Width = 200;
+                //   this.mTGCollectionDataGridView.Columns[2].Width = 60;
+                //   this.mTGCollectionDataGridView.Columns[3].Width = 225;
+                //   this.mTGCollectionDataGridView.Columns[4].Width = 500;
+                //   this.mTGCollectionDataGridView.Columns[6].Width = 60;
+                //   this.mTGCollectionDataGridView.Columns[7].Width = 60;
+                //   this.mTGCollectionDataGridView.Columns[8].Width = 60;
+                //   this.mTGCollectionDataGridView.Columns[9].Width = 60;
                 //this.mTGCollectionDataGridView.Columns[10].Width = 45;
                 this.mTGCollectionDataGridView.AllowUserToAddRows = false;
             }
@@ -407,7 +437,7 @@ namespace Dark_Oak
                 this.mtgSortingBoardDataGridView.AllowUserToResizeRows = false;
                 this.mtgSortingBoardDataGridView.Columns[0].Width = 45;
                 this.mtgSortingBoardDataGridView.Columns[1].Width = 200;
-                this.mtgSortingBoardDataGridView.Columns[2].Width = 60;    
+                this.mtgSortingBoardDataGridView.Columns[2].Width = 60;
                 this.mtgSortingBoardDataGridView.AllowUserToAddRows = false;
 
             }
@@ -416,7 +446,7 @@ namespace Dark_Oak
                 MessageBox.Show(Convert.ToString(ex));
             }
         }
-         #endregion
+        #endregion
         private void mTGCardsDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -430,7 +460,7 @@ namespace Dark_Oak
             // string Command = "";
             string Command = "INSERT INTO dbo.MTGCardsSortBoard SELECT * FROM [MTGCardsDatabase] where " +
                 "      [id] like '" + scryfallid +
-                "' and [set_name] like '" + set_name.Replace("'","''") +
+                "' and [set_name] like '" + set_name.Replace("'", "''") +
                 "' and [name] like '" + name.Replace("'", "''") + "'";
             using (SqlConnection myConnection = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString))
             {
@@ -473,8 +503,8 @@ namespace Dark_Oak
                 label11.Text = Convert.ToString(selectedRow2.Cells["NM Price Eur"].Value);
                 //int is_reserved = Convert.ToInt32(selectedRow2.Cells["isReserved"].Value);
                 //int is_online = Convert.ToInt32(selectedRow2.Cells["isonlineonly"].Value);
-               // if (is_reserved == 1) { pictureBox2.Visible = true; } else { pictureBox2.Visible = false; }
-               // if (is_online == 1) { pictureBox3.Visible = true; } else { pictureBox3.Visible = false; }
+                // if (is_reserved == 1) { pictureBox2.Visible = true; } else { pictureBox2.Visible = false; }
+                // if (is_online == 1) { pictureBox3.Visible = true; } else { pictureBox3.Visible = false; }
                 label12.Text = Convert.ToString(selectedRow2.Cells["Foil Price Eur"].Value);
                 if (File.Exists(path + scryfallid2 + ".jpeg")) //Testing to see if image has allready been downloaded.
                 {
@@ -798,7 +828,7 @@ namespace Dark_Oak
 
                         // With the first part above done, where we got the image using the scryfall scryfallid, we now 
                         // attempt to get market data using the mcmid information to get the regular and foil prices. 
-                       
+
                     }
                 }
                 catch (Exception ed)
@@ -858,7 +888,7 @@ namespace Dark_Oak
         private void button_send_to_sortingboard_Click(object sender, EventArgs e)
         {
             int selectedrowindex = mTGCardsDataGridView.SelectedCells[0].RowIndex; // Get the row index of the row selected by the user
-            DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex]; 
+            DataGridViewRow selectedRow = mTGCardsDataGridView.Rows[selectedrowindex];
             string scryfallid = Convert.ToString(selectedRow.Cells["scryfallid"].Value);
             string set_name = Convert.ToString(selectedRow.Cells["Set"].Value);
             string name = Convert.ToString(selectedRow.Cells["name"].Value);
@@ -959,7 +989,7 @@ namespace Dark_Oak
                     myCommand.ExecuteScalar(); //runs Command string hopefully
                 }
                 myConnection.Close();
-              //  MessageBox.Show(Command);
+                //  MessageBox.Show(Command);
                 PullDataFromSortBoard();
                 PullDataFromCollection();
             }
@@ -979,12 +1009,13 @@ namespace Dark_Oak
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true) 
+            if (checkBox1.Checked == true)
             {
                 Properties.Settings.Default.IncludeOnlineOnlyCards = true;
                 PullData();
 
-            } else
+            }
+            else
                 if (checkBox1.Checked == false)
             {
                 Properties.Settings.Default.IncludeOnlineOnlyCards = false;
@@ -1087,9 +1118,51 @@ namespace Dark_Oak
 
         }
 
-    
+        private void textBox11_TextChanged(object sender, EventArgs e)
+        {
+            filterstuff();
+        }
+
+        private void textBox12_TextChanged(object sender, EventArgs e)
+        {
+            filterstuff();
+        }
+
+        private void mTGCardsDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Compare the column to the column you want to format
+            if (mTGCardsDataGridView.Columns[e.ColumnIndex].HeaderText == "Type 3" && mTGCardsDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            // if the column is bool_badge and check null value for the extra row at dgv
+            {
+                if (mTGCardsDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "Knight")
+                {
+                    mTGCardsDataGridView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
+                }
+                if (mTGCardsDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString() == "Cleric")
+                {
+                    mTGCardsDataGridView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.ForestGreen;
+                }
+            }
+        }
+
+        private void textBox13_TextChanged(object sender, EventArgs e)
+        {
+            filterstuff();
+        }
+
+        private void groupBox4_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            PullData();
+            filterstuff();
+        }
     }
-    }
+}
 
     
 
