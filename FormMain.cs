@@ -48,7 +48,7 @@ namespace Dark_Oak
                             "[collector_number_1_1] as [#]," +    //0
                             "[name]," +                       //1
                             "[set_name] as [Set Name]" +      //2
-                            "from dbo.Stage$";
+                            "from dbo.MTGCardsDatabase";
                         //Just grab whatever is written above from the SQL server
                         SqlCommand cmd = new SqlCommand(query, conn); //Make a new fancy command
                         conn.Open(); //Connect to SQL Server
@@ -85,7 +85,7 @@ namespace Dark_Oak
                             "           reserved as [Reserve List]," +             //6
                             "           digital as [Digital]," +                     //7
                             "           released_at as [print]" +
-                            "           from Stage$";
+                            "           from MTGCardsDatabase";
 
                         // "where [isOnlineOnly] like '0' ";
                         //Just grab whatever is written above from the SQL server
@@ -148,8 +148,6 @@ namespace Dark_Oak
                                                 "           name as [Name], " +                 //0
                                                 "           [set_name] as [Set], " +            //1
                                                 "           [id] as [ScryFallID]," +            //2
-                                                "           priceseur as [NM Price Eur]," +     //3
-                                                "           priceseur_foil as [Foil Price Eur]," +     //4
                                                 "           reserved as [Reserve List]," +
                                                 "           digital as [Digital]" +            //5
                                                 "           from MTGCardsCollection";
@@ -918,19 +916,19 @@ namespace Dark_Oak
                  "WHILE @@FETCH_STATUS = 0 " +
                  "BEGIN " +
                  "DECLARE @number_of_cards_in_collection int " +
-                 "DECLARE @scryfallid nvarchar(max) " +
-                 "set @scryfallid = (select scryfallid from DarkOakDB.dbo.MTGCardsSortBoard where sortboard = @sortboard) " +
-                 "if exists(SELECT * FROM DarkOakDB.dbo.MTGCardsCollection WHERE scryfallId = @scryfallid) " +
+                 "DECLARE @id nvarchar(max) " +
+                 "set @id = (select id from DarkOakDB.dbo.MTGCardsSortBoard where sortboard = @sortboard) " +
+                 "if exists(SELECT * FROM DarkOakDB.dbo.MTGCardsCollection WHERE id = @id) " +
                  "begin " +
-                 "set @number_of_cards_in_collection = (select foil from DarkOakDB.dbo.MTGCardsCollection where scryfallId = @scryfallid) " +
+                 "set @number_of_cards_in_collection = (select amount_owned from DarkOakDB.dbo.MTGCardsCollection where id = @id) " +
                  "set @number_of_cards_in_collection = @number_of_cards_in_collection + 1 " +
-                 "update DarkOakDB.dbo.MTGCardsCollection set foil = @number_of_cards_in_collection where scryfallID = @scryfallid " +
+                 "update DarkOakDB.dbo.MTGCardsCollection set amount_owned = @number_of_cards_in_collection where id = @id " +
                  "end " +
                  "else " +
                  "begin " +
                  "insert into DarkOakDB.dbo.MTGCardsCollection " +
-                 "select *,0,0,'','','',1,0  from DarkOakDB.dbo.MTGCardsDatabase " +
-                 "where scryfallId = @scryfallid " +
+                 "select *,1,0,'','','',0,0  from DarkOakDB.dbo.MTGCardsDatabase " +
+                 "where id = @id " +
                  "end " +
                  "FETCH NEXT FROM MY_CURSOR INTO @sortboard " +
                  "end " +
