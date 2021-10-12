@@ -490,6 +490,10 @@ namespace Dark_Oak
         private void mTGCardsDataGridView_MouseClick(object sender, MouseEventArgs e)
         // When you use the mouse to select a card in the table
         {
+            pull_Images_from_Internet();
+        }
+        private void pull_Images_from_Internet()
+        {
             try
             {
                 //Get 
@@ -951,60 +955,17 @@ namespace Dark_Oak
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            string Command = "DECLARE @sortboard int DECLARE MY_CURSOR CURSOR " +
-                             "LOCAL STATIC READ_ONLY FORWARD_ONLY " +
-                             "FOR SELECT DISTINCT sortboard " +
-                             "FROM DarkOakDB.dbo.MTGCardsSortBoard " +
-                             "OPEN MY_CURSOR " +
-                             "FETCH NEXT FROM MY_CURSOR INTO @sortboard " +
-                "WHILE @@FETCH_STATUS = 0 " +
-                "BEGIN " +
-                "DECLARE @number_of_cards_in_collection int " +
-                "DECLARE @scryfallid nvarchar(max) " +
-                "set @scryfallid = (select id from DarkOakDB.dbo.MTGCardsSortBoard where sortboard = @sortboard) " +
-                "if exists(SELECT * FROM DarkOakDB.dbo.MTGCardsCollection WHERE id = @scryfallid) " +
-                "begin " +
-                "set @number_of_cards_in_collection = (select amount_owned from DarkOakDB.dbo.MTGCardsCollection where id = @scryfallid) " +
-                "set @number_of_cards_in_collection = @number_of_cards_in_collection + 1 " +
-                "update DarkOakDB.dbo.MTGCardsCollection set amount_owned = @number_of_cards_in_collection where id = @scryfallid " +
-                "end " +
-                "else " +
-                "begin " +
-                "insert into DarkOakDB.dbo.MTGCardsCollection " +
-                "select 1, MTGCardsDatabase.*  from DarkOakDB.dbo.MTGCardsDatabase " +
-                "where id = @scryfallid " +
-                "end " +
-                "FETCH NEXT FROM MY_CURSOR INTO @sortboard " +
-                "end " +
-                "CLOSE MY_CURSOR " +
-                "DEALLOCATE MY_CURSOR " +
-                "delete from[DarkOakDB].[dbo].[MTGCardsSortBoard] ";
-            using (SqlConnection myConnection = new SqlConnection(Properties.Settings.Default.DarkOakDBConnectionString))
-            {
-                myConnection.Open();
-                using (SqlCommand myCommand = new SqlCommand(Command, myConnection))
-                {
-                    myCommand.ExecuteScalar(); //runs Command string hopefully
-                }
-                myConnection.Close();
-                //  MessageBox.Show(Command);
-                PullDataFromSortBoard();
-                PullDataFromCollection();
-            }
-
+           
 
         }
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
             filterstuff();
         }
-
         private void textBox14_TextChanged(object sender, EventArgs e)
         {
             filterstuff();
         }
-
-
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked == true)
@@ -1030,12 +991,12 @@ namespace Dark_Oak
                 string scryfallid2 = Convert.ToString(selectedRow2.Cells["ScryFallID"].Value);
                 string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Dreameater\"; // Define path as C:\Users\user\Documents\Dreameater
                 label6.Text = scryfallid2;
-                label11.Text = Convert.ToString(selectedRow2.Cells["NM Price Eur"].Value);
+                //label11.Text = Convert.ToString(selectedRow2.Cells["NM Price Eur"].Value);
                 bool is_reserved = Convert.ToBoolean(selectedRow2.Cells["Reserve List"].Value);
                 bool is_online = Convert.ToBoolean(selectedRow2.Cells["digital"].Value);
                 if (is_reserved == true) { pictureBox2.Visible = true; } else { pictureBox2.Visible = false; }
                 if (is_online == true) { pictureBox3.Visible = true; } else { pictureBox3.Visible = false; }
-                label12.Text = Convert.ToString(selectedRow2.Cells["Foil Price Eur"].Value);
+                //label12.Text = Convert.ToString(selectedRow2.Cells["Foil Price Eur"].Value);
                 if (File.Exists(path + scryfallid2 + ".jpeg")) //Testing to see if image has allready been downloaded.
                 {
                     pictureBox1.ImageLocation = (path + scryfallid2 + ".jpeg");
@@ -1106,26 +1067,14 @@ namespace Dark_Oak
             }
             catch (Exception ex) { MessageBox.Show("No connection to data found, check your data source::::" + ex); }
         }
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label16_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void textBox11_TextChanged(object sender, EventArgs e)
         {
             filterstuff();
         }
-
         private void textBox12_TextChanged(object sender, EventArgs e)
         {
             filterstuff();
         }
-
         private void mTGCardsDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             // Compare the column to the column you want to format
@@ -1142,22 +1091,103 @@ namespace Dark_Oak
                 }
             }
         }
-
         private void textBox13_TextChanged(object sender, EventArgs e)
         {
             filterstuff();
         }
-
-        private void groupBox4_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             PullData();
             filterstuff();
+        }
+        private void mtgSortingBoardDataGridView_MouseClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                //Get 
+                int selectedrowindex2 = mtgSortingBoardDataGridView.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow2 = mtgSortingBoardDataGridView.Rows[selectedrowindex2];
+                string scryfallid2 = Convert.ToString(selectedRow2.Cells["id"].Value);
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Dreameater\"; // Define path as C:\Users\user\Documents\Dreameater
+                label6.Text = scryfallid2;
+                //label11.Text = Convert.ToString(selectedRow2.Cells["NM Price Eur"].Value);
+                //int is_reserved = Convert.ToInt32(selectedRow2.Cells["isReserved"].Value);
+                //int is_online = Convert.ToInt32(selectedRow2.Cells["isonlineonly"].Value);
+                // if (is_reserved == 1) { pictureBox2.Visible = true; } else { pictureBox2.Visible = false; }
+                // if (is_online == 1) { pictureBox3.Visible = true; } else { pictureBox3.Visible = false; }
+                //label12.Text = Convert.ToString(selectedRow2.Cells["Foil Price Eur"].Value);
+                if (File.Exists(path + scryfallid2 + ".jpeg")) //Testing to see if image has allready been downloaded.
+                {
+                    pictureBox1.ImageLocation = (path + scryfallid2 + ".jpeg");
+
+                }
+                else
+                { //If the image is not downloaded - go online and download it
+
+                    try
+                    {
+                        int selectedrowindex = mtgSortingBoardDataGridView.SelectedCells[0].RowIndex;
+                        DataGridViewRow selectedRow = mtgSortingBoardDataGridView.Rows[selectedrowindex];
+                        string scryfallid = Convert.ToString(selectedRow.Cells["scryfallid"].Value);
+                        RestClient rClient = new RestClient();
+                        rClient.endPoint = "https://api.scryfall.com/cards/" + scryfallid;
+                        //Get data from Scryfall API
+
+                        string strResponse = string.Empty;
+                        //Initiate variable
+
+                        strResponse = rClient.makeRequest();
+                        // MessageBox.Show(Convert.ToString(strResponse));
+                        try
+                        {
+                            JObject jsonObj = JObject.Parse(strResponse);
+
+                            foreach (JProperty obj in jsonObj.Properties())
+                            {
+                                if (obj.Name == "image_uris") //select list of links
+                                {
+
+                                    String text = Convert.ToString(obj);
+
+                                    var stringliste = new List<string> { }; //create a empty list
+
+                                    string[] image_uris = text.Split(); //split into strings
+                                    foreach (string info in image_uris)
+                                    {
+                                        stringliste.Add(info); //and each substring
+                                    }
+
+                                    string image_uris_result = (stringliste[11]); // Get string from list in position 11 
+                                    image_uris_result = image_uris_result.Remove(0, 1); // Clean the string and remove the first "
+                                    image_uris_result = image_uris_result.Substring(0, image_uris_result.Length - 2); // Clean the string and remove the two last chars ",
+
+                                    var wc = new WebClient(); // Create a new webclient
+                                    Image x = Image.FromStream(wc.OpenRead(image_uris_result)); // Use webclient to read datastream as an image and save to variable x
+                                    pictureBox1.Image = x; // Assign picturebox image as x
+
+                                    if (Directory.Exists(path))
+                                    { // If that path exisits do nothing yet
+                                    }
+                                    else { CreateFolder(path); } // If that path does NOT exist create the folder
+                                    x.Save(path + scryfallid + ".jpeg", ImageFormat.Jpeg); // Save data from variable x to path + \ + the scryfallid + jpeg as a image format jpeg.
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Program most likely had a 404 error see debug log or messageboxes for details " + Convert.ToString(ex));
+                        }
+                    }
+                    catch (Exception ed)
+                    {
+                        MessageBox.Show(Convert.ToString(("{0} Exception caught.", ed)), "Harmless Error #1 - Safe to ignore");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("bonkers42 " + Convert.ToString(ex));
+            }
         }
     }
 }
