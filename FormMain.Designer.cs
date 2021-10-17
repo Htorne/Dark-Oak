@@ -49,7 +49,7 @@ namespace Dark_Oak
             this.updatePricesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.mTGCardsDataGridView = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.filter_mtg_collectornumber = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.Filters = new System.Windows.Forms.GroupBox();
             this.label19 = new System.Windows.Forms.Label();
@@ -174,7 +174,6 @@ namespace Dark_Oak
             this.updatePricesToolStripMenuItem.Name = "updatePricesToolStripMenuItem";
             this.updatePricesToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.updatePricesToolStripMenuItem.Text = "Update Prices";
-            this.updatePricesToolStripMenuItem.Click += new System.EventHandler(this.updatePricesToolStripMenuItem_Click);
             // 
             // pictureBox1
             // 
@@ -226,14 +225,14 @@ namespace Dark_Oak
             this.mTGCardsDataGridView.KeyUp += new System.Windows.Forms.KeyEventHandler(this.mTGCardsDataGridView_KeyUp);
             this.mTGCardsDataGridView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mTGCardsDataGridView_MouseClick);
             // 
-            // textBox1
+            // filter_mtg_collectornumber
             // 
-            this.textBox1.Location = new System.Drawing.Point(4, 37);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(38, 20);
-            this.textBox1.TabIndex = 9;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.filter_mtg_collectornumber.Location = new System.Drawing.Point(4, 37);
+            this.filter_mtg_collectornumber.Margin = new System.Windows.Forms.Padding(2);
+            this.filter_mtg_collectornumber.Name = "filter_mtg_collectornumber";
+            this.filter_mtg_collectornumber.Size = new System.Drawing.Size(38, 20);
+            this.filter_mtg_collectornumber.TabIndex = 9;
+            this.filter_mtg_collectornumber.TextChanged += new System.EventHandler(this.filter_mtg_collector_number);
             // 
             // textBox2
             // 
@@ -263,7 +262,7 @@ namespace Dark_Oak
             this.Filters.Controls.Add(this.textBox3);
             this.Filters.Controls.Add(this.label4);
             this.Filters.Controls.Add(this.label3);
-            this.Filters.Controls.Add(this.textBox1);
+            this.Filters.Controls.Add(this.filter_mtg_collectornumber);
             this.Filters.Controls.Add(this.textBox2);
             this.Filters.Location = new System.Drawing.Point(431, 50);
             this.Filters.Margin = new System.Windows.Forms.Padding(2);
@@ -321,7 +320,7 @@ namespace Dark_Oak
             // 
             this.textBox14.Location = new System.Drawing.Point(662, 37);
             this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(69, 20);
+            this.textBox14.Size = new System.Drawing.Size(48, 20);
             this.textBox14.TabIndex = 22;
             this.textBox14.TextChanged += new System.EventHandler(this.textBox14_TextChanged);
             // 
@@ -439,7 +438,6 @@ namespace Dark_Oak
             this.checkBox1.TabIndex = 18;
             this.checkBox1.Text = "Include Online Only cards";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // mTGCollectionDataGridView
             // 
@@ -525,7 +523,6 @@ namespace Dark_Oak
             this.button_send_to_collection.TabIndex = 0;
             this.button_send_to_collection.Text = "Send to collection";
             this.button_send_to_collection.UseVisualStyleBackColor = true;
-            this.button_send_to_collection.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -887,7 +884,7 @@ namespace Dark_Oak
         private System.Windows.Forms.BindingSource mTGCardsBindingSource;
         private DarkOakDBDataSetTableAdapters.MTGCardsTableAdapter mTGCardsTableAdapter;
         private System.Windows.Forms.DataGridView mTGCardsDataGridView;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox filter_mtg_collectornumber;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.GroupBox Filters;
         private System.Windows.Forms.Label label3;
